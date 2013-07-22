@@ -1,0 +1,6 @@
+###########VIM############
+:70t.
+:tab(gt)
+CNTR+P(W) :sp
+e ++enc=cp1251
+CNTR[BD]v
