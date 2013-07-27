@@ -1,0 +1,79 @@
+#!/bin/bash
+jail_dir="/home/jails/$1"jail
+
+echo ${jail_dir}
+mkdir -p ${jail_dir}cd /usr/src
+
+#make buildworldmake installworld DESTDIR=${jail_dir}
+#cd /usr/src/etc
+make distribution DESTDIR=${jail_dir}
+#mount -t devfs devfs ${jail_dir}/dev
+echo ""
+echo "Create jail $1 successfully complite"
+
+
+
+echo "Writing fstab for jail $1"
+
+#Mount Freebsd_PORTS ? 
+
+mkdir -p ${jail_dir}/ports
+
+
+echo "##########"$1"jail###################" >> /etc/fstab
+echo "devfs     /home/jails/"$1"/dev     devfs   rw,noauto  0 0" >> /etc/fstab
+echo "proc      /home/jails/"$1"/proc    procfs  rw,noauto 0 0" >> /etc/fstab
+echo "/usr/ports              /home/jails/"$1"/usr/ports/         nullfs  rw,auto 0 0" >> /etc/stab
+echo "##############################################" >> /etc/fstab
+
+
+echo "#################"$1" jail ###########################" >> /etc/rc.conf
+echo "jail_ngixjail_rootdir=\"/home/"$1"/ngixjail\"" >> /etc/rc.conf
+echo "jail_ngixjail_hostname=\""$1".local\"" >> /etc/rc.conf
+echo "jail_ngixjail_ip=\"192.168.1.$2\"" >> /etc/rc.conf
+echo "jail_ngixjail_interface=\"tap0\"" >> /etc/rc.conf
+echo "jail_ngixjail_procfs_enable=\"YES\"" >> /etc/rc.conf
+echo "jail_ngixjail_devfs_enable=\"YES\"" >> /etc/rc.conf
+echo "jail_ngixjail_exec_start=\"/bin/sh /etc/rc\"" >> /etc/rc.conf
+echo "jail_ngixjail_exec_stop=\"/etc/rc.shutdown\"" >> /etc/rc.conf
+echo "##############################################" >> /etc/rc.conf
+
+
+
+
+
+[root@justine /home/jails/lightjail/etc]# cat rc.conf
+
+syslogd_flags="-ss"
+rpcbind_enable="NO"
+inetd_flags="-wW -C 60 -a 192.168.1.11"
+network_interfaces=""
+sendmail_enable="NONE"
+sshd_enable="YES"
+firewall_type="open"
+
+
+
+
+
+ListenAddress 192.168.1.11
+
+
+
+
+
+
+
+
+
+
+
+
+exit 64
+
+
+
+
+
+
+

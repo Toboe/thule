@@ -1,0 +1,79 @@
+Title: Discover the process start time
+$ ps -eo pid,lstart,cmd
+That is useful to discover the start time of process older than 1 day.
+You can also run:
+ls -ld /proc/PID
+That's returning the creation date of the proc files from the process. Some 
+users reported that this way might show you a wrong date since any other 
+process like cron, for example, could change this date.
+Title: Display the format of a directory or file
+$ stat -f -L -c %T YOUR_FILE_OR_DIRECTORY
+Title: find the 10 largest directories
+$ find . -type d -print0 | xargs -0 du -s | sort -n | tail -10 | cut -f2 | 
+xargs -I{} du -sh {} | sort -rn
+Title: Kill a broken ssh connection
+
+$ <>Return>~.
+
+This is useful for example if you are on ssh in a server and the server goes 
+down without letting you out.
+
+This is part of a larget sets of escape sequences provided by ssh. You can find
+them with ~? Here's the list:
+
+~. - terminate connection (and any multiplexed sessions)
+
+~B - send a BREAK to the remote system
+
+~C - open a command line
+
+~R - request rekey
+
+~V/v - decrease/increase verbosity (LogLevel)
+
+~^Z - suspend ssh
+
+~# - list forwarded connections
+
+~& - background ssh (when waiting for connections to terminate)
+
+~? - this message
+
+~~ - send the escape character by typing it twice
+Title: List partition superblocks
+$ sudo dumpe2fs /dev/sda1 | grep superblock
+Title: network interface and routing summary
+
+$ nmap --iflist
+Title: Remove git branches that do not have a remote tracking branch anymore
+$ git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <>(git branch -vv | 
+grep origin) | awk '{print $1}' | xargs git branch -d
+Title: Resize images with mogrify with lots of options
+
+$ find . -name '*.jpg' -o -name '*.JPG' -print0 | xargs -0 mogrify -resize 
+1024">" -quality 40
+
+The "find $stuff -print0 | xargs -0 $command" pattern causes both find and 
+xargs to use null-delineated paths, greatly reducing the probability of either 
+hiccuping on even the weirdest of file/path names.
+
+It's also not strictly necessary to add the {} at the end of the xargs command 
+line, as it'll put the files there automatically.
+
+Mind, in most environments, you could use find's "-exec" option to bypass xargs
+entirely:
+find . -name '*.jpg' -o -name '*.JPG' -exec mogrify -resize 1024">" -quality 40
+{} +
+
+will use xargs-like "make sure the command line isn't too long" logic to run 
+the mogrify command as few times as necessary (to run once per file, use a ';' 
+instead of a '+' - just be sure to escape it properly).
+Title: VPN without VPN: Get access to networks available from your ssh server and hide behind it
+
+$ sshuttle -r <>username>@<>sshserver> 0/0
+https://github.com/apenwarr/sshuttle disassembles TCP packets, sends them over 
+SSH, assembles and forwards on the server side, and vice versa.
+Title: Wait for Web service to spin up, aka alert me when the server stops returning a 503
+
+$ while true; do curl -vsL -o /dev/null athena.example.com 2>&1 | grep 503 > 
+/dev/null || echo "OK: server is up."; sleep 8; done

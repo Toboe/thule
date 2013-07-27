@@ -1,0 +1,7 @@
+xterm -e tail -f ~/.wmii/wmiirc.log &
+while true; do wmii
+  xmessage 'INSERT COIN TO CONTINUE' \
+  -buttons 'Insert Coin:0,Game Over' \
+  -default 'Insert Coin' -timeout 30 \
+  -center || break
+done

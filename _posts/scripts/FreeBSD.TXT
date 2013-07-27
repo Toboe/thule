@@ -1,0 +1,7 @@
+# portsnap fetch
+# portsnap extract
+# portsnap update
+0 3 * * * root /usr/sbin/portsnap cron
+chflags -R noschg <dir> #jail delete
+portsnap fetch update && portupgrade -a -m BATCH=yes
+  

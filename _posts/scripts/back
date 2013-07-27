@@ -1,0 +1,35 @@
+ckup disk
+mkdir /mnt/backup
+mount /dev/sdxx /mnt/backup
+cd /
+tar -cvpzf /mnt/backup/BACKUP_FILE.tar.gz --exclude=/{dev,lost+found,mnt,proc,sys,tmp,}/* / 
+
+
+Then in my laptop:
+
+# boot with arch iso
+# mount the dest partition
+mkdir /mnt/arch
+mount –t ext3 /dev/sdyy /mnt/arch
+# mount the backup disk
+mkdir /mnt/backup
+mount –t vfat /dev/sdxx /mnt/backup
+# expand the installation tar
+cd /mnt/arch
+tar –xvpzf /mnt/backup/BACKUP_FILE.tar.gz
+# something necessary to boot
+chroot /mnt/arch
+cd /dev
+mknod -m 660 console c 5 1
+mknod -m 660 null c 1 3
+# modify the /etc/fstab
+# make a new boot ramdisk
+mkinitcpio -p kernel26
+# install grub
+# modify /boot/grub/menu.lst
+exit
+umount /dev/sdxx
+umount /dev/sdyy
+shutdown –r now
+# have fun:wq
+

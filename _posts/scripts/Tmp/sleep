@@ -1,0 +1,72 @@
+while sleep 60; do
+  if ! check_internet; then
+    if is_wifi; then
+       set_wired
+    else
+       set_wifi
+    fi
+  fi
+done
+
+
+
+#!/bin/sh
+
+route=`which route`
+ip=`which ip`
+
+# define your email here
+mail="user@domain.tld"
+
+# We define our pingable target like 'yahoo' or whatever, note that the host have to be 
+# reachable every time
+target="www.yahoo.com"
+
+# log file
+file="/var/log/updown.log"
+
+# your routers here
+router1="192.168.0.1"
+router2="192.168.0.254"
+
+# default router
+default=$($ip route | awk '/default/ { print $3 }')
+
+# ping command
+ping -c 2 ${target}
+
+if [ $? -eq 0 ]; then
+   echo "`date +%Y%m%d-%H:%M:%S`: up" >> ${file}
+
+else
+   echo "`date +%Y%m%d-%H:%M:%S`: down" >> ${file}
+
+   if [ ${default}==${router1} ]; then
+       ${route} del default gw ${router1}
+       ${route} add default gw ${router2}
+   elif [ ${default}==${router2} ];  then
+       ${route} del default gw ${router2}
+       ${route} add default gw ${router1}
+   fi
+   # sending a notification by mail or may be by sms
+   echo "Connection problem" |mail -s "Changing Routing table" ${mail}
+fi
+
+
+
+
+
+
+
+#!/bin/sh
+
+trap handle_timer USR1
+
+set_timer() { (sleep 2; kill -USR1 $$)& }
+handle_timer() {
+    printf "%s:%s\n" "timer expired" "$(date)";
+    set_timer
+}
+
+set_timer
+while true; do sleep 1; date; done

@@ -1,0 +1,11 @@
+$ git-createrepo() { repos_path='/srv/git/'; mkdir $repos_path$1; cd 
+$repos_path$1; git init --bare; echo "Repository location: ssh://$USER@`cat 
+/etc/HOSTNAME``pwd`"; cd -; }
+
+Creates a git repository in a predefined location.
+
+
+Convert the ASS file to UTF-8 (or whatever encoding you are comfortable with).
+I used iconv: iconv -f utf16 -t utf8 < file.ass > result.ass
+Play it by using the "-utf8" switch of mplayer: mplayer -ass -utf8 file.mkv. 
+If the ASS contains special characters (such as CJK chars), use a good font by "-font /usr/share/font/cjk.ttf"

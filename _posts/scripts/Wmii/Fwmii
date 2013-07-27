@@ -1,0 +1,2 @@
+tag=$1; app=$2; clients=$(wmiir read "/tag/$tag/index" | grep $2 | awk '/[^#]/{print $2}')
+wmiir xwrite /client/$clients/ctl Fullscreen on

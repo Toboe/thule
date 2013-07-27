@@ -1,0 +1,22 @@
+DT=$(date | sed 's/:/\ /g'| awk '{print $1 $2 $3 $4 $5}')
+PPT () {
+date +%s%N
+}
+#PT=$(date +%s%N | cut -b1-13)
+PT=$(date +%s%N)
+echo $DT
+find $1 -name '*.[pgj][pni][egf]*' | grep -v .Apple | grep -v tumblr | while read FN; do
+ BFN=$(basename "$FN")
+  NFN=$DT${BFN}
+#echo $FN  
+if [ "$2" ]; then 
+echo "$1/$BFN -> $1/$2$BFN"
+mv "$1/$BFN" "$1/$2$BFN"
+else 
+echo "$1/$BFN -> $1/$(date +%s%N)"
+#echo "$1/$BFN -> $1/$NFN"
+# 2>>~/picrenerr.log 1>>~/picren.log 
+#mv "$1/$BFN" "$1/$NFN"
+
+fi
+done

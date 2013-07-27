@@ -1,0 +1,9 @@
+say(){ mplayer -user-agent Mozilla "http://translate.google.com/translate_tts?tl=en&q=$(echo $* | sed 's#\ #\+#g')" > /dev/null 2>&1 ; };\
+# say "Hi Andrew, today $(date), news rss 0 ,PRON 163, new emails 3 ";
+
+#firefox http://forecast.io/#/f/59.9327,30.3067
+curl ifconfig.me
+curl ifconfig.me/ip 
+curl ifconfig.me/host
+curl ifconfig.me/ua 
+curl ifconfig.me/port

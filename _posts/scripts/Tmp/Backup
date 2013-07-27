@@ -1,0 +1,3 @@
+ sudo mount.exfat-fuse /dev/sdb4 /mnt/Avalon
+ cd /mnt/Avalon
+ sudo tar -cvpzf /mnt/Avalon/SnoCoven.tar.gz --exclude=/{dev,lost+found,mnt,proc,sys,tmp} /

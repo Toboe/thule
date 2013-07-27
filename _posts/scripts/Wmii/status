@@ -1,0 +1,44 @@
+
+#KEY=$(curl -d '{"op":"login","user":"admin","password":"password"}' http://192.168.1.12/tiny-rss/api/ 2>~/2 | sed "s/\"/\ /g" | awk '{print $10}')
+#RSS=$(curl -d '{"sid":"'$KEY'","op":"getUnread"}' http://192.168.1.12/tiny-rss/api/ 2>~/2| sed "s/\"/\ /g" | awk '{print $10}') 
+#MAIL=$(curl -u rurouni.ksandre:napoleonx --silent "https://mail.google.com/mail/feed/atom" | tr -d '\n' | awk -F '<entry>' '{for (i=2; i<=NF; i++) {print $i}}' | sed -n "s/<title>\(.*\)<\/title.*name>\(.*\)<\/name>.*/\2 - \1/p" | wc -l)
+
+
+#echo -n label "V:" $(amixer get Master | grep -o '[0-9]*%') "|" $(acpi | awk '{print $4 $5}'| sed 's/,/ | /g') '| Wlan0' $(iwconfig wlan0 | awk '/Quality/{print $2}'| sed 's/.*=//'| awk -F"/" '{printf("%.0f%", $1/$2*100)}') "|" $(uptime | sed 's/.*://; s/, / /g') '|' $(date)
+#MIX=$(amixer get Master | grep -o '[0-9]*%') 
+#ETH=$(echo "Wlan0 $(iwconfig wlan0 | awk '/Quality/{print $2}'| sed 's/.*=//'| awk -F"/" '{printf("%.0f%", $1/$2*100)}')")
+#echo $ETH
+
+#wmiir create /rbar/eth &
+#wmiir create /rbar/rss &
+#wmiir create /rbar/mail &
+#wmiir create /rbar/mix &
+
+#echo label $ETH | wmiir write /rbar/eth
+#echo label R:$RSS | wmiir write /rbar/rss
+#echo label G:$MAIL | wmiir write /rbar/mail
+
+#echo label V:$MIX | wmiir write /rbar/mix
+
+
+
+#echo "colors #000000 #00ff00 #ff0000" | wmiir write /rbar/rss
+#echo "colors #53f3ff #343fff #426fff" | wmiir write /rbar/mail
+#echo "colors #5ff3ff #343f5f #426f9f" | wmiir write /rbar/eth
+#echo "colors #5513ff #f4ff5f #426399" | wmiir write /rbar/mix
+
+
+
+wmiir create /rbar/1  &
+#echo -n -e 'label \xE2\x99\xAA_ \xE2\x94\x82 \xE2\x96\x84 \xE2\x96\x8C \xE2\x96\x90 \xE2\x94\x83 2\xE2\x86\x91  \xE2\x96\xBC '   |  wmiir write /rbar/1
+#echo -n -e "colors #47584e #576862 #576862" | wmiir write /rbar/1
+#echo -n -e "colors #ffffff #576862 #47584e" | wmiir write /rbar/1
+#echo -n -e "colors 2e3732 #819742 #c0cf4e" | wmiir write /rbar/1
+#echo -n -e "colors 2e3732 #b5c33a #b5c33a" | wmiir write /rbar/1
+#
+#
+echo -n -e "colors #2e3732 #d2ded2 #d2ded2" | wmiir write /rbar/1
+
+#echo -n -e "colors #c0cf4e #d2ded2  #d2ded2" | wmiir write /rbar/1
+#
+amixer get PCM | grep -o '[0-9]*%' | head -n1 | sed  s/\%//

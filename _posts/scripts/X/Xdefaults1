@@ -1,0 +1,108 @@
+XTerm*font: -misc-fixed-medium-r-normal--18-120-100-100-*-90-koi8-r
+!XTerm*font: -xos4-terminus-medium-*-*-*-14-*-*-*-*-*-iso10646-1
+XTerm*scrollBar: False
+XTerm*saveLines: 1000
+
+XTerm*background: black
+XTerm*foreground: green
+
+! XTerm*background: red
+! XTerm*foreground: cyan
+! XTerm*foreground: grey
+xterm*highlightColor: yellow
+
+XTerm*termName: xterm-256color
+XTerm*dynamiccolors: true
+
+XTerm*cursorColor: red
+XTerm*cursorBlink: false
+XTerm*loginShell: true
+
+
+! Normal
+! color0    BLACK
+! color1    red
+! color2    green
+! color3    yellow
+! color4    blue
+! color5    purple
+! color6    cyan
+! color7    white
+
+urxvt*color0:    #000000
+urxvt*color1:    #C00000
+urxvt*color2:    #00C000
+urxvt*color3:    #C0C000
+urxvt*color4:    #0C00C0
+urxvt*color5:    #AA00AA
+urxvt*color6:    #00AAAA
+urxvt*color7:    #FFFFFF
+
+! Light
+! color8    darkgray
+! color9    red
+! color10    green
+! color11    yellow
+! color12    blue
+! color13    purple
+! color14    cyan
+! color15    lightgray
+
+urxvt*color8:    #212121
+urxvt*color9:    #FF8080
+urxvt*color10:    #80FF80
+urxvt*color11:    #FFFF88
+urxvt*color12:    #99CCFF
+urxvt*color13:    #B14CC2
+urxvt*color14:    #9BFFFF
+urxvt*color15:    #D0D0D0
+
+URxvt*saveLines: 5000
+!URxvt.font: -*-clean-medium-r-*-*-12-*-*-*-*-*-*-*
+!URxvt.boldFont: -*-clean-bold-r-*-*-12-*-*-*-*-*-*-
+URxvt*scrollBar: false
+
+!URxvt*background: #000000
+URxvt*background: BLACK
+URxvt*foreground: #00C000
+URxvt.cursorColor: red
+
+URxvt.underlineURLs:   true
+URxvt.underlineColor: yellow
+
+! URxvt.font: xft:Terminus:pixelsize=14:antialias=false
+ URxvt.boldFont: xft:Terminus:bold:pixelsize=16:antialias=false
+! rxvt*font:       -*-terminus-medium-r-normal-*-14-*-*-*-*-koi8-r
+! rxvt*font:      -*-terminus-medium-r-normal-*-14-*-*-*-*-*-*
+! rxvt*boldFont:  -*-terminus-medium-r-normal-*-14-*-*-*-*-*-*
+
+URxvt*transparent: true
+URxvt*shading: 30
+!URxvt.shading: 50
+!URxvt.fadeColor: #666666
+!URxvt.tintColor: #3F3F3F
+URxvt.fading: 42
+
+
+UXTerm*font: -misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1
+UXTerm*background: grey
+UXTerm*foreground: green
+UXTerm*loginShell: true
+
+UXTerm*keepSelection:   true
+UXTerm*bellIsUrgent: true
+UXTerm*dynamicColors: on
+
+UXTerm*saveLines: 15000
+
+UXTerm*cursorColor: darkgreen
+UXTerm*jumpScroll: true
+UXTerm*multiScroll: true
+
+
+URxvt*transparent:true
+URxvt*shading:15
+URxvt*saveLines:12000
+URxvt*foreground:White
+URxvt*background:Black
+URxvt*font: xft:dina:pixelsize=10

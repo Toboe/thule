@@ -1,0 +1,117 @@
+alias h='history 26'
+alias k='clear'
+alias du='du -kh'
+#alias daapt.log='tail -f /var/log/mt-daapt.log'
+alias dudu='ncdu'
+alias p='ping -c5 ya.ru'
+
+function freespace()
+	{
+	find $1 -type f -size +$2k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }' ;
+	}
+function vls_stream()
+	{
+	vlc $2 --media-library --extraintf ncurses --no-auto-preparse --no-play-and-stop --http-host 192.168.1.1:8081 --media-library --playlist-tree -I http --sout udp://192.168.1.$1
+	}
+
+function vls_stream1()
+        {
+        vlc --media-library --extraintf ncurses --no-auto-preparse --no-play-and-stop --http-host 192.168.1.1:8081 --media-library --playlist-tree -I http --sout udp://192.168.1.31
+        }
+function mscan()
+	{
+	find ./ -iname '*' -print | sed -n -E -e 's/.*.avi$/&/p' -e 's/.*.m4b/&/p'  -e 's/.*.mkv$/&/p' -e 's/.*vob/&/p' -e 's/.*m4v/&/p' -e 's/.*mp4/&/p' -e 's/.*VOB/&/p' -e 's/.*mp3/&/p' > ./m.m3u
+	}
+function vlctream()
+	{
+	vlc /mnt/ftp/Music/Dio/Dio.m3u --http-host 192.168.1.1:8081 --media-library --playlist-tree -I http --sout udp://192.168.1.10:1234
+	}
+function aping()
+	{
+ping -c 1 -t 1 ya.ru >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+	if [ "$1" = "?" ]; then 
+	python /mnt/ftp/MAC_Stuff/Repos/netgrowl/netgrowl.py -H 192.168.1.2 -x 1239gag -t "Networking" -d "Working..! :)" -p 2 >/dev/null 2>&1;
+        fi	
+else
+python /mnt/ftp/MAC_Stuff/Repos/netgrowl/netgrowl.py -H 192.168.1.2 -x 1239gag -t "Networking" -d "Pptp is down :(" -p 2;
+fi
+	}
+
+alias ls='ls -G'
+
+alias jruby='jexec 1 /usr/local/bin/bash'
+alias df='clear && df -h | grep -v "0B" | grep -v "/home/jails/"'
+
+#----------------Colors
+txtblk='\e[0;30m' # Black - Regular
+txtred='\e[0;31m' # Red
+txtgrn='\e[0;32m' # Green
+txtylw='\e[0;33m' # Yellow
+txtblu='\e[0;34m' # Blue
+txtpur='\e[0;35m' # Purple
+txtcyn='\e[0;36m' # Cyan
+txtwht='\e[0;37m' # White
+
+bldblk='\e[1;30m' # Black - Bold
+bldred='\e[1;31m' # Red
+bldgrn='\e[1;32m' # Green
+bldylw='\e[1;33m' # Yellow
+bldblu='\e[1;34m' # Blue
+bldpur='\e[1;35m' # Purple
+bldcyn='\e[1;36m' # Cyan
+bldwht='\e[1;37m' # White
+
+unkblk='\e[4;30m' # Black - Underline
+undred='\e[4;31m' # Red
+undgrn='\e[4;32m' # Green
+undylw='\e[4;33m' # Yellow
+undblu='\e[4;34m' # Blue
+undpur='\e[4;35m' # Purple
+undcyn='\e[4;36m' # Cyan
+undwht='\e[4;37m' # White
+
+bakblk='\e[40m'   # Black - Background
+bakred='\e[41m'   # Red
+badgrn='\e[42m'   # Green
+bakylw='\e[43m'   # Yellow
+bakblu='\e[44m'   # Blue
+bakpur='\e[45m'   # Purple
+bakcyn='\e[46m'   # Cyan
+bakwht='\e[47m'   # White
+
+txtrst='\e[0m'
+# Text Reset]']']']']']']']']']']']']']']']']']']']']']']']']']']']']']']']']'
+
+#PS1='\n\W\n[\h][\u]->'
+#alias h='history 26'
+#alias k='clear'
+#alias h='df -h'
+#alias ls='ls -GF'
+#alias cdf='cd /mnt/ftp/'
+#PS1='\w\n[\u@\h][\t]->'
+
+print_before_the_prompt () {
+#echo "$USER: $PWD"
+#  printf "\n%s: %s\n" "$USER" "$PWD"
+printf "\n $txtred%s: $bldylw%s \n$txtcyn" "$USER" "$PWD"
+
+#printf "\n $txtred%s: $bldylw%s \n$txtrst" "$USER" "$PWD"
+
+}
+
+PROMPT_COMMAND=print_before_the_prompt
+
+PS1='|->'
+
+#PROMPT_COMMAND='echo "comes before the prompt"'
+#PS1='\h:\u:\w:#'
+
+#alias SugarSync='wine ~/.wine/drive_c/Program\ Files/SugarSync/SugarSyncManager.exe'
+alias netgrowl='python /mnt/ftp/MAC_Stuff/Repos/netgrowl/netgrowl.py -H 192.168.1.2 -x 1239gag'
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+alias aria2def='aria2c --enable-rpc --rpc-listen-all'
+alias geeknote='python /mnt/ftp/MAC_Stuff/source/geeknote/geeknote.py'
+
+
+

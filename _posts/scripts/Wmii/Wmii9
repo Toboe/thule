@@ -1,0 +1,3 @@
+#eval $(wmii9menu gxkb:'gxkb &' xcompmgr:'xcompmgr &')
+eval $(wmii9menu ls:"xterm -e 'ls -la; bash'" 1:"xterm -e 'echo 1; bash'")
+#eval $(wmii9menu ls:"ssh ronin47@10.143.34.102")

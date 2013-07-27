@@ -1,0 +1,12 @@
+ping -c 1 -t 1 ya.ru >/dev/null
+# 2>&1
+#echo $?
+if [ $? -eq 0 ]; then
+	if [ "$1" = "?" ]; then 
+#	python /mnt/ftp/MAC_Stuff/Repos/netgrowl/netgrowl.py -H 192.168.1.2 -x 1239gag -t "Networking" -d "Working..! :)" -p 2 >/dev/null 2>&1;
+echo Alive;
+        fi	
+else
+#python /mnt/ftp/MAC_Stuff/Repos/netgrowl/netgrowl.py -H 192.168.1.2 -x 1239gag -t "Networking" -d "Pptp is down :(" -p 2;
+echo Down;
+fi

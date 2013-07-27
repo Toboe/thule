@@ -1,0 +1,23 @@
+#!/bin/sh
+#HOST=www.freenet.de
+
+
+function ping_internet () {
+HOST=ya.ru
+#if ping -s1 -t4  $HOST &> /dev/null 
+
+if ping -s1 -c2  $HOST &> /dev/null 
+then 
+NET=true
+NETOLD=true
+echo "the internet connection is available."
+else 
+NET=false
+NETOLD=false
+echo "no internet connection."
+fi
+}
+
+ping_internet ya.ry
+ping_internet vk.com
+ping_internet 192.168.1.113

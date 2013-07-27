@@ -1,0 +1,3 @@
+make installworld DESTDIR=/home/jails/versionjail/
+make distribution DESTDIR=/home/jails/versionjail/
+echo "Allll_okay"

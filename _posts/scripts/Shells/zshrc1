@@ -1,0 +1,100 @@
+zstyle ':completion:*' menu yes select
+autoload -U compinit && compinit
+SAVEHIST=5000
+setopt  APPEND_HISTORY
+setopt  HIST_IGNORE_ALL_DUPS
+setopt  HIST_IGNORE_SPACE
+
+setopt AUTO_CD
+
+#setopt CORRECT_ALL
+setopt SH_WORD_SPLIT
+setopt histexpiredupsfirst histfindnodups
+autoload colors && colors
+
+
+PROMPT="%{$fg_bold[yellow]%}>>%{$reset_color%}"
+RPROMPT="%{$fg_bold[yellow]%}%~/ %{$reset_color%}% %(?,%{$fg[green]%}:%)%{$reset_color%},%{$fg[red]%}:(%{$reset_color%}"
+
+SPROMPT='zsh: Заменить '\''%R'\'' на '\''%r'\'' ? [Yes/No/Abort/Edit] '
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=$color[cyan]=$color[red]"
+
+
+
+HISTFILE=~/.zhistory
+
+precmd() {
+	 [[ -t 1 ]] || return
+	case $TERM in
+	*xterm*|rxvt|(dt|k|E|a)term*) print -Pn "\e]0;[%~] %m\a"	;;
+	screen(-bce|.linux)) print -Pn "\ek[%~]\e\" && print -Pn "\e]0;[%~] %m (screen)\a" ;;  #заголовок для скрина
+	esac
+}
+preexec() {
+	[[ -t 1 ]] || return
+	case $TERM in
+	*xterm*|rxvt|(dt|k|E|a)term*) print -Pn "\e]0;<$1> [%~] %m\a" ;;
+	screen(-bce|.linux)) print -Pn "\ek<$1> [%~]\e\" && print -Pn "\e]0;<$1> [%~] %m (screen)\a" ;; #заголовок для скрина
+	esac
+}
+typeset -g -A key
+
+
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
+ccd() { cd && ls}
+mcd(){ mkdir $1; cd $1 }
+rcd(){ local P="`pwd`"; cd .. && rmdir "$P" || cd "$P"; }
+name() {
+    name=$1
+    vared -c -p 'rename to: ' name
+    command mv $1 $name
+}
+
+extract () {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1        ;;
+            *.tar.gz)    tar xzf $1     ;;
+            *.bz2)       bunzip2 $1       ;;
+            *.rar)       unrar x $1     ;;
+            *.gz)        gunzip $1     ;;
+            *.tar)       tar xf $1        ;;
+            *.tbz2)      tar xjf $1      ;;
+            *.tgz)       tar xzf $1       ;;
+            *.zip)       unzip $1     ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1    ;;
+            *)           echo "я не в курсе как распаковать '$1'..." ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+pk () {
+    if [ $1 ] ; then
+        case $1 in
+            tbz)   	tar cjvf $2.tar.bz2 $2      ;;
+            tgz)   	tar czvf $2.tar.gz  $2   	;;
+            tar)  	tar cpvf $2.tar  $2       ;;
+			bz2)	bzip $2 ;;
+            gz)		gzip -c -9 -n $2 > $2.gz ;;
+			zip)   	zip -r $2.zip $2   ;;
+            7z)    	7z a $2.7z $2    ;;
+            *)     	echo "'$1' cannot be packed via pk()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+pidtop() {top -p `pidof $@ | tr ' ' ','`}
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
+
+
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+tterm () {xterm -e "transset-df .66; bash" &}

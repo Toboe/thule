@@ -1,0 +1,41 @@
+function crop()
+        {
+ffmpeg -i $1 -vcodec copy -acodec copy -ss $2 -t $3 $4
+        }
+
+function freespace()
+	{
+	find $1 -type f -size +$2k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }' ;
+	}
+function vls_stream()
+	{
+	vlc $2 --media-library --extraintf ncurses --no-auto-preparse --no-play-and-stop --http-host 192.168.1.1:8081 --media-library --playlist-tree -I http --sout udp://192.168.1.$1
+	}
+
+function vls_stream1()
+        {
+        vlc --media-library --extraintf ncurses --no-auto-preparse --no-play-and-stop --http-host 192.168.1.1:8081 --media-library --playlist-tree -I http --sout udp://192.168.1.31
+        }
+function mscan()
+	{
+	find ./ -iname '*' -print | sed -n -E -e 's/.*.avi$/&/p' -e 's/.*.m4b/&/p'  -e 's/.*.mkv$/&/p' -e 's/.*vob/&/p' -e 's/.*m4v/&/p' -e 's/.*mp4/&/p' -e 's/.*VOB/&/p' -e 's/.*mp3/&/p' > ./m.m3u
+	}
+function vlctream()
+	{
+	vlc /mnt/ftp/Music/Dio/Dio.m3u --http-host 192.168.1.1:8081 --media-library --playlist-tree -I http --sout udp://192.168.1.10:1234
+	}
+function aping()
+	{
+ping -c 1 -t 1 ya.ru >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+	if [ "$1" = "?" ]; then 
+	python /mnt/ftp/MAC_Stuff/Repos/netgrowl/netgrowl.py -H 192.168.1.2 -x 1239gag -t "Networking" -d "Working..! :)" -p 2 >/dev/null 2>&1;
+        fi	
+else
+python /mnt/ftp/MAC_Stuff/Repos/netgrowl/netgrowl.py -H 192.168.1.2 -x 1239gag -t "Networking" -d "Pptp is down :(" -p 2;
+fi
+	}
+
+
+
+

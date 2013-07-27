@@ -1,0 +1,55 @@
+[20:50:17] kai :: SnowCoven  ➜  ~ » nmap --script dhcp-discover 88.201.178.0/24
+
+Starting Nmap 6.26SVN ( http://nmap.org ) at 2013-05-03 20:51 MSK
+Nmap scan report for 88-201-178-32.eth.integral-net.spb.ru (88.201.178.32)
+Host is up (0.27s latency).
+Not shown: 994 filtered ports
+PORT      STATE SERVICE
+80/tcp    open  http
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+49153/tcp open  unknown
+49155/tcp open  unknown
+
+Nmap scan report for 88-201-178-55.eth.integral-net.spb.ru (88.201.178.55)
+Host is up (0.25s latency).
+Not shown: 993 closed ports
+PORT     STATE    SERVICE
+80/tcp   open     http
+515/tcp  open     printer
+1723/tcp filtered pptp
+5431/tcp open     park-agent
+5500/tcp filtered hotline
+9100/tcp open     jetdirect
+9998/tcp open     distinct32
+
+Nmap scan report for 88-201-178-70.eth.integral-net.spb.ru (88.201.178.70)
+Host is up (0.28s latency).
+Not shown: 996 closed ports
+PORT      STATE    SERVICE
+1072/tcp  filtered cardax
+1723/tcp  filtered pptp
+2106/tcp  filtered ekshell
+49155/tcp filtered unknown
+
+Nmap scan report for 88-201-178-79.eth.integral-net.spb.ru (88.201.178.79)
+Host is up (0.038s latency).
+Not shown: 996 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+23/tcp open  telnet
+53/tcp open  domain
+80/tcp open  http
+
+Nmap scan report for 88-201-178-206.eth.integral-net.spb.ru (88.201.178.206)
+Host is up (0.24s latency).
+Not shown: 996 closed ports
+PORT     STATE    SERVICE
+23/tcp   open     telnet
+80/tcp   open     http
+1723/tcp filtered pptp
+9998/tcp open     distinct32
+
+Nmap done: 256 IP addresses (5 hosts up) scanned in 1952.15 seconds
+

