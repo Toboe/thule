@@ -1,0 +1,11 @@
+sudo dd if=/dev/sda of=/media/myExternalDrive/myBackup.img
+> dd if=/dev/sda | pv -s 60022480896 | \
+    pigz --fast > /media/myExternalDrive/myBackup.img
+
+pigz -d /media/myExternalDrive/myBackup.img | \
+    pv -s 60022480896 | dd of=/dev/sda
+pv /dev/sda | gzip --fast > /media/myExternalDrive/myBackup.img
+
+
+sudo tar -cvpzf /mnt/Avalon/SnoCovenJun200713.tar.gz --exclude=/{dev,lost+found,mnt,proc,sys,tmp} /
+
