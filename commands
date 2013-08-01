@@ -1,0 +1,10 @@
+For example, if you want to copy all your output to /dev/tty1 you would run
+
+script -f /dev/tty1
+
+
+VIM:
+
+ each time you hit Ctrl-W, you delete the word to the left of the cursor
+hit Ctrl-U.  Everything to the left of the cursor will be deleted, leaving you with:
+
