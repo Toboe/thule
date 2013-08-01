@@ -9,3 +9,6 @@ pv /dev/sda | gzip --fast > /media/myExternalDrive/myBackup.img
 
 sudo tar -cvpzf /mnt/Avalon/SnoCovenJun200713.tar.gz --exclude=/{dev,lost+found,mnt,proc,sys,tmp} /
 
+tar -zcvf Jail-versions-19.40.2012.tar.gz /home/jails/versionjail/
+dump -0 -L -f - /home | gzip -5  >  /mnt/backups/dump/home.${DATE}.img.gz
+echo "Behold /home Ready!"
