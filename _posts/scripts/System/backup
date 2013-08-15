@@ -1,3 +1,5 @@
+dd if=/dev/hdb | (pv -s `fdisk -l /dev/hdb | grep -o '[0-9]*\{1\} MB' | awk '{print $1}'`m) | cat > hdb.img
+
 sudo dd if=/dev/sda of=/media/myExternalDrive/myBackup.img
 > dd if=/dev/sda | pv -s 60022480896 | \
     pigz --fast > /media/myExternalDrive/myBackup.img
@@ -46,4 +48,31 @@ umount /dev/sdxx
 umount /dev/sdyy
 shutdown –r now
 # have fun:wq
+
+To save space, you can compress data produced by dd with gzip, e.g.:
+
+dd if=/dev/hdb | gzip -c  > /image.img
+
+You can restore your disk with:
+
+gunzip -c /image.img.gz | dd of=/dev/hdb
+
+To save even more space, defragment the drive/partition you wish to clone beforehand (if appropriate), then zero-out all the remaining unused space, making it easier for gzip to compress:
+
+mkdir /mnt/hdb
+mount /dev/hdb /mnt/hdb
+dd if=/dev/zero of=/mnt/hdb/zero
+
+Wait a bit, dd will eventually fail with a "disk full" message, then:
+
+rm /mnt/hdb/zero
+umount /mnt/hdb
+dd if=/dev/hdb | gzip -c  > /image.img
+
+Also, you can get a dd process running in the background to report status by sending it a signal with the kill command, e.g.:
+
+dd if=/dev/hdb of=/image.img &
+kill -SIGUSR1 1234
+
+Check your system - the above command is for Linux, OSX and BSD dd commands differ in the signals they accept (OSX uses SIGINFO - you can press Ctrl+T to report the status).
 
