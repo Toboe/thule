@@ -1,0 +1,6 @@
+NFS services can now be started by running the following command, on the NFS server, as root:
+
+# service nfsd start
+On the NFS client:
+
+# service nfsclient restart
