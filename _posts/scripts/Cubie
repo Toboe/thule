@@ -1,0 +1,22 @@
+
+Try running and press the button.
+acpi_listen
+If you see button events like "button/power PBTN 00000080 00000000" then it's needed to configure the acpi daemon.
+
+Add an event listener to /etc/acpi/events by creating a file with the following content:
+event=button/power
+action=/etc/acpi/powerbtn.sh %e
+Then create the appropriate script /etc/acpi/powerbtn.sh and implement the desired functionality.
+
+
+root@cubieboard2:/dev# acpi
+acpi_listen  acpid        
+root@cubieboard2:/dev# acpi_listen 
+button/power PBTN 00000080 00000000
+
+Broadcast message from root@cubieboard2 (Thu Jan  1 18:08:22 1970):
+
+Power button pressed 
+The system is going down for system halt NOW!
+
+

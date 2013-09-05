@@ -1,0 +1,22 @@
+tar -xf file.pkg.tar.xz
+ tar cvf archive_name.tar dirname/
+c – create a new archive
+v – verbosely list files which are processed.
+f – following is the archive file name
+ tar cvzf archive_name.tar.gz dirname/
+z – filter the archive through gzip
+rchive_name.tar.bz2 dirname/
+j – filter the archive through bzip2
+
+Extracting
+
+ tar xvf archive_name.tar
+x – extract files from archive
+$ tar xvfz archive_name.tar.gz
+ tar xvfj archive_name.tar.bz2
+
+Listing
+$ tar tvf archive_name.tar
+$ tar tvfz archive_name.tar.gz
+$ tar tvfj archive_name.tar.bz2
+

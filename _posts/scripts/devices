@@ -1,0 +1,27 @@
+Field 1 -- # of reads issued
+Field 2 -- # of reads merged, field 6 -- # of writes merged
+Field 3 -- # of sectors read
+Field 4 -- # of milliseconds spent reading
+Field 5 -- # of writes completed
+Field 7 -- # of sectors written
+Field 8 -- # of milliseconds spent writing
+Field 9 -- # of I/Os currently in progress
+Field 10 -- # of milliseconds spent doing I/Os
+Field 11 -- weighted # of milliseconds spent doing I/Os 
+
+
+#cat /proc/diskstats | grep hda
+
+3 0 hda 43205 4113 4800428 280967 1051597 1682874 21876608 1950120 0 858685 2231096
+3 1 hda1 25838 525266 1505217 12041736
+3 2 hda2 846 1164 88 704
+3 3 hda3 20498 4272886 1229274 9834168
+
+Let`s consider "How I can get stats for my /dev/hda3 ??"
+Let`s consider this line : 3 3 hda3 20498 4272886 1229274 9834168
+After a word "hda3" we have four 32-bit (type integer) fields, us interesting these: 
+The second field: 4272886 (total number of sectors which normally reads from /dev/hda3)
+and The Fourth filed : 9834168 (total number of sectors which normally writes to /dev/hda3)
+These two fields - all that is necessary for us. A /proc/diskstats continuously updated and all that is necessary for us - make measurements for "second field" and "fourth field" in two different moment of time, receiving a difference of values and dividing it into an interval of time, we shall have Disk I/O stats in sectors/sec. Multiply this result on 512 (number of bytes in one sector) we shall have Disk I/O stats in bytes/sec. 
+May be exist a problem how to measure precisely moment of a time in seconds ... 
+Here a piece of my code on С for this purpose:
