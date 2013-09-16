@@ -1,3 +1,5 @@
+for f in *.zip; do unzip -d "${f%*.zip}" "$f"; done
+
 tar -xf file.pkg.tar.xz
  tar cvf archive_name.tar dirname/
 c – create a new archive

@@ -1,4 +1,21 @@
 dd if=/dev/hdb | (pv -s `fdisk -l /dev/hdb | grep -o '[0-9]*\{1\} MB' | awk '{print $1}'`m) | cat > hdb.img
+Mount and zero out the empty space:
+
+dd if=/dev/zero of=temp.dd bs=1M
+
+rm temp.dd
+
+umount and dd the drive while compressing it
+
+dd if=/dev/hda conv=sync,noerror bs=64K | gzip -c > /mnt/sda1/hda.ddimg.gz
+
+to put the system back to normal, i will usually do a
+
+gunzip -c /mnt/sda1/hda.img.gz | dd of=/dev/hda conv=sync,noerror bs=64K
+
+This is really straightforward and allows my to save the 'whole drive' but really just save the used space.
+xzcat FreeNAS-9.1.1-RELEASE-x64.img.xz | dd of=/dev/da0 bs=64k 
+
 
 sudo dd if=/dev/sda of=/media/myExternalDrive/myBackup.img
 > dd if=/dev/sda | pv -s 60022480896 | \

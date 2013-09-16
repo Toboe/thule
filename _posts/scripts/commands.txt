@@ -1,3 +1,5 @@
+ssh user@ip-address "cat /Some/Random/Directory/*mp3" | mplayer -
+
 $ git-createrepo() { repos_path='/srv/git/'; mkdir $repos_path$1; cd 
 $repos_path$1; git init --bare; echo "Repository location: ssh://$USER@`cat 
 /etc/HOSTNAME``pwd`"; cd -; }

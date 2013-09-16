@@ -1,0 +1,8 @@
+ffmpeg -i Original.mkv -acodec copy -vcodec copy -sn New.mkv
+
+ffmpeg -i subtitles.srt subtitles.ass
+ffmpeg -i mymovie.mp4 -vf ass=subtitles.ass mysubtitledmovie.mp4
+ffmpeg -i infile.mp4 -f srt -i infile.srt -c:v copy -c:a copy -c:s mov_text outfile.mp4
+ffmpeg -i input.m4v -i input.srt -vcodec copy -acodec copy -scodec copy -map 0:0 -map 0:1 -map 1:0 -y output.mkv
+
+

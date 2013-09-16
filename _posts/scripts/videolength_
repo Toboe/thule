@@ -1,0 +1,7 @@
+#!/bin/bash
+LEN=`mplayer -vo null -ao null -frames 0 -identify "$@" 2>/dev/null | \
+  grep "^ID_LENGTH" | sed -e 's/ID_LENGTH=//g'`
+HR=$(($LEN / 3600))
+MIN=$(( $(($LEN - $HR * 3600)) / 60 ))
+SEC=$(($LEN % 60))
+echo "$HR:$MIN:$SEC"
