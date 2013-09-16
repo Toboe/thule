@@ -1,0 +1,472 @@
+Title: All that what exists in dir A and not in dir B will be copied from dir A to new or existing dir C
+Author: 
+Date: Wed, 11 Sep 2013 01:41:16 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/hUST7LW_6E4/all-that-what-exists-in-dir-a-and-not-in-dir-b-will-be-copied-from-dir-a-to-new-or-existing-dir-c
+
+$ rsync -v -r --size-only --compare-dest=../B/ A/ C/
+
+Assumed dir A, B, C are subdirs of the current dir
+
+Exact syntax of the command is:
+
+rsync -v -r --size-only --compare-dest=/path_of_B/B/ /path_of_A/A/ 
+/path_of_C/C/
+
+(do not omit end-slashes, since that would copy only the names and not the 
+contents of subdirs of dir A to dir C)
+
+You can replace --size-only with --checksum for more thorough file differences 
+validation
+
+Useful switch:
+
+-n, --dry-run perform a trial run with no changes made
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by knoppix5[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12708/all-that-what-exists-in-dir-a-and-not-in-dir-b-will-be-copied-from-dir-a-to-new-or-existing-dir-c (link)
+[2]: http://www.commandlinefu.com/commands/by/knoppix5 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/hUST7LW_6E4 (image)
+Title: Check disk I/O
+Author: 
+Date: Fri, 13 Sep 2013 22:54:11 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/7yKwlx9ZeuA/check-disk-io
+
+$ iostat -d -x 10 5
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by jmorganwalker[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12717/check-disk-io (link)
+[2]: http://www.commandlinefu.com/commands/by/jmorganwalker (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/7yKwlx9ZeuA (image)
+Title: Check disk I/O
+Author: 
+Date: Fri, 13 Sep 2013 22:54:11 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/7yKwlx9ZeuA/check-disk-io
+
+$ iostat -d -x 10 5
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by jmorganwalker[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12717/check-disk-io (link)
+[2]: http://www.commandlinefu.com/commands/by/jmorganwalker (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/7yKwlx9ZeuA (image)
+Title: Command to rename multiple file in one go
+Author: 
+Date: Thu, 12 Sep 2013 17:42:56 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/KeJUqUdHh1M/command-to-rename-multiple-file-in-one-go
+
+$ rename 's/.xls/.ods/g' *.xls
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by jedifu[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12713/command-to-rename-multiple-file-in-one-go (link)
+[2]: http://www.commandlinefu.com/commands/by/jedifu (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/KeJUqUdHh1M (image)
+Title: Creates an old version raid1 with 3 mirror and 3 spares, from partitions of the same disk
+Author: 
+Date: Fri, 06 Sep 2013 16:14:33 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/8d8x9TSSm18/creates-an-old-version-raid1-with-3-mirror-and-3-spares-from-partitions-of-the-same-disk
+
+$ mdadm --create /dev/md0 --metadata=0.90 --level=1 --raid-devices=3 
+--spare-devices=3 /dev/sdb[5-9] /dev/sdb10
+
+The old version (--metadata=0.90) is useful when you want to use kernel raid 
+autodetect and not an initrd image.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by Edoard[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12690/creates-an-old-version-raid1-with-3-mirror-and-3-spares-from-partitions-of-the-same-disk (link)
+[2]: http://www.commandlinefu.com/commands/by/Edoard (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/8d8x9TSSm18 (image)
+Title: Delete all empty lines from a file with vim
+Author: 
+Date: Mon, 09 Sep 2013 03:22:02 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/ffW3xiAb0uw/delete-all-empty-lines-from-a-file-with-vim
+
+$ :v/./d
+
+If you need to delete lines that may contain space characters (such as tabs or 
+spaces) as well as empty ones, try:
+:v/\S/d
+
+Just an alternative.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by MarxBro[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12700/delete-all-empty-lines-from-a-file-with-vim (link)
+[2]: http://www.commandlinefu.com/commands/by/MarxBro (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/ffW3xiAb0uw (image)
+Title: find previously entered commands (requires configuring .inputrc)
+Author: 
+Date: Tue, 10 Sep 2013 21:13:02 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/EcmQk82YTa8/find-previously-entered-commands-requires-configuring-.inputrc
+
+$ M-p (aka ALT+P)
+
+Meta-p is one of my all time most used and most loved features of working at 
+the command line. It's also one that surprisingly few people know about. To use
+it with bash (actually in any readline application), you'll need to add a 
+couple lines to your .inputrc then have bash reread the .inputrc using the bind
+command:
+
+ 
+echo '"\en": history-search-forward' >> ~/.inputrc
+
+ 
+echo '"\ep": history-search-backward' >> ~/.inputrc
+
+ 
+bind -f ~/.inputrc
+
+ 
+
+  I first learned about this feature in tcsh. When I switched over to bash 
+about fifteen years ago, I had assumed I'd prefer ^R to search in reverse. 
+Intuitively ^R seemed better since you could search for an argument instead of 
+a command. I think that, like using a microkernel for the Hurd, it sounded so 
+obviously right fifteen years ago, but that was only because the older way had 
+benefits we hadn't known about.
+
+  I think many of you who use the command line as much as I do know that we can
+just be thinking about what results we want and our fingers will start typing 
+the commands needed. I assume it's some sort of parallel processing going on 
+with the linguistic part of the brain. Unfortunately, that parallelism doesn't 
+seem to work (at least for me) with searching the history. I realize I can save
+myself typing using the history shortly after my fingers have already started 
+"speaking". But, when I hit ^R in Bash, everything I've already typed gets 
+ignored and I have to stop and think again about what I was doing. It's a small
+bump in the road but it can be annoying, especially for long-time command line 
+users. Usually M-p is exactly what I need to save myself time and trouble.
+
+  If you use the command line a lot, please give Meta-p a try. You may be 
+surprised how it frees your brain to process more smoothly in parallel. (Or 
+maybe it won't. Post here and let me know either way. ☺)
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by hackerb9[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12703/find-previously-entered-commands-requires-configuring-.inputrc (link)
+[2]: http://www.commandlinefu.com/commands/by/hackerb9 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/EcmQk82YTa8 (image)
+Title: Get IP address from domain
+Author: 
+Date: Wed, 11 Sep 2013 17:01:03 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/OqMpsZKFOk0/get-ip-address-from-domain
+
+$ dig +short <>domain>
+
+shorter (thus better ;-)
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by Iz7ueNae[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12710/get-ip-address-from-domain (link)
+[2]: http://www.commandlinefu.com/commands/by/Iz7ueNae (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/OqMpsZKFOk0 (image)
+Title: Get the Nth argument of the last command (handling spaces correctly)
+Author: 
+Date: Sun, 15 Sep 2013 07:41:13 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/IPDnAqIYDls/get-the-nth-argument-of-the-last-command-handling-spaces-correctly
+
+$ !:n
+
+Bash's history expansion character, "!", has many features, including "!:" for 
+choosing a specific argument (or range of arguments) from the history. The gist
+is any number after !: is the number of the argument you want, with !:1 being 
+the first argument and !:0 being the command. See the sample output for a few 
+examples. For full details search for "^HISTORY EXPANSION" in the bash(1) man 
+page.
+
+ 
+
+ Note that this version improves on the previous function in that it handles 
+arguments that include whitespace correctly.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by hackerb9[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12721/get-the-nth-argument-of-the-last-command-handling-spaces-correctly (link)
+[2]: http://www.commandlinefu.com/commands/by/hackerb9 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/IPDnAqIYDls (image)
+Title: Get the Nth argument of the last command in $HISTFILE
+Author: 
+Date: Tue, 10 Sep 2013 08:07:46 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/XiyDqHlhjDY/get-the-nth-argument-of-the-last-command-in-histfile
+
+$ function garg () { tail -n 1 ${HISTFILE} | awk "{ print \$$1 }" }
+
+This gets the Nth argument in the last line of your history file. This is 
+useful where history is being written after each command, and you want to use 
+arguments from the previous command in the current command, such as when doing 
+copies/moving directories etc.
+
+I wrote this after getting irritated with having to continually type in long 
+paths/arguments.
+
+You could also use $_ if all you want is the last argument.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by plasticphyte[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12701/get-the-nth-argument-of-the-last-command-in-histfile (link)
+[2]: http://www.commandlinefu.com/commands/by/plasticphyte (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/XiyDqHlhjDY (image)
+Title: Grep for text within all files in a folder structure
+Author: 
+Date: Fri, 13 Sep 2013 22:55:22 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/lVY5dp4bmyI/grep-for-text-within-all-files-in-a-folder-structure
+
+$ grep --color -R "text" directory/
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by jmorganwalker[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12718/grep-for-text-within-all-files-in-a-folder-structure (link)
+[2]: http://www.commandlinefu.com/commands/by/jmorganwalker (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/lVY5dp4bmyI (image)
+Title: List subfolders from largest to smallest with sizes in human readable form
+Author: 
+Date: Sun, 08 Sep 2013 05:32:23 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/m-PriU6Af3E/list-subfolders-from-largest-to-smallest-with-sizes-in-human-readable-form
+
+$ du -hd1 | sort -hr
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by while0pass[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12696/list-subfolders-from-largest-to-smallest-with-sizes-in-human-readable-form (link)
+[2]: http://www.commandlinefu.com/commands/by/while0pass (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/m-PriU6Af3E (image)
+Title: netstat with group by (ip adress)
+Author: 
+Date: Tue, 10 Sep 2013 23:28:06 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/eZSrzR-czOk/netstat-with-group-by-ip-adress
+
+$ netstat -ntu | awk ' $5 ~ /^(::ffff:|[0-9|])/ { gsub("::ffff:","",$5); print 
+$5}' | cut -d: -f1 | sort | uniq -c | sort -nr
+
+Same as the rest, but handle IPv6 short IPs. Also, sort in the order that 
+you're probably looking for.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by mrwulf[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12706/netstat-with-group-by-ip-adress (link)
+[2]: http://www.commandlinefu.com/commands/by/mrwulf (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/eZSrzR-czOk (image)
+Title: Quickly write and run a C program.
+Author: 
+Date: Sun, 08 Sep 2013 19:09:09 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/pb4jmzLXxPE/quickly-write-and-run-a-c-program.
+
+$ vim test.c && gcc -x c -o a.out test.c && ./a.out && rm a.out test.c
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by ari2015[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12698/quickly-write-and-run-a-c-program. (link)
+[2]: http://www.commandlinefu.com/commands/by/ari2015 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/pb4jmzLXxPE (image)
+Title: Show open, listening ports with no associated program (alternative using nmap/lsof instead of netstat)
+Author: 
+Date: Tue, 10 Sep 2013 22:23:02 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/bjM3vtD9WjA/show-open-listening-ports-with-no-associated-program-alternative-using-nmaplsof-instead-of-netstat
+
+$ nmap -sUT -p- localhost | sed -n 's#\(^[0-9]*\)/\([^ ]*\).*#\2:\1#p' | while 
+read p; do if ! lsof -i $p>/dev/null; then echo "Hidden process listening on 
+port $p"; fi; done
+
+This shows open ports which have no associated program; that is, ports that are
+opened by a kernel module and may be a security problem. This should do the 
+same thing as the simpler netstat command I posted, but can be used if you 
+think your netstat may have been trojaned. This works by using nmap to check 
+what ports are actually open and then compares if those ports are also open 
+according to lsof. Lsof (at least as of version 4.81) cannot detect open ports 
+which have no PID/program associated and returns -1 for the hidden ports.
+
+ 
+
+ Note that nmap and lsof require root permissions to run, but nmap need not be 
+run on the potentially compromised host. Also note that hidden network 
+processes aren't always a security problem. For example, the Linux kernel has a
+module for the NFS file server which would show up on port 2049.
+
+ 
+
+ Standard forensic tools, such as rkhunter, did not detect the particular 
+rootkit that was on the machine I was investigating. The only tool that worked 
+for me was kjackal, which detects kernel module hijacking. The source for 
+kjackal is available at https://github.com/dgoulet/kjackal .
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by hackerb9[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12705/show-open-listening-ports-with-no-associated-program-alternative-using-nmaplsof-instead-of-netstat (link)
+[2]: http://www.commandlinefu.com/commands/by/hackerb9 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/bjM3vtD9WjA (image)
+Title: Throttle curl downloads
+Author: 
+Date: Sun, 08 Sep 2013 23:46:23 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/uklQDUjRIcI/throttle-curl-downloads
+
+$ curl -O --limit-rate 500k $URL
+
+Examples: 500K, 1m and 1G.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by zlemini[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12699/throttle-curl-downloads (link)
+[2]: http://www.commandlinefu.com/commands/by/zlemini (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/uklQDUjRIcI (image)
