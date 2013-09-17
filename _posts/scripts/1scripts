@@ -1,9 +1,0 @@
-I find this useful for just quickly seeing which files contain a search time. I would normally limit the files searched with a command such as :
-find . -iname '*php' | xargs grep 'string' -sl
-
-Another common search for me, is to just look at the recently updated files:
-find . -iname '*php' -mtime -1 | xargs grep 'string' -sl
-
-would find only files edited today, whilst the following finds the files older than today:
-find . -iname '*php' -mtime +1 | xargs grep 'string' -sl
-
