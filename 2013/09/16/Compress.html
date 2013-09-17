@@ -1,0 +1,132 @@
+<p>for f in <em>.zip; do unzip -d &quot;${f%</em>.zip}&quot; &quot;$f&quot;; done</p>
+
+<p>tar -xf file.pkg.tar.xz</p>
+
+<p>tar cvf archive_name.tar dirname/</p>
+
+<p>c – create a new archive
+v – verbosely list files which are processed.
+f – following is the archive file name
+ tar cvzf archive<em>name.tar.gz dirname/
+z – filter the archive through gzip
+rchive</em>name.tar.bz2 dirname/
+j – filter the archive through bzip2</p>
+
+<p>Extracting</p>
+
+<p>tar xvf archive<em>name.tar
+x – extract files from archive
+$ tar xvfz archive</em>name.tar.gz
+ tar xvfj archive_name.tar.bz2</p>
+
+<p>Listing
+$ tar tvf archive<em>name.tar
+$ tar tvfz archive</em>name.tar.gz
+$ tar tvfj archive_name.tar.bz2</p>
+
+<p>dd if=/dev/hdb | (pv -s <code>fdisk -l /dev/hdb | grep -o &#39;[0-9]*\{1\} MB&#39; | awk &#39;{print $1}&#39;</code>m) | cat &gt; hdb.img
+Mount and zero out the empty space:</p>
+
+<p>dd if=/dev/zero of=temp.dd bs=1M</p>
+
+<p>rm temp.dd</p>
+
+<p>umount and dd the drive while compressing it</p>
+
+<p>dd if=/dev/hda conv=sync,noerror bs=64K | gzip -c &gt; /mnt/sda1/hda.ddimg.gz</p>
+
+<p>to put the system back to normal, i will usually do a</p>
+
+<p>gunzip -c /mnt/sda1/hda.img.gz | dd of=/dev/hda conv=sync,noerror bs=64K</p>
+
+<p>This is really straightforward and allows my to save the &#39;whole drive&#39; but really just save the used space.
+xzcat FreeNAS-9.1.1-RELEASE-x64.img.xz | dd of=/dev/da0 bs=64k </p>
+
+<p>sudo dd if=/dev/sda of=/media/myExternalDrive/myBackup.img</p>
+
+<blockquote>
+<p>dd if=/dev/sda | pv -s 60022480896 | \
+    pigz --fast &gt; /media/myExternalDrive/myBackup.img</p>
+</blockquote>
+
+<p>pigz -d /media/myExternalDrive/myBackup.img | \
+    pv -s 60022480896 | dd of=/dev/sda
+pv /dev/sda | gzip --fast &gt; /media/myExternalDrive/myBackup.img</p>
+
+<p>sudo tar -cvpzf /mnt/Avalon/SnoCovenJun200713.tar.gz --exclude=/{dev,lost+found,mnt,proc,sys,tmp} /</p>
+
+<p>tar -zcvf Jail-versions-19.40.2012.tar.gz /home/jails/versionjail/
+dump -0 -L -f - /home | gzip -5  &gt;  /mnt/backups/dump/home.${DATE}.img.gz
+echo &quot;Behold /home Ready!&quot;
+ckup disk
+mkdir /mnt/backup
+mount /dev/sdxx /mnt/backup
+cd /
+tar -cvpzf /mnt/backup/BACKUP_FILE.tar.gz --exclude=/{dev,lost+found,mnt,proc,sys,tmp,}/* / </p>
+
+<p>Then in my laptop:
+ boot with arch iso
+ mount the dest partition
+mkdir /mnt/arch
+mount –t ext3 /dev/sdyy /mnt/arch
+ mount the backup disk
+mkdir /mnt/backup
+mount –t vfat /dev/sdxx /mnt/backup
+ expand the installation tar
+cd /mnt/arch
+tar –xvpzf /mnt/backup/BACKUP_FILE.tar.gz
+ something necessary to boot
+chroot /mnt/arch
+cd /dev
+mknod -m 660 console c 5 1
+mknod -m 660 null c 1 3
+ modify the /etc/fstab
+ make a new boot ramdisk
+mkinitcpio -p kernel26
+ install grub
+ modify /boot/grub/menu.lst
+exit
+umount /dev/sdxx
+umount /dev/sdyy
+shutdown –r now
+ have fun:wq</p>
+
+<p>To save space, you can compress data produced by dd with gzip, e.g.:</p>
+
+<p>dd if=/dev/hdb | gzip -c  &gt; /image.img</p>
+
+<p>You can restore your disk with:</p>
+
+<p>gunzip -c /image.img.gz | dd of=/dev/hdb</p>
+
+<p>To save even more space, defragment the drive/partition you wish to clone beforehand (if appropriate), then zero-out all the remaining unused space, making it easier for gzip to compress:</p>
+
+<p>mkdir /mnt/hdb
+mount /dev/hdb /mnt/hdb
+dd if=/dev/zero of=/mnt/hdb/zero</p>
+
+<p>Wait a bit, dd will eventually fail with a &quot;disk full&quot; message, then:</p>
+
+<p>rm /mnt/hdb/zero
+umount /mnt/hdb
+dd if=/dev/hdb | gzip -c  &gt; /image.img</p>
+
+<p>Also, you can get a dd process running in the background to report status by sending it a signal with the kill command, e.g.:</p>
+
+<p>dd if=/dev/hdb of=/image.img &amp;
+kill -SIGUSR1 1234</p>
+
+<p>Check your system - the above command is for Linux, OSX and BSD dd commands differ in the signals they accept (OSX uses SIGINFO - you can press Ctrl+T to report the status).</p>
+
+<p>Cloning a partition
+From physical disk /dev/sda, partition 1, to physical disk /dev/sdb, partition 1.
+dd if=/dev/sda1 of=/dev/sdb1 bs=4096 conv=notrunc,noerror
+If output file of (sdb1 in the example) does not exist, dd will start at the beginning of the disk and create it.
+Cloning an entire hard disk
+From physical disk /dev/sda to physical disk /dev/sdb
+dd if=/dev/sda of=/dev/sdb bs=4096 conv=notrunc,noerror
+This will clone the entire drive, including MBR (and therefore bootloader), all partitions, UUIDs, and data.
+notrunc or &#39;do not truncate&#39; maintains data integrity by instructing dd not to truncate any data.
+noerror instructs dd to continue operation, ignoring all input errors. Default behavior for dd is to halt at any error.
+bs=4096 sets the block size to 4k, an optimal size for hard disk read/write efficiency and therefore, cloning speed.
+Note: To regain unique UUIDs, use &quot;tune2fs /dev/sdbX -U random&quot; on every partitions.</p>
