@@ -52,3 +52,9 @@ find . -iname '*php' -mtime -1 | xargs grep 'string' -sl
 would find only files edited today, whilst the following finds the files older than today:
 find . -iname '*php' -mtime +1 | xargs grep 'string' -sl
 
+###########VIM############
+:70t.
+:tab(gt)
+CNTR+P(W) :sp
+e ++enc=cp1251
+CNTR[BD]v
