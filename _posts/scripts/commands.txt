@@ -9,3 +9,8 @@ Convert the ASS file to UTF-8 (or whatever encoding you are comfortable with).
 I used iconv: iconv -f utf16 -t utf8 < file.ass > result.ass
 Play it by using the "-utf8" switch of mplayer: mplayer -ass -utf8 file.mkv. 
 If the ASS contains special characters (such as CJK chars), use a good font by "-font /usr/share/font/cjk.ttf"
+For example, if you want to copy all your output to /dev/tty1 you would run
+
+script -f /dev/tty1
+
+

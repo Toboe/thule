@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Welcome to Jekyll!</title>
+        <title>Welcome to my page!</title>
         <meta name="viewport" content="width=device-width">
 
         <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
+        <link rel="stylesheet" href="/thule/css/syntax.css">
 
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/thule/css/main.css">
 
     </head>
     <body>
@@ -22,12 +22,23 @@
               <a class="extra" href="/">home</a>
             </div>
 
-                <h2>Welcome to Jekyll!</h2>
+                <h2>Welcome to my page!</h2>
 <p class="meta">18 Jul 2013</p>
 
 <div class="post">
-<p>You&#39;ll find this post in your <code>_posts</code> directory - edit this post and re-build (or run with the <code>-w</code> switch) to see your changes!
-To add new posts, simply add a file in the <code>_posts</code> directory that follows the convention: YYYY-MM-DD-name-of-post.ext.</p>
+<p>PML TXT</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>curl --silent http://www.census.gov/population/international/ | grep          │
+wclocknum | sed -r <span class="s1">&#39;s@^.*&gt;([0-9,]+)&lt;&gt;.*$@\1@&#39;</span>                                   │
+                                                                                │
+</code></pre></div>
+
+<p>Title: Use curl with a local SOCKS5 proxy (e.g. Tor)                            │
+                                                                                │
+$ turl(){ curl --socks5-hostname localhost:9050 $@ ; }                          │
+                                                                                │
+Routes curl input through a local SOCKS5 proxy; in this case, anonymizes curl   │
+activity via The Onion Router (Tor) proxy running locally. </p>
 
 <p>Jekyll also offers powerful support for code snippets:</p>
 
