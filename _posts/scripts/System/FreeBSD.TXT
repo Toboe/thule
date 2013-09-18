@@ -4,4 +4,19 @@
 0 3 * * * root /usr/sbin/portsnap cron
 chflags -R noschg <dir> #jail delete
 portsnap fetch update && portupgrade -a -m BATCH=yes
-  
+ pkg_version -vIL=  
+
+
+
+
+This can be done using both netstat and lsof.
+
+    [shredder12]$ netstat -n -A inet
+
+-n is used to display numeric addresses instead of trying to determine symbolic hostnames
+
+-A is used to define the address family we are concerned with. Here its internet connections on IPv4 network, so inet(user inet6 for IPv6 connections).
+
+
+
+http://linuxers.org/howto/how-find-out-active-connections-or-which-ports-are-openlistening-linux
