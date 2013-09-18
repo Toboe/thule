@@ -4,3 +4,94 @@ NFS services can now be started by running the following command, on the NFS ser
 On the NFS client:
 
 # service nfsclient restart
+usbconfig -u 6 -a 2 dump_device_desc
+ugen6.2: <tal Wireless Camera 2Di vendor 0x093a> at usbus6, cfg=0
+md=HOST spd=FULL (12Mbps) pwr=ON
+
+  bLength = 0x0012
+  bDescriptorType = 0x0001
+  bcdUSB = 0x0110
+  bDeviceClass = 0x00ff
+  bDeviceSubClass = 0x00ff
+  bDeviceProtocol = 0x00ff
+  bMaxPacketSize0 = 0x0008
+  idVendor = 0x093a
+  idProduct = 0x7011
+  bcdDevice = 0x0100
+  iManufacturer = 0x0000  <no string>
+  iProduct = 0x0002  <retrieving string failed>
+  iSerialNumber = 0x0000  <no string>
+  bNumConfigurations = 0x0001
+
+#webcamd
+
+
+
+ывод информации об устройстве используя lsusb
+
+Bus /dev/usb Device /dev/ugen3.2: ID 0458:7062 KYE Systems Corp. (Mouse Systems)
+
+Установил webcamd 3.6 но устройство /dev/video0 не создается... команда "виснет".
+Подскажите, пожалуйста, данная камера не поддерживается или есть еще какие-то варианты?
+
+Согласно примеру из man devfs.rules в файл добавил:
+[localrules=10]
+add path 'ugen3.2.0' mode 0660 group operator
+ugen3.2.0 - устройство для которого работает webcamd. 
+
+
+Ты права на ссылку дал, а надо на девайс.
+Код:
+ls -l /dev |grep ugen
+
+покажет куда ссылается, должно быть типа такого
+Код:
+add path 'usb/0.2.*' mode 0660 group operator
+
+
+Для работы web-камеры необходимо загрузить несколько модулей. Для этого в файл /boot/loader.conf добавляем следующие строчки:
+cuse4bsd_load="YES"
+snd_uaudio_load="YES"
+
+в /var/log/messages и на консоль выводятся следующие строчки:
+kernel: uaudio0: <vendor 0x046d product 0x081b, class 239/2, rev 2.00/0.10, addr 2> on usbus2
+kernel: uaudio0: No playback!
+kernel: uaudio0: Record: 48000 Hz, 1 ch, 16-bit S-LE PCM format
+kernel: uaudio0: No midi sequencer
+kernel: pcm3: <USB audio> on uaudio030
+
+Необходимые модули ставим из портов, в частности:
+# cd /usr/ports/multimedia/cuse4bsd-kmod; make install clean
+# cd /usr/ports/multimedia/webcamd; make install clean
+
+
+
+Проверить конфигурацию вашей звуковой подсистемы можно командой:
+# cat /dev/sndstat
+
+
+Для работы с видео необходимо устройство /dev/videoX. Для этого запускаем webcamd.
+# webcamd -d ugen2.2
+на экран выводятся следующие строчки:
+Attached ugen2.2[0] to cuse unit 0
+Creating /dev/video0
+Если у вас web-камера подключена постоянно, то можно запускать webcamd добавив следующую строчку в /etc/rc.conf:
+webcamd_enable="YES"
+
+Пример использования pwcview и mencoder для записи видео по движению:
+> pwcview -hkr -s vga -f 15 | mencoder -demuxer rawvideo -rawvideo fps=15:w=640:h=480:i420 - -ovc lavc -lavcopts vcodec=mpeg4 -o motion.avi
+
+
+hkr -s vga -f 15 | mencoder -demuxer rawvideo -rawvideo fps=15:w=640:h=480:i420 - -ovc lavc -lavcopts vcodec=mpeg4 -o motion.avi
+
+pkg_add -r graphics/spcaview 
+usbdevs -v
+spca5shot -d /dev/ugen0 -i
+cd /usr/ports/graphics/spcaview
+# make && make install && rehash
+
+   
+Теперь проверим работу нашего драйвера
+# spca5shot -i -d /dev/ugen0
+USB SPCA5XX camera found. Logitech QCam STX
+

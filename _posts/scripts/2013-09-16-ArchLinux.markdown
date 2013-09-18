@@ -1,38 +1,12 @@
-Mount partition/slice
-You are now ready to go.  If you don’t have a place to mount the partition, make mount point director:
-mkdir ~/mnt/hfs/
-Then mount the dc3dd image with:
 ahoog@wintermute:~$ sudo mount -t hfsplus -o ro,loop,offset=209735680 item001.dc3dd ~/mnt/hfs/
-And that’s it!  You can cd into ~/mnt/hfs and view the files.  To umount, you would use:
 ahoog@wintermute:~$ sudo umount ~/mnt/hfs
-
-How To Mount Mac HFS Read and Write with Ubuntu Linux
-
-Posted on January 17, 2012 by admin
-You can make it possible to mount HFS+ as Read and Write in Ubuntu Linux.
 sudo apt-get install hfsplus
 Then, use the -o force option to force the drive to mount:
 sudo mount -o force /dev/sdX /your/mount/point
-If the drive has been mounted automatically (as it should be on a desktop system like Ubuntu), you can enable remounting as writeable by:
 sudo mount -o remount,force /mount/point
-or
 sudo mount -o remount,force /dev/sdx
-Use mount -l to find which devices are already mounted on which mount points.
-I used this to save data off of the mac hard drive
-sudo apt-get install hfsprogs
-Then, use the -o force option:
-sudo mount -o force /dev/sdX /your/mount/point
-If the drive has been mounted automatically (as it should be on a desktop system like Ubuntu), you can enable write with
-sudo mount -o remount,rw,force /mount/point
-or
-sudo mount -o remount,rw,force /dev/sdx
-/mount/point would usually be /media/Your_drive_label /dev/sdx is your HFS+ device
-
- mount -l
 
 curl -s horseebooksipsum.com/api/v1/ | say
-
-
 gzip -d  /home/backup/usr.2009.05.06.img.gz  | ( cd /usr ; restore -rf - )
 
 mkinitcpio -M will print out all autodetected modules
@@ -47,7 +21,6 @@ xorg-server
 xorg-apps
 xorg-xinit
 Xorg :0 -configure That should create an xorg.conf.new file in /root/ that you can copy over to /etc/X11/xorg.conf for more information see man xorg.conf
-
 
 ifconfig wlan0 up
 iwlist wlan0 scan
