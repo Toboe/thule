@@ -1,6 +1,20 @@
 sudo rm /var/lib/mongodb/mongod.lock
 sudo mongod --dbpath /var/lib/mongodb --repair
 sudo chown mongodb /var/lib/mongodb/*
-sudo service mongodb start
+sudo service mongodb i
 
+
+
+
+
+
+
+db
+use test 
+show dbs
+db.myapp.find()
+ db.todos.find().forEach(printjson)
+
+
+ mongoexport --db myapp --collection todos --out ~/1.json
 
