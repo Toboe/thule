@@ -704,13 +704,6 @@ hum[x]);}}} {print hr($1) "\t" $2}'
 
 To sort the list by file/directory size, insert `sort -n |` before `awk`.
 
-#Title: Download all images from a 4chan thread
-
-$ curl -s $1 | grep -o -i '<>a href="//images.4chan.org/[^>]*>' | sed -r 
-'s%.*"//([^"]*)".*%\1%' | xargs wget
-
-first grep all href images then sed the url part then wget
-
 #Title: Download Englishword pronounciation as mp3 file
 Author: 
 Date: Wed, 31 Jul 2013 23:42:24 +0400

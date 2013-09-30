@@ -1,3 +1,14 @@
+
+How NFS Works
+NFS consists of at least two main parts: a server and one or more clients. The client remotely accesses the data that is stored on the server machine. In order for this to function properly a few processes have to be configured and running.
+
+These daemons must be running on the server:
+
+DaemonDescription
+nfsdThe NFS daemon which services requests from the NFS clients.
+mountdThe NFS mount daemon whichich carries out the requests that nfsd(8) passes on to it.
+rpcbind This daemon allows NFS clients to discover which port the NFS server is using.
+
 NFS services can now be started by running the following command, on the NFS server, as root:
 
 # service nfsd start
