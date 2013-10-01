@@ -1,0 +1,250 @@
+Title: add lyrics
+Author: 
+Date: Wed, 14 Aug 2013 06:18:07 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/O4LuptwydHU/add-lyrics
+
+$ eyeD3 --lyrics=eng:these_lyrics:"$(cat lyrics_file.txt)" some_file.mp3
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by huazhihao[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12608/add-lyrics (link)
+[2]: http://www.commandlinefu.com/commands/by/huazhihao (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/O4LuptwydHU (image)
+Title: apache statistics
+Author: 
+Date: Thu, 12 Sep 2013 12:45:38 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/bkHHjccoYsE/apache-statistics
+
+$ grep "10/Sep/2013" access.log| cut -d[ -f2 | cut -d] -f1 | awk -F: '{print 
+$2":"$3}' | sort -nk1 -nk2 | uniq -c | awk '{ if ($1 > 10) print $0}'
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by bormarek[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12712/apache-statistics (link)
+[2]: http://www.commandlinefu.com/commands/by/bormarek (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/bkHHjccoYsE (image)
+Title: 
+Author: 
+Date: Wed, 01 Feb 1995 10:38:24 +0300
+Link: 
+
+Title: Bluetooth hardware info
+Author: 
+Date: Wed, 21 Aug 2013 16:29:23 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/tc6bC0BCFSY/bluetooth-hardware-info
+
+$ hciconfig;hciconfig -a hci0;lsmod |grep bt;dmesg | grep tooth
+
+Info about Bluetooth devices.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by FadeMind[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12638/bluetooth-hardware-info (link)
+[2]: http://www.commandlinefu.com/commands/by/FadeMind (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/tc6bC0BCFSY (image)
+Title: External IP (raw data)
+Author: 
+Date: Thu, 19 Sep 2013 14:05:46 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/ULO-T_N_S4I/external-ip-raw-data
+
+$ curl ifconfig.me
+
+this is even shorter
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by Iz7ueNae[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12739/external-ip-raw-data (link)
+[2]: http://www.commandlinefu.com/commands/by/Iz7ueNae (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/ULO-T_N_S4I (image)
+Title: Include a remote file (in vim)
+Author: 
+Date: Mon, 16 Sep 2013 12:09:53 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/J2bmJ6M0syQ/include-a-remote-file-in-vim
+
+$ :r scp://yourhost//your/file
+
+Like vim scp://yourhost//your/file but in vim cmds.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by Zulu[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12722/include-a-remote-file-in-vim (link)
+[2]: http://www.commandlinefu.com/commands/by/Zulu (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/J2bmJ6M0syQ (image)
+Title: open remote desktop connection without X
+Author: 
+Date: Thu, 19 Sep 2013 12:53:00 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/CaRxJVBTqcU/open-remote-desktop-connection-without-x
+
+$ xvfb-run --server-num=1 rdesktop -u name -p pass -g 1024x768 192.168.0.1
+
+You can use it to connect to remote windows machine and start some scritps that
+need user login
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by sucotronic[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12738/open-remote-desktop-connection-without-x (link)
+[2]: http://www.commandlinefu.com/commands/by/sucotronic (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/CaRxJVBTqcU (image)
+Title: print text in color red
+Author: 
+Date: Wed, 28 Aug 2013 14:06:59 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/S_gmqZ-7pkg/print-text-in-color-red
+
+$ printTextInColorRed () { echo -e '\033[01;31m\033[K'"$@"'\033[m\033[K' ;} ## 
+print text/string in color red
+
+eg: 
+printTextInColorRed foo bar
+
+foo bar [in red color]
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by totti[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12660/print-text-in-color-red (link)
+[2]: http://www.commandlinefu.com/commands/by/totti (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/S_gmqZ-7pkg (image)
+Title: print text in colors green, cyan, blue or red (see sample output for usage)
+Author: 
+Date: Fri, 06 Sep 2013 13:37:42 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/NCBweGkIps0/print-text-in-colors-green-cyan-blue-or-red-see-sample-output-for-usage
+
+$ color() { local c; case $1 in green) c="\033[0;32m";; cyan) c="\033[0;36m";; 
+blue) c="\033[0;34m";; gray) c="\033[0;37m";; darkgrey) c="\033[1;30m";; white)
+c="\033[1;37m";; red) c="\033[0;31m";; *) c="\033[0;39m";; esac; echo -en $c; 
+};
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by zvyn[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12688/print-text-in-colors-green-cyan-blue-or-red-see-sample-output-for-usage (link)
+[2]: http://www.commandlinefu.com/commands/by/zvyn (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/NCBweGkIps0 (image)
+Title: Random Number Between 1 And 256
+Author: 
+Date: Tue, 10 Sep 2013 12:57:16 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/IPcxS9SmPMo/random-number-between-1-and-256
+
+$ od -An -N1 -tu1 /dev/random
+
+It takes a byte from /dev/random whose source is the kernel entropy pool 
+(better source than other solutions).
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by sucotronic[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12702/random-number-between-1-and-256 (link)
+[2]: http://www.commandlinefu.com/commands/by/sucotronic (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/IPcxS9SmPMo (image)
+Title: Waste time for about 3 minutes
+Author: 
+Date: Fri, 16 Aug 2013 07:06:48 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/THTayP5nBV0/waste-time-for-about-3-minutes
+
+$ for i in {1..20}; do fortune; sleep 13; clear; done
+
+If you're a slow reader and/or you like to ponder, adjust the sleep time to be 
+longer
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by snipertyler[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12613/waste-time-for-about-3-minutes (link)
+[2]: http://www.commandlinefu.com/commands/by/snipertyler (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/THTayP5nBV0 (image)

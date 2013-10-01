@@ -1,4 +1,68 @@
 
+1 In your PC, create folder (for example CubieboardFiles) in your linux-pc.
+2 Make sure you have installed git command (sudo apt-get install git). Then type in terminal:
+
+Code: [Select]
+~/CubieboardFiles$ git clone git://github.com/linux-sunxi/sunxi-boards.git
+~/CubieboardFiles$ git clone git://github.com/linux-sunxi/sunxi-tools.git
+~/CubieboardFiles$ cp sunxi-boards/sys_config/a10/cubieboard.fex sunxi-tools
+~/CubieboardFiles$ cd sunxi-tools
+~/CubieboardFiles$ make
+
+3 Mount first partition of your cubie micro-sd card  (/dev/mmcblk0p1), it should appear already mounted in /media/. Then search in the root of that partition and copy your script.bin file of your cubie in the PC folder /CubieboardFile/sunxi-tools 
+4 Go to folder /CubieboardFile/sunxi-tools 
+
+5 Type in terminal
+
+Code: [Select]
+./fexc -vq -I bin -O fex script.bin cubie.fex
+
+6 Open (gedit, leafpad, libreoffice, whatever) cubie.fex file.
+7 Where there is 
+
+ 
+screen0_output_mode = 4
+
+Write 
+
+screen0_output_mode = X
+
+Being X:
+
+ 
+0   for 480i    
+1   for 576i    
+2   for 480p    
+3   for 576p    
+4   for 720p50    
+5   for 720p60    
+6   for 1080i50    
+7   for 1080i60   
+8   for 1080p24   
+9   for 1080p50   
+10   for 1080p60    
+11   for pal    
+14   for ntsc   
+
+8 Save changes.
+
+9 Type in terminal
+
+Code: [Select]
+./fexc -vq -I fex -O bin cubie.fex script.bin
+
+(if it asks you if replace the existing file: yes)
+
+10 Copy the file script.bin back to the cubie, replacing the existing one (don't worry, I'm almost sure about what I'm doing)
+
+11 Reboot
+
+Congratulations¡¡¡
+
+Kudos to 
+
+
+
 Try running and press the button.
 acpi_listen
 If you see button events like "button/power PBTN 00000080 00000000" then it's needed to configure the acpi daemon.
