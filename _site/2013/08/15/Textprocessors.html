@@ -49,3 +49,11 @@ find . -iname &#39;*php&#39; -mtime -1 | xargs grep &#39;string&#39; -sl</p>
 
 <p>would find only files edited today, whilst the following finds the files older than today:
 find . -iname &#39;*php&#39; -mtime +1 | xargs grep &#39;string&#39; -sl</p>
+
+<h6>#####VIM</h6>
+
+<p>:70t.
+:tab(gt)
+CNTR+P(W) :sp
+e ++enc=cp1251
+CNTR[BD]v</p>

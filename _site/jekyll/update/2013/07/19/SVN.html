@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>CVS's</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+          <div class="site">
+            <div class="header">
+              <h1 class="title"><a href="/">My Brave New World</a></h1>
+              <a class="extra" href="/">home</a>
+            </div>
+
+                <h2>CVS's</h2>
+<p class="meta">19 Jul 2013</p>
+
+<div class="post">
+<h6>GIT</h6>
+
+<p>Посмотреть отличие локального репозитория от удаленного (включая и коммиты и незакоммиченные изменения):</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">git diff origin/master
+</code></pre></div>
+<p>Откатить незакомиченные изменения в файле:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">git checkout &lt;имя файла&gt;
+</code></pre></div>
+<p>Откатить все незакоммиченные изменения:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">git checkout -f
+</code></pre></div>
+<p>Откатить состояние локального репозитория до определнного коммита:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">git reset --hard 54f9ebec915f444297fd50812061ea2a4240b0fe
+</code></pre></div>
+<p>54f9ebec915f444297fd50812061ea2a4240b0fe - id коммита (выводится в истории командой git log)</p>
+
+<p>Сформировать патчи по коммитам:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">git format-patch -n 54f9ebec915f444297fd50812061ea2a4240b0fe
+</code></pre></div>
+<p>54f9ebec915f444297fd50812061ea2a4240b0fe - все коммиты до указанного будут в сгенерированных командой файлах</p>
+
+<p>Приложить патч к локальному репозиторию можно коммандой:</p>
+<div class="highlight"><pre><code class="bash language-bash" data-lang="bash">git am -3 &lt;имя файла с патчем&gt;
+</code></pre></div>
+</div>
+
+
+            <div class="footer">
+              <div class="contact">
+                <p>
+                  	воспевая декаданс, абсент, <br />
+			наркотики и всевозможные плотские утехи.<br />
+                </p>
+              </div>
+              <div class="contact">
+                <p>
+                  <a href="http://twitter.com/Cyber_ronin/">My Twitter</a><br />
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> <!-- /container -->
+
+    </body>
+</html>

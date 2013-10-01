@@ -1,46 +1,56 @@
+<h1>Unzip mani in Dir</h1>
+
 <p>for f in <em>.zip; do unzip -d &quot;${f%</em>.zip}&quot; &quot;$f&quot;; done</p>
 
-<p>tar -xf file.pkg.tar.xz</p>
+<h1>Compress</h1>
 
-<p>tar cvf archive_name.tar dirname/</p>
+<p>tar cvf archive_name.tar dirname</p>
 
-<p>c – create a new archive
-v – verbosely list files which are processed.
-f – following is the archive file name
- tar cvzf archive<em>name.tar.gz dirname/
-z – filter the archive through gzip
-rchive</em>name.tar.bz2 dirname/
-j – filter the archive through bzip2</p>
+<p>c create a new archive</p>
 
-<p>Extracting</p>
+<p>v verbosely list files which are processed.</p>
 
-<p>tar xvf archive<em>name.tar
-x – extract files from archive
-$ tar xvfz archive</em>name.tar.gz
- tar xvfj archive_name.tar.bz2</p>
+<p>f following is the archive file name</p>
 
-<p>Listing
-$ tar tvf archive<em>name.tar
-$ tar tvfz archive</em>name.tar.gz
-$ tar tvfj archive_name.tar.bz2</p>
+<p>tar cvzf archive_name.tar.gz dirname/</p>
 
-<p>dd if=/dev/hdb | (pv -s <code>fdisk -l /dev/hdb | grep -o &#39;[0-9]*\{1\} MB&#39; | awk &#39;{print $1}&#39;</code>m) | cat &gt; hdb.img
-Mount and zero out the empty space:</p>
+<p>z filter the archive through gzip</p>
+
+<p>j filter the archive through bzip2</p>
+
+<h1>Extracting</h1>
+
+<p>tar xvf archive_name.tar</p>
+
+<p>x extract files from archive</p>
+
+<p>$ tar xvfz archive_name.tar.gz</p>
+
+<h1>Listing</h1>
+
+<p>$ tar tvf archive_name.tar</p>
+
+<p>$ tar tvfz archive_name.tar.gz</p>
+
+<p>$ tar tvfj archive_name.tar.bz2</p>
+
+<p>dd if=/dev/hdb | (pv -s <code>fdisk -l /dev/hdb | grep -o &#39;[0-9]*\{1\} MB&#39; | awk &#39;{print $1}&#39;</code>m) | cat &gt; hdb.img</p>
+
+<h1>Mount and zero out the empty space:</h1>
 
 <p>dd if=/dev/zero of=temp.dd bs=1M</p>
 
-<p>rm temp.dd</p>
-
-<p>umount and dd the drive while compressing it</p>
+<h1>umount and dd the drive while compressing it</h1>
 
 <p>dd if=/dev/hda conv=sync,noerror bs=64K | gzip -c &gt; /mnt/sda1/hda.ddimg.gz</p>
 
-<p>to put the system back to normal, i will usually do a</p>
+<h1>to put the system back to normal, i will usually do a</h1>
 
 <p>gunzip -c /mnt/sda1/hda.img.gz | dd of=/dev/hda conv=sync,noerror bs=64K</p>
 
-<p>This is really straightforward and allows my to save the &#39;whole drive&#39; but really just save the used space.
-xzcat FreeNAS-9.1.1-RELEASE-x64.img.xz | dd of=/dev/da0 bs=64k </p>
+<h1>This is really straightforward and allows my to save the &#39;whole drive&#39; but really just save the used space.</h1>
+
+<p>xzcat FreeNAS-9.1.1-RELEASE-x64.img.xz | dd of=/dev/da0 bs=64k </p>
 
 <p>sudo dd if=/dev/sda of=/media/myExternalDrive/myBackup.img</p>
 
@@ -91,11 +101,11 @@ umount /dev/sdyy
 shutdown –r now
  have fun:wq</p>
 
-<p>To save space, you can compress data produced by dd with gzip, e.g.:</p>
+<h1>To save space, you can compress data produced by dd with gzip, e.g.:</h1>
 
 <p>dd if=/dev/hdb | gzip -c  &gt; /image.img</p>
 
-<p>You can restore your disk with:</p>
+<h1>You can restore your disk with:</h1>
 
 <p>gunzip -c /image.img.gz | dd of=/dev/hdb</p>
 
@@ -105,18 +115,18 @@ shutdown –r now
 mount /dev/hdb /mnt/hdb
 dd if=/dev/zero of=/mnt/hdb/zero</p>
 
-<p>Wait a bit, dd will eventually fail with a &quot;disk full&quot; message, then:</p>
+<h1>Wait a bit, dd will eventually fail with a &quot;disk full&quot; message, then:</h1>
 
 <p>rm /mnt/hdb/zero
 umount /mnt/hdb
 dd if=/dev/hdb | gzip -c  &gt; /image.img</p>
 
-<p>Also, you can get a dd process running in the background to report status by sending it a signal with the kill command, e.g.:</p>
+<h1>Also, you can get a dd process running in the background to report status by sending it a signal with the kill command, e.g.:</h1>
 
 <p>dd if=/dev/hdb of=/image.img &amp;
 kill -SIGUSR1 1234</p>
 
-<p>Check your system - the above command is for Linux, OSX and BSD dd commands differ in the signals they accept (OSX uses SIGINFO - you can press Ctrl+T to report the status).</p>
+<h1>Check your system - the above command is for Linux, OSX and BSD dd commands differ in the signals they accept (OSX uses SIGINFO - you can press Ctrl+T to report the status).</h1>
 
 <p>Cloning a partition
 From physical disk /dev/sda, partition 1, to physical disk /dev/sdb, partition 1.

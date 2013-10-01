@@ -1,0 +1,112 @@
+listener_PROD188_TEST =
+  (ADDRESS_LIST =
+        (ADDRESS= (PROTOCOL= IPC)(KEY= PROD188))
+        (ADDRESS= (PROTOCOL= TCP)(Host= pulse)(Port= 1555))
+  )
+
+SID_LIST_listener_PROD188_TEST =
+  (SID_LIST =
+    (SID_DESC =
+      (ORACLE_HOME= /restore/PROD18810gR2)
+      (SID_NAME = PROD188)
+    )
+  )
+
+> sqlplus /nolog
+SQL> connect / as sysdba
+SQL> shutdown abort
+SQL> startup nomount
+SQL> alter database mount;
+SQL> alter database open;
+
+For checking on trailing trash:
+
+    $ echo $ORACLE_HOME
+    $ /app/oracle/817/ << Incorrect
+
+    $ echo $ORACLE_HOME
+    $ /app/oracle/817 << Correct
+
+For ORACLE_SID:
+
+    $ echo $ORACLE_SID
+    $ ora817
+
+    $ ps -ef | grep smon
+    ora_smon_ORA817
+
+
+    find the sessions for the users/schema , as a DBA use : select sid,serial# from v$session where username = '<user_schema>'
+
+    Then kill them with : alter system kill session '<sid>,<serial#>'
+
+A query that produces ready-built kill-statements could be
+
+    select 'alter system kill session ''' || sid || ',' || serial# || ''';' from v$session where username = '<your_schema>'
+
+This will return one kill statement per session for that user – something like:
+
+alter system kill session '375,64855';
+
+alter system kill session '346,53146';
+
+    Now Drop the user : drop user <user_schema_name> cascade;
+
+
+List all users/schema
+         SET PAGESIZE 50
+         SELECT DISTINCT USERNAME FROM DBA_USERS;
+ 
+List ONLY your tables
+         SET PAGESIZE 80
+         COL TABLE__NAME FORMAT a30;
+         COL TABLE_TYPE FORMAT a30;
+         SELECT * FROM CAT;
+
+List the Oracle Tablespaces and free space
+         SELECT * from v$TABLESPACE;
+
+List the free space for all Oracle Tablespaces within a Database
+         SELECT * from DBD_FREE_SPACE where TABLESPACE_NAME = 'IATOR';
+
+List the space ALREADY USED for a specific Oracle Tablespace
+         SELECT * from DBA_SEGMENTS where TABLESPACE_NAME = 'myTABLESPACE';
+
+List extents for segments
+         SELECT TABLESPACE_NAME, count(*), max(blocks), sum(blocks) from dba_free_space group by TABLESPACE_name;
+
+See all the tables you have access to:
+         SET PAGESIZE 90
+         COLUMN "OBJECT NAME" format a26
+         COLUMN "OBJECT TYPE" format a20
+         SELECT object_name    "OBJECT NAME",
+                object_type    "OBJECT TYPE"
+         FROM
+                user_objects
+         WHERE
+                object_type = 'TABLE';
+
+See your TABLESPACE
+         SELECT TABLESPACE_NAME from ALL_TABLES where TABLE_NAME = '<your_table>'
+
+
+#jobs created
+select * from dba_SCHEDULER_JOBS
+#jobs running
+select * from dba_scheduler_running_jobs
+
+#drop scheduler jobs
+select 'BEGIN DBMS_SCHEDULER.DISABLE(''' || owner ||'.'||job_name ||'''); END;'
+
+
+from dba_SCHEDULER_JOBS
+
+cd $ORACLE_HOME/OPatch
+opatch lsinventory
+opatch lsinventory -invPtrLoc /etc/oraInst.loc
+
+select comp_id, version from dba_registry;
+SELECT * FROM V$VERSION;
+
+
+

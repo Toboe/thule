@@ -1,0 +1,54 @@
+*"ssh -i /root/ah_rsa -oUserKnownHostsFile=/root/hosts
+-oStrictHostKeyChecking=yes -oNumberOfPasswordPrompts=0 -oBatchMode=yes
+-oHostKeyAlgorithms=ssh-rsa -R 20001:localhost:22 user [at] xxx -p
+13422 -Nyv"* 
+
+#!/bin/bash
+
+while true
+do
+if ps aux ¦ grep [y]ourdomain
+then
+echo "SSH connection up."
+else
+echo "SSH connection down."
+echo "Trying to connect ..."
+ssh -N -f -R 3307:localhost:3306 user@www.yourdomain.com
+fi
+sleep 60
+done 
+
+
+
+$ ssh  -P -f -L  1234:remoteserver:110 user@remoteserver sleep 25
+
+
+-L  specifies the port forwarding 1234 on local machine to 110 od remoteserver.
+-f  tells SSH to fork out and run in the background.
+-P  option allows us ti open a non privilaged port - like 1234 - which does not require root access ( ports higher than 1024 )
+
+
+# $COMMAND is the command used to create the reverse ssh tunnel
+COMMAND="ssh -p $SSH_PORT -q -N -R $REMOTE_HOST:$REMOTE_HTTP_PORT:localhost:80 $USER_NAME@$REMOTE_HOST"
+
+# Is the tunnel up? Perform two tests:
+
+# 1. Check for relevant process ($COMMAND)
+pgrep -f -x "$COMMAND" > /dev/null 2>&1 || $COMMAND
+
+# 2. Test tunnel by looking at "netstat" output on $REMOTE_HOST
+ssh -p $SSH_PORT $USER_NAME@$REMOTE_HOST netstat -an | egrep "tcp.*:$REMOTE_HTTP_PORT.*LISTEN" \
+   > /dev/null 2>&1
+if [ $? -ne 0 ] ; then
+   pkill -f -x "$COMMAND"
+   $COMMAND
+fi
+
+netstat -lpnt | grep 6000 | grep ssh.
+
+$ mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
+$ openssl pkcs8 -topk8 -v2 des3 -in ~/.ssh/id_rsa.old -out ~/.ssh/id_rsa
+$ chmod 600 ~/.ssh/id_rsa
+# проверьте, что новый ключ работает. если работает, старый можно удалить
+$ rm ~/.ssh/id_rsa.old
+

@@ -52,9 +52,40 @@ find . -iname '*php' -mtime -1 | xargs grep 'string' -sl
 would find only files edited today, whilst the following finds the files older than today:
 find . -iname '*php' -mtime +1 | xargs grep 'string' -sl
 
-###########VIM############
+##*#########VIM############
 :70t.
 :tab(gt)
 CNTR+P(W) :sp
 e ++enc=cp1251
 CNTR[BD]v
+
+deleted using d/D/x/X/c/C/s/S commands.
+
+
+
+    "kyy
+
+Or you can append to a register by using a capital letter
+
+    "Kyy
+
+You can then move through the document and paste it elsewhere using
+
+    "kp
+
+To access all currently defined registers type
+
+    :reg
+
+#GREP
+grep 'pattern1\|pattern2' filename
+grep -E 'pattern1|pattern2' filename
+grep -e pattern1 -e pattern2 filename
+
+grep -E 'pattern1.*pattern2' filename
+grep -E 'pattern1.*pattern2|pattern2.*pattern1' filename
+grep -E 'Manager.*Sales|Sales.*Manager' empl*
+
+grep -v 'pattern1' filename
+
+
