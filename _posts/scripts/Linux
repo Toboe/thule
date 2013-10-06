@@ -1,0 +1,3 @@
+apt-cache search <something> 
+tmux attach || tmux new
+aplay -l
