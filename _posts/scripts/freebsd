@@ -106,3 +106,18 @@ cd /usr/ports/graphics/spcaview
 # spca5shot -i -d /dev/ugen0
 USB SPCA5XX camera found. Logitech QCam STX
 
+
+Create a loop-back device with mdconfig
+
+# mdconfig -a -t vnode -f PATH_TO_YOUR_ISO/ISOFILE.iso
+Mount the create vnode to a folder (Replace /dev/mdX with your device
+node!).
+
+# mount -t cd9660 /dev/mdX /cdrom
+The md device is automatically created by mdconfig and the name is
+printed after the command has been executed e.g. md0 or md1. After you
+have unmounted the directory you can destroy the md-device with the
+following command:
+
+# mdconfig -d -u X
+X is the device number e.g. 0 or 1 and so forth.
