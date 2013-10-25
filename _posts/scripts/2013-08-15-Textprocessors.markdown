@@ -146,3 +146,256 @@ Title: apache statistics
 
 $ grep "10/Sep/2013" access.log| cut -d[ -f2 | cut -d] -f1 | awk -F: '{print 
 $2":"$3}' | sort -nk1 -nk2 | uniq -c | awk '{ if ($1 > 10) print $0}'
+=======
+
+#AWK
+awk ' {print $1,$3} '
+Печатает только первый и третий столбцы, используя stdin
+awk ' {print $0} '
+Печатает все столбцы, используя stdin
+awk ' /'pattern'/ {print $2} '
+Печатает только элементы второго столбца, соответствующие шаблону
+"pattern", используя stdin
+awk -f script.awk inputfile
+Как и sed, awk использует ключ -f для получения инструкций из файла, что
+полезно, когда их большое количество и вводить их вручную в терминале
+непрактично.
+awk ' program ' inputfile
+Исполняет program, используя данные из inputfile
+awk "BEGIN { print \"Hello, world!!\" }"
+Классическое "Hello, world" на awk
+awk '{ print }'
+Печатает все, что вводится из командной строки, пока не встретится EOF
+! /bin/awk -f
+BEGIN { print "Hello, world!" }
+Скрипт awk для классического "Hello, world!" (сделайте его исполняемым с
+помощью chmod и запустите)
+ This is a program that prints \
+"Hello, world!"
+ and exits
+Комментарии в скриптах awk
+awk -F "" 'program' files
+Определяет разделитель полей как null, в отличие от пробела по умолчанию
+awk -F "regex" 'program' files
+Разделитель полей также может быть регулярным выражением
+awk '{ if (length($0) > max) max = \
+length($0) }
+END { print max }' inputfile
+Печатает длину самой длинной строки
+awk 'length($0) > 80' inputfile
+Печатает все строки длиннее 80 символов
+awk 'NF > 0' data
+Печатает каждую строку, содержащую хотя бы одно поле (NF означает Number
+of Fields)
+awk 'BEGIN { for (i = 1; i <= 7; i++)
+print int(101 * rand()) }'
+Печатает семь случайных чисел в диапазоне от 0 до 100
+ls -l . | awk '{ x += $5 } ; END \
+{ print "total bytes: " x }'
+total bytes: 7449362
+Печатает общее количество байтов, используемое файлами в текущей
+директории
+ls -l . | awk '{ x += $5 } ; END \
+{ print "total kilobytes: " (x + \
+1023)/1024 }'
+total kilobytes: 7275.85
+Печатает общее количество килобайтов, используемое файлами в текущей
+директории
+awk -F: '{ print $1 }' /etc/passwd | sort
+Печатает отсортированный список имен пользователей
+awk 'END { print NR }' inputfile
+Печатает количество строк в файле, NR означает Number of Rows
+awk 'NR % 2 == 0' data
+Печатает четные строки файла.
+ls -l | awk '$6 == "Nov" { sum += $5 }
+END { print sum }'
+Печатает общее количество байтов файла, который последний раз
+редактировался в ноябре.
+awk '$1 ~/J/' inputfile
+Регулярное выражение для всех записей в первом поле, которые начинаются
+с большой буквы j.
+awk '$1 ~!/J/' inputfile
+Регулярное выражение для всех записей в первом поле, которые не
+начинаются с большой буквы j.
+awk 'BEGIN { print "He said \"hi!\" \to her." }'
+Экранирование двойных кавычек в awk.
+echo aaaabcd | awk '{ sub(/a+/, \ ""); print }'
+Печатает "bcd"
+awk '{ $2 = $2 - 10; print $0 }' inventory
+Модифицирует inventory и печатает его с той разницей, что значение
+второго поля будет уменьшено на 10.
+awk '{ $6 = ($5 + $4 + $3 + $2); print \ $6' inventory
+Даже если поле шесть не существует в inventory, вы можете создать его и
+присвоить значение, затем вывести его.
+echo a b c d | awk '{ OFS = ":"; $2 = ""
+> print $0; print NF }'
+OFS - это Output Field Separator (разделитель выходных полей) и команда
+выведет "a::c:d" и "4", так как хотя второе поле аннулировано, оно все
+еще существует, поэтому может быть подсчитано.
+echo a b c d | awk '{ OFS = ":"; \
+$2 = ""; $6 = "new"
+> print $0; print NF }'
+Еще один пример создания поля; как вы можете видеть, поле между $4
+(существующее) и $6 (создаваемое) также будет создано (как пустое $5),
+поэтому вывод будет выглядеть как "a::c:d::new" "6".
+echo a b c d e f | awk '\
+{ print "NF =", NF;
+> NF = 3; print $0 }'
+Отбрасывание трех полей (последних) путем изменения количества полей.
+FS=[ ]
+Это регулярное выражения для установки пробела в качестве разделителя
+полей.
+echo ' a b c d ' |  awk 'BEGIN { FS = \
+"[ \t\n]+" }
+> { print $2 }'
+Печатает только "a".
+awk -n '/RE/{p;q;}' file.txt
+Печатает только первое совпадение с регулярным выражением.
+awk -F\\\\ '...' inputfiles ...
+Устанавливает в качестве разделителя полей \\
+BEGIN { RS = "" ; FS = "\n" }
+{
+print "Name is:", $1
+print "Address is:", $2
+print "City and State are:", $3
+print ""
+}
+Если у нас есть запись вида
+"John Doe
+1234 Unknown Ave.
+Doeville, MA",
+этот скрипт устанавливает в качестве разделителя полей новую строку, так
+что он легко может работать со строками.
+awk 'BEGIN { OFS = ";"; ORS = "\n\n" }
+> { print $1, $2 }' inputfile
+Если файл содержит два поля, записи будут напечатаны в виде:
+
+"field1:field2 
+field3;field4
+
+...;..."
+так как разделитель выходных полей - две новые строки, а разделитель
+полей - ";".
+awk 'BEGIN {
+> OFMT = "%.0f" # print numbers as \
+integers (rounds)
+> print 17.23, 17.54 }'
+Будет напечатано 17 и 18 , так как в качестве выходного формата (Output
+ForMaT) указано округление чисел с плавающей точкой до ближайших целых
+значений.
+awk 'BEGIN {
+> msg = "Dont Panic!"
+> printf "%s\n", msg
+>} '
+Вы можете использовать printf практически так же, как и в C.
+awk '{ printf "%-10s %s\n", $1, \
+$2 }' inputfile
+Печатает первое поле в виде строки длиной 10 символов, выровненной по
+левому краю, а затем второе поле в обычном виде.
+awk '{ print $2 > "phone-list" }' \inputfile
+Простой пример извлечения данных, где второе поле записывается под
+именем "phone-list".
+awk '{ print $1 > "names.unsorted"
+       command = "sort -r > names.sorted"
+       print $1 | command }' inputfile
+Записывает имена, содержащиеся в $1, в файл, затем сортируем и выводим
+результат в другой файл.
+awk 'BEGIN { printf "%d, %d, %d\n", 011, 11, \
+0x11 }'
+Will print 9, 11, 17
+if (/foo/ || /bar/)
+   print "Found!"
+Простой поиск для foo или bar.
+awk '{ sum = $2 + $3 + $4 ; avg = sum / 3
+> print $1, avg }' grades
+Простые арифметические операции (в большинстве похожи на C)
+awk '{ print "The square root of", \
+$1, "is", sqrt($1) }'
+2
+The square root of 2 is 1.41421
+7
+The square root of 7 is 2.64575
+Простой расширяемый калькулятор
+awk '$1 == "start", $1 == "stop"' inputfile
+Печатает каждую запись между start и stop.
+awk '
+> BEGIN { print "Analysis of \"foo\"" }
+> /foo/ { ++n }
+> END { print "\"foo\" appears", n,\
+ "times." }' inputfile
+Правила BEGIN и END исполняются только один раз, до и после каждой
+обработки записи.
+echo -n "Enter search pattern: "
+read pattern
+awk "/$pattern/ "'{ nmatches++ }
+END { print nmatches, "found" }' inputfile
+Search using shell
+if (x % 2 == 0)
+print "x is even"
+else
+print "x is odd"
+Простое условие. awk, как и C, также поддерживает операторы ?:.
+awk '{ i = 1
+  while (i <= 3) {
+    print $i
+    i++
+  }
+}' inputfile
+Печатает первые три поля каждой записи, по одной в строке.
+awk '{ for (i = 1; i <= 3; i++)
+  print $i
+}'
+Печатает первые три поля каждой записи, по одной в строке.
+BEGIN {
+if (("date" | getline date_now) <= 0) {
+  print "Can't get system date" > \
+"/dev/stderr"
+  exit 1
+}
+print "current date is", date_now
+close("date")
+}
+Выход с кодом ошибки, отличным от 0, означает, что что-то идет не так.
+Пример:
+awk 'BEGIN {
+> for (i = 0; i < ARGC; i++)
+> print ARGV[i]
+> }' file1 file2
+Печатает awk file1 file2
+for (i in frequencies)
+delete frequencies[i]
+Удаляет элементы в массиве
+foo[4] = ""
+if (4 in foo)
+print "This is printed, even though foo[4] \
+is empty"
+Проверяют элементы массива
+function ctime(ts, format)
+{
+  format = "%a %b %d %H:%M:%S %Z %Y"
+  if (ts == 0)
+  ts = systime()
+  # use current time as default
+  return strftime(format, ts)
+}
+awk-вариант функции ctime() в C. Так вы можете определять свои
+собственные функции в awk.
+BEGIN { _cliff_seed = 0.1 }
+function cliff_rand()
+{
+  _cliff_seed = (100 * log(_cliff_seed)) % 1
+  if (_cliff_seed < 0)
+    _cliff_seed = - _cliff_seed
+  return _cliff_seed
+}
+Генератор случайных чисел Cliff.
+cat apache-anon-noadmin.log | \
+awk 'function ri(n) \
+{  return int(n*rand()); }  \
+BEGIN { srand(); }  { if (! \
+($1 in randip)) {  \
+randip[$1] = sprintf("%d.%d.%d.%d", \
+ri(255), ri(255)\
+, ri(255), ri(255)); } \
+$1 = randip[$1]; print $0  }'
+Анонимный лог Apache (IP случайные)

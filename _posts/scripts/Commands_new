@@ -1,0 +1,97 @@
+Title: Add another column printing cumulative sum of entries in first column, sum being less than or equal to 100
+Author: 
+Date: Sat, 05 Oct 2013 17:35:30 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/AAqEo1ag2zY/add-another-column-printing-cumulative-sum-of-entries-in-first-column-sum-being-less-than-or-equal-to-100
+
+$ for f in .; do awk 'BEGIN {sum=0;flag=0} {sum=sum+$1; if (flag == 0) { print 
+$1"\t"sum > "cumulative.'$f'" } if (sum > 100) flag=1 }' $f; done
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by user1234[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12790/add-another-column-printing-cumulative-sum-of-entries-in-first-column-sum-being-less-than-or-equal-to-100 (link)
+[2]: http://www.commandlinefu.com/commands/by/user1234 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/AAqEo1ag2zY (image)
+Title: print nearest multiples of 100 in a file
+Author: 
+Date: Sat, 05 Oct 2013 22:30:08 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/9HeIM_3fb1E/print-nearest-multiples-of-100-in-a-file
+
+$ awk 'BEGIN {count=0;prev=-1} {if(count>0) { if(int($1/100) > int(prev/100)) 
+{print $1} } ; prev=$1; count++}' inputFile > rounded
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by user1234[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12792/print-nearest-multiples-of-100-in-a-file (link)
+[2]: http://www.commandlinefu.com/commands/by/user1234 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/9HeIM_3fb1E (image)
+Title: Print starting line numbers of group of lines in a file, which have the same first and second column
+Author: 
+Date: Sat, 05 Oct 2013 22:51:50 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/ykweNLiP1go/print-starting-line-numbers-of-group-of-lines-in-a-file-which-have-the-same-first-and-second-column
+
+$ awk '{pattern=$1$2; seen[pattern]++; if (seen[pattern] == 1) print NR}' 
+inputFile
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by user1234[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12793/print-starting-line-numbers-of-group-of-lines-in-a-file-which-have-the-same-first-and-second-column (link)
+[2]: http://www.commandlinefu.com/commands/by/user1234 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/ykweNLiP1go (image)
+Title: Touch a file using the timestamp in the file name.
+Author: 
+Date: Wed, 02 Oct 2013 00:00:34 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/VpFuMHUtzmA/touch-a-file-using-the-timestamp-in-the-file-name.
+
+$ tstouch() { [[ $1 =~ $2 ]] && touch -t ${BASH_REMATCH[1]} $1; }
+
+tstouch takes two arguments: a filename, and an extended regular expression 
+with the parenthesized section matching a timestamp of the form YYYYMMDDhhmm or
+YYYYMMDDhhmm.ss.
+
+It then touches the file with that timestamp.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by bartonski[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12782/touch-a-file-using-the-timestamp-in-the-file-name. (link)
+[2]: http://www.commandlinefu.com/commands/by/bartonski (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/VpFuMHUtzmA (image)
