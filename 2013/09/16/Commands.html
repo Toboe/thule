@@ -794,13 +794,6 @@ hum[x]);}}} {print hr($1) &quot;\t&quot; $2}&#39;</p>
 
 <p>To sort the list by file/directory size, insert <code>sort -n |</code> before <code>awk</code>.</p>
 
-<h1>Title: Download all images from a 4chan thread</h1>
-
-<p>$ curl -s $1 | grep -o -i &#39;&lt;&gt;a href=&quot;//images.4chan.org/[^&gt;]<em>&gt;&#39; | sed -r 
-&#39;s%.</em>&quot;//([^&quot;]<em>)&quot;.</em>%\1%&#39; | xargs wget</p>
-
-<p>first grep all href images then sed the url part then wget</p>
-
 <h1>Title: Download Englishword pronounciation as mp3 file</h1>
 
 <p>Author: 

@@ -1,3 +1,26 @@
+<ul>
+<li>memory management (RAM)</li>
+<li>device drivers (keyboard, network, graphics card, mouse, monitors, wireless cards, etc.)</li>
+<li>starting processes</li>
+<li>thread scheduling</li>
+<li>filesystems (ext3, ext4, reiserfs, fat32, etc.)</li>
+<li>VFS: interface that lets you get files no matter what filesystem you’re using</li>
+<li>UNIX APIs (system calls: here’s a list[1])</li>
+<li>POSIX security model (permissions)</li>
+<li>virtual machines, containers (like LXC)</li>
+<li>networking (bridging, firewalls, protocol implementations like TCP/IP, UDP, ethernet, ICMP, RPC, wireless).</li>
+<li>IPC (interprocess communication)</li>
+<li>signals (SIGINT, SIGKILL)</li>
+<li>interrupt handlers – handles events from the hardware (packet received, keypress, timers, graphics card ready, data ready, hard drive finished
+reading). Hardware is sometimes handled in other ways like DMA.</li>
+<li>Timers (when I call sleep())</li>
+<li>Timekeeping (when I ask for the time)</li>
+<li>architecture-specific stuff (amd64, powerpc, x86, MIPS, ARM)</li>
+<li>power management</li>
+<li>loading kernel modules</li>
+<li>kernel debugging tools</li>
+</ul>
+
 <p>ahoog@wintermute:~$ sudo mount -t hfsplus -o ro,loop,offset=209735680 item001.dc3dd ~/mnt/hfs/
 ahoog@wintermute:~$ sudo umount ~/mnt/hfs
 sudo apt-get install hfsplus
