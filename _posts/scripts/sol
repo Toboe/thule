@@ -1,0 +1,7 @@
+http://lildude.co.uk/zfs-cheatsheet
+i
+  # zpool create -m /export/data01 pool1 mirror c2t0d0 c4t0d0
+    # zpool status
+	
+export LC_ALL=c
+tail -100

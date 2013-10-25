@@ -1,9 +1,46 @@
 #Serches
+find /samba/share -mtime +10 | awk '{print "mv -f "$1" /backup"$1""; print "ln -s /backup"$1" "$1""}' | sh
 awk 'NR==2' buildinstructins
 find . -iname '*' -print | sed -n -E -e 's/.*mp3/&/p' -e 's/.*wav/&/p' -e 's/.*wma/&/p' > appo.m3u
 find . -iregex '.*\.\(mp3\|wav\|wma\)' -print > app.m3u
+find -size +100M
 
-#VIM:
+## Delete all the crap files on desktop before syncing
+find /home/username/Music/ -regextype posix-awk -regex "(.*.jpg|.*.ini|.*.rtf|.*.url|.*.txt|.*.log|.*.sfv|.*.nfo|
+.*.md5|.*.m3u)" -exec rm -v {} \;
+
+##Print line with DD & next
+awk '/^DD/{f=1;print;next}f{print;exit}' myfile.txt
+$ awk '
+/^DD/{
+print
+getline
+print
+}' myfile.txt
+$ sed -n '/^DD/{p;n;p;}' myfile.txt
+$ grep -A1 "^DD" myfile.txt
+##Line newx to Pattern
+$ awk '/^DD/{f=1;next}f{print;exit}' myfile.txt
+$ awk '
+/^DD/{
+getline
+print
+}' myfile.txt
+$ sed -n '/^DD/{n;p;}' myfile.txt
+
+##Line previous to Pattern
+
+#wk '/^DD/{print x;print};{x=$0}' myfile.txt
+$ grep -B1 "^DD" myfile.txt
+###without patter
+$ awk '/^DD/{print x};{x=$0}' myfile.txt
+$ sed -n '/^DD/{g;1!p;};h' myfile.txt
+##Previous and newx of PAttern
+$ grep -A1 -B1 "^DD" myfile.txt
+$ grep -A1 -B2 "^DD" myfile.txt
+awk -v lines=7 '/blah/ {for(i=lines;i;--i)getline; print $0 }' logfile
+
+VIM:
 :s/foo/bar/g
  	Change each 'foo' to 'bar' in the current line.
 :%s/foo/bar/g 	Change each 'foo' to 'bar' in all lines.
@@ -58,7 +95,7 @@ find . -iname '*php' -mtime +1 | xargs grep 'string' -sl
 CNTR+P(W) :sp
 e ++enc=cp1251
 CNTR[BD]v
-
+dt[symbol] or d/[pattern]
 deleted using d/D/x/X/c/C/s/S commands.
 
 
@@ -77,6 +114,16 @@ To access all currently defined registers type
 
     :reg
 
+
+$ :set ci
+
+After the option is set, you can use / to search strings(case insensitive)
+
+
+Title: Include a remote file (in vim)
+$ :r scp://yourhost//your/file
+Like vim scp://yourhost//your/file but in vim cmds.
+
 #GREP
 grep 'pattern1\|pattern2' filename
 grep -E 'pattern1|pattern2' filename
@@ -89,3 +136,13 @@ grep -E 'Manager.*Sales|Sales.*Manager' empl*
 grep -v 'pattern1' filename
 
 
+
+
+
+
+#########A
+
+Title: apache statistics
+
+$ grep "10/Sep/2013" access.log| cut -d[ -f2 | cut -d] -f1 | awk -F: '{print 
+$2":"$3}' | sort -nk1 -nk2 | uniq -c | awk '{ if ($1 > 10) print $0}'

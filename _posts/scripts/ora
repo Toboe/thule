@@ -1,3 +1,16 @@
+isql -v mymssql <логин> <пароль>   
+
+create database link ODBC2 connect to "oracle2" identified by "oracle2" using 'mssql'
+        select * from Region@ODBC2;
+SELECT table_name FROM dba_tables WHERE table_name LIKE 'HS%';
+SELECT view_name FROM dba_views WHERE view_name LIKE 'HS%';
+@rdbms/admin/caths.sql;
+
+Select *
+from v$parameter
+where name like 'global_names%';
+
+
 listener_PROD188_TEST =
   (ADDRESS_LIST =
         (ADDRESS= (PROTOCOL= IPC)(KEY= PROD188))
@@ -109,4 +122,47 @@ select comp_id, version from dba_registry;
 SELECT * FROM V$VERSION;
 
 
+#MS SQL SERVER
 
+#
+deattach -> attache помогло
+
+RESTORE FILELISTONLY
+FROM DISK = 'D:BackUpYourBaackUpFile.bak'
+GO
+
+Step 2: Use the values in the LogicalName Column in following Step.
+----Make Database to single user Mode
+ALTER DATABASE YourDB
+SET SINGLE_USER WITH
+ROLLBACK IMMEDIATE
+
+----Restore Database
+RESTORE DATABASE YourDB
+FROM DISK = 'D:BackUpYourBaackUpFile.bak'
+WITH MOVE 'YourMDFLogicalName' TO 'D:DataYourMDFFile.mdf',
+MOVE 'YourLDFLogicalName' TO 'D:DataYourLDFFile.ldf'
+
+/*If there is no error in statement before database will be in multiuser
+mode.
+If error occurs please execute following command it will convert
+database in multi user.*/
+ALTER DATABASE YourDB SET MULTI_USER
+GO
+
+
+osql -E -S ComputerName\InstanceName
+1> USE Northwind
+
+2> GO
+
+1> SELECT SupplierID, CompanyName
+
+2> FROM Suppliers
+
+3> WHERE CompanyName LIKE 'T%'
+
+4> GO
+sp_help tablename
+sp_help foo
+sp_help

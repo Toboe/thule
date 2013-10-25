@@ -1,354 +1,50 @@
-Title: Calculate md5 sum with openssl
-Author: 
-Date: Tue, 24 Sep 2013 01:51:09 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/dpyYeI1NLQU/calculate-md5-sum-with-openssl
+#Putty SSH
+ssh-keygen -i -f /tmp/id_rsa.pub >> /root/.ssh/authorized_keys
 
-$ openssl dgst -md5 file.ext
 
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by tsener[2]
 
-[image 4][3]
 
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
+$ read -N1
 
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12752/calculate-md5-sum-with-openssl (link)
-[2]: http://www.commandlinefu.com/commands/by/tsener (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/dpyYeI1NLQU (image)
-Title: Calculate the SHA256 hashes of a directory on IBM AIX without sha256sum
-Author: 
-Date: Wed, 18 Sep 2013 21:37:50 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/PIti0IMtHs4/calculate-the-sha256-hashes-of-a-directory-on-ibm-aix-without-sha256sum
+Usage exaple cmd
+echo 'Sure to continue ??'; read -n1 choi; if [ "$choi" = 'y' ] || [ "$choi" = 'Y' ]; then echo -e '\nExecuting..'; else echo 'Aborted'; fi
 
-$ echo '#! /usr/bin/ksh\necho `cat $1 | openssl dgst -sha256` $1' > sslsha256; 
-chmod +x sslsha256; find directory -type f -exec ./sslsha256 \{\} \;
 
-This command is for producing GNU sha256sum-compatible hashes on UNIX systems 
-that don't have sha256sum but do have OpenSSL, such as stock IBM AIX.
 
-1.- Saves a wrapper script for UNIX find that does the following:
+$ eyeD3 --lyrics=eng:these_lyrics:"$(cat lyrics_file.txt)" some_file.mp3
 
-A.- Feeds a file to openssl on SHA256 hash calculation mode
+Title: Bluetooth hardware info
 
-B.- Echoes the output followed by the filename
+$ hciconfig;hciconfig -a hci0;lsmod |grep bt;dmesg | grep tooth
 
-2.- Makes the file executable
-
-3.- Runs find on a directory, only processing files, and running on each one 
-the wrapper script that calculates SHA256 hashes
-
-Pending is figuring out how to verify a sha256sum file on a similar 
-environment.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by RAKK[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12734/calculate-the-sha256-hashes-of-a-directory-on-ibm-aix-without-sha256sum (link)
-[2]: http://www.commandlinefu.com/commands/by/RAKK (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/PIti0IMtHs4 (image)
-Title: Creating rapidly an html menu
-Author: 
-Date: Sun, 22 Sep 2013 10:34:32 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/BSYvrYYpTSs/creating-rapidly-an-html-menu
-
-$ for menu in {1..4}; do echo -e "<>ul>\n <>li>menu $menu<>/li>\n <>ul>"; for 
-items in {1..5}; do echo " <>li>item $items<>/li>"; if [ $items -eq 5 ];then 
-echo -e " <>/ul>";fi;done; echo "<>/ul>";done | xclip
-
-This will create rapidly an html menu. You can paste it in you're html page 
-with the middle button(the wheel). I didn't test it in an html with css, but it
-seems alright.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by qcjn[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12748/creating-rapidly-an-html-menu (link)
-[2]: http://www.commandlinefu.com/commands/by/qcjn (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/BSYvrYYpTSs (image)
-Title: Display terminal command history with date
-Author: 
-Date: Thu, 19 Sep 2013 07:25:14 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/tGCqI-oKnWs/display-terminal-command-history-with-date
-
-$ echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' >> ~/.bash_profile
-
-If the HISTTIMEFORMAT is set, the time stamp information associated with each 
-history entry is written to the history file, marked with the history comment 
-character.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by rowena19july[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12737/display-terminal-command-history-with-date (link)
-[2]: http://www.commandlinefu.com/commands/by/rowena19july (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/tGCqI-oKnWs (image)
+Info about Bluetooth devices.
 Title: External IP (raw data)
-Author: 
-Date: Wed, 18 Sep 2013 01:09:19 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/t1sjRCOBT_U/external-ip-raw-data
 
-$ dig +short myip.opendns.com @resolver1.opendns.com
+$ curl ifconfig.me
+Title: open remote desktop connection without X
 
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by petiteabeille[2]
+$ xvfb-run --server-num=1 rdesktop -u name -p pass -g 1024x768 192.168.0.1
 
-[image 4][3]
+You can use it to connect to remote windows machine and start some scritps that
+need user login
+Title: print text in color red
+$ printTextInColorRed () { echo -e '\033[01;31m\033[K'"$@"'\033[m\033[K' ;} ## 
+print text/string in color red
+eg: 
+printTextInColorRed foo bar
+foo bar [in red color]
+Title: print text in colors green, cyan, blue or red (see sample output for usage)
+$ color() { local c; case $1 in green) c="\033[0;32m";; cyan) c="\033[0;36m";; 
+blue) c="\033[0;34m";; gray) c="\033[0;37m";; darkgrey) c="\033[1;30m";; white)
+c="\033[1;37m";; red) c="\033[0;31m";; *) c="\033[0;39m";; esac; echo -en $c; 
+};
+Title: Random Number Between 1 And 256
 
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
+$ od -An -N1 -tu1 /dev/random
 
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12731/external-ip-raw-data (link)
-[2]: http://www.commandlinefu.com/commands/by/petiteabeille (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/t1sjRCOBT_U (image)
-Title: Extract a .tar.gz archive in one shot on IBM AIX
-Author: 
-Date: Wed, 18 Sep 2013 21:41:25 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/nNnpLx1RmcE/extract-a-.tar.gz-archive-in-one-shot-on-ibm-aix
+It takes a byte from /dev/random whose source is the kernel entropy pool 
+(better source than other solutions).
 
-$ gzip -cd gzippedarchive.tar.gz | tar -xf -
+Title: Waste time for about 3 minutes
+$ for i in {1..20}; do fortune; sleep 13; clear; done
 
-This command is for UNIX OSes that have plain vanilla System V UNIX commands 
-instead of their more functional GNU counterparts, such as IBM AIX.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by RAKK[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12735/extract-a-.tar.gz-archive-in-one-shot-on-ibm-aix (link)
-[2]: http://www.commandlinefu.com/commands/by/RAKK (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/nNnpLx1RmcE (image)
-Title: Extract busiest times from apache access log
-Author: 
-Date: Sat, 21 Sep 2013 01:29:32 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/Mo9KUPH9yrY/extract-busiest-times-from-apache-access-log
-
-$ cut -d " " -f1,4 access_log | sort | uniq -c | sort -rn | head
-
-Analyze an Apache access log for the time period with most activity and display
-the hit count, requesting IP and the timestamp. May help detect a brute force 
-dos attack.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by zlemini[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12745/extract-busiest-times-from-apache-access-log (link)
-[2]: http://www.commandlinefu.com/commands/by/zlemini (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/Mo9KUPH9yrY (image)
-Title: find all minimum values in file with at least 100 lines
-Author: 
-Date: Mon, 23 Sep 2013 08:04:52 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/joUX0ZJ76ck/find-all-minimum-values-in-file-with-at-least-100-lines
-
-$ for ff in directory; do numLines=`wc -l $ff`; numLines=$(echo $numLines | sed
-'s/ .*//g'); min=$(sort -nrk 1 $ff | tail -1); if [ $numLines -gt 100 ]; then 
-echo $min >> minValues; fi;done;
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by user1234[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12751/find-all-minimum-values-in-file-with-at-least-100-lines (link)
-[2]: http://www.commandlinefu.com/commands/by/user1234 (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/joUX0ZJ76ck (image)
-Title: Like top but for files
-Author: 
-Date: Tue, 17 Sep 2013 09:44:47 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/TeFcXoCxdzU/like-top-but-for-files
-
-$ watch -d -n 2 'df; ls -FlAt;'
-
-Like top, but for files
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by G2G[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12724/like-top-but-for-files (link)
-[2]: http://www.commandlinefu.com/commands/by/G2G (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/TeFcXoCxdzU (image)
-Title: Like top but for files
-Author: 
-Date: Tue, 17 Sep 2013 09:44:47 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/TeFcXoCxdzU/like-top-but-for-files
-
-$ watch -d -n 2 'df; ls -FlAt;'
-
-Like top, but for files
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by G2G[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12724/like-top-but-for-files (link)
-[2]: http://www.commandlinefu.com/commands/by/G2G (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/TeFcXoCxdzU (image)
-Title: send raw data (hex written)using UDP to an IP and port
-Author: 
-Date: Wed, 18 Sep 2013 18:31:47 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/erBL3J5RUyg/send-raw-data-hex-writtenusing-udp-to-an-ip-and-port
-
-$ echo -n 023135 | perl -pe 's/([0-9a-f]{2})/chr hex $1/gie' | nc -4u -q1 
--p5001 192.168.0.100 2000
-
-Use it to send raw data to a networked device. Used to interact with relay 
-controller board whose documentation is lost, so use wireshark to sniff the 
-sent data and replayed using the command.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by sucotronic[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12733/send-raw-data-hex-writtenusing-udp-to-an-ip-and-port (link)
-[2]: http://www.commandlinefu.com/commands/by/sucotronic (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/erBL3J5RUyg (image)
-Title: spawn shell listener service with nc
-Author: 
-Date: Tue, 24 Sep 2013 01:52:55 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/9gPBrIrMhY0/spawn-shell-listener-service-with-nc
-
-$ nc -l -p 3003 -e /bin/bash
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by tsener[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12753/spawn-shell-listener-service-with-nc (link)
-[2]: http://www.commandlinefu.com/commands/by/tsener (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/9gPBrIrMhY0 (image)
-Title: Verify a sha256sum listing on IBM AIX with openssl
-Author: 
-Date: Thu, 19 Sep 2013 01:51:20 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/Ef8ROLyXQyQ/verify-a-sha256sum-listing-on-ibm-aix-with-openssl
-
-$ echo '#! /usr/bin/ksh\ncat $2 | openssl dgst -sha256 | read hashish; if [[ 
-$hashish = $1 ]]; then echo $2: OK; else echo $2: FAILED; fi;' > shacheck; 
-chmod +x shacheck; cat hashishes.sha256 | xargs -n 2 ./shacheck;
-
-This command is used to verify a sha256sum-formatted file hash list on IBM AIX 
-or any other UNIX-like OS that has openssl but doesn't have sha256sum by 
-default. Steps:
-
-1: Save to the filesystem a script that:
-
-A: Receives as arguments the two parts of one line of a sha256sum listing
-
-B: Feeds a file into openssl on SHA256 standard input hash calculation mode, 
-and saves the result
-
-C: Compares the calculated hash against the one received as argument
-
-D: Outputs the result in a sha256sum-like format
-
-2: Make the script runnable
-
-3: Feed the sha256sum listing to xargs, running the aforementioned script and 
-passing 2 arguments at a time
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by RAKK[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
-[1]: http://www.commandlinefu.com/commands/view/12736/verify-a-sha256sum-listing-on-ibm-aix-with-openssl (link)
-[2]: http://www.commandlinefu.com/commands/by/RAKK (link)
-[3]: http://www.commandlinefu.com (link)
-[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
-[5]: http://codeinthehole.com (link)
-[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/Ef8ROLyXQyQ (image)
