@@ -1,0 +1,146 @@
+<p>ahoog@wintermute:~$ sudo mount -t hfsplus -o ro,loop,offset=209735680 item001.dc3dd ~/mnt/hfs/
+ahoog@wintermute:~$ sudo umount ~/mnt/hfs
+sudo apt-get install hfsplus
+Then, use the -o force option to force the drive to mount:
+sudo mount -o force /dev/sdX /your/mount/point
+sudo mount -o remount,force /mount/point
+sudo mount -o remount,force /dev/sdx</p>
+
+<p>curl -s horseebooksipsum.com/api/v1/ | say
+gzip -d  /home/backup/usr.2009.05.06.img.gz  | ( cd /usr ; restore -rf - )</p>
+
+<p>mkinitcpio -M will print out all autodetected modules
+blacklist them in /etc/modprobe.d/modprobe.conf
+Running mkinitcpio -v will list all modules pulled in by the various hooks (e.g. filesystem hook, SCSI hook, etc.).
+mkinitcpio -M will print out all autodetected modules
+oading the b43/b43legacy kernel module
+Install the appropriate b43-firmware or b43-firmware-legacy package from the AUR.</p>
+
+<p>pacman -S xf86-video-intel
+xorg-server
+xorg-apps
+xorg-xinit
+Xorg :0 -configure That should create an xorg.conf.new file in /root/ that you can copy over to /etc/X11/xorg.conf for more information see man xorg.conf</p>
+
+<p>ifconfig wlan0 up
+iwlist wlan0 scan
+iwconfig wlan0 essid linksys
+dhcpcd wlan0</p>
+
+<p>You can install yaourt from AUR:
+curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+tar zxvf package-query.tar.gz
+cd package-query
+makepkg -si
+cd ..
+curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+tar zxvf yaourt.tar.gz
+cd yaourt
+makepkg -si
+cd ..</p>
+
+<p>Sync database, upgrade packages, search aur and devel (all packages based on dev version) upgrades:
+yaourt -Syu --devel --aur
+Build package from source:
+yaourt -Sb <package>
+Check, edit, merge or remove <em>.pac</em> files:
+yaourt -C
+Get a PKGBUILD (support splitted package):
+yaourt -G <package>
+Build and export package, its sources to a directory:
+yaourt -Sb --export <dir> <package>
+Backup database:
+yaourt -B
+Query backup file:
+yaourt -Q --backupfile <file></p>
+
+<p>status() {
+echo -n &quot;CPUTemp: $(( $(sensors | awk &#39;/temp1/ {print $2}&#39; | cut -c2-3) + 15 )) | &quot;
+echo -n &quot;CPUMHz: $(awk &#39;/MHz/ { printf &quot;%.0f&quot;, $4}&#39; /proc/cpuinfo) | &quot;
+echo -n &quot;$(df -h | awk &#39;/sda[15]/ {printf &quot;%s: %s | &quot;, $6, $3}&#39;)&quot;
+echo -n &quot;RAM: $(free -m | awk &#39;/\/cache/ {print $3}&#39;) MB | &quot;
+echo -n &quot;$(uptime | sed &#39;s/.*://; s/,//g&#39;) | &quot;
+echo -n &quot;$(date +&quot;%a %b %d %H:%M&quot;)&quot;
+}</p>
+
+<h1>mplayer tv:// -tv driver=v4l2:width=320:height=240:device=/dev/video0 -fps 30</h1>
+
+<h1>mplayer tv:// -vf screenshot</h1>
+
+<p>lm_sensors package from the official repositories.</p>
+
+<h1>sensors-detect</h1>
+
+<p>/etc/conf.d/lm_sensors</p>
+
+<h1>modprobe it87</h1>
+
+<h1>modprobe coretemp</h1>
+
+<h1>rc.d start sensors</h1>
+
+<p>WMII
+export WMII_FONT=&#39;xft:Sans-9&#39;
+into your wmiirc and it just works. xkblayout-state can be used to put layout indicator into the status line:
+status() {
+    echo -n label $(xkblayout-state print &quot;%s&quot;) &#39;|&#39; $(date +&quot;%a %b %d %H:%M&quot;)
+}</p>
+
+<p>If you would like to display the current directory in your terminal emulator&#39;s titlebar, add this to your .bashrc
+WMII<em>IS</em>RUNNING=<code>ps a | grep wmii | awk &#39;/[^&quot;grep&quot;] wmii$/&#39;</code>
+if [ -n &quot;$WMII<em>IS</em>RUNNING&quot; ]; then
+  PROMPT_COMMAND=&#39;dirs | wmiir write /client/sel/label&#39;
+fi</p>
+
+<p>LANG=ru_RU.UTF-8 ./wine winecfg</p>
+
+<p>LOCALE=&quot;en<em>US.UTF-8&quot;
+HARDWARECLOCK=&quot;UTC&quot;
+TIMEZONE=&quot;Asia/Krasnoyarsk&quot;
+KEYMAP=&quot;ruwin</em>alt-UTF-8&quot;
+CONSOLEFONT=&quot;cyr-sun16&quot;
+CONSOLEMAP=&quot;cp866<em>to</em>uni&quot;
+USECOLOR=&quot;yes&quot;</p>
+
+<p>LOCALE=&quot;ru<em>RU.KOI8-R&quot;
+HARDWARECLOCK=&quot;localtime&quot;
+TIMEZONE=Europe/Moscow
+KEYMAP=&quot;ru4&quot;
+CONSOLEFONT=&quot;Cyr</em>a8x16&quot;
+CONSOLEMAP=&quot;koi2alt&quot;
+USECOLOR=&quot;yes&quot;</p>
+
+<p>mail() {
+        unread=<code>curl -n --silent &quot;https://mail.google.com/mail/feed/atom&quot; | tr -d &#39;\n&#39; | awk -F &#39;&lt;entry&gt;&#39; &#39;{for (i=2; i&lt;=NF; i++) {print $i}}&#39; | sed -n &quot;s/&lt;title&gt;\(.*\)&lt;\/title.*name&gt;\(.*\)&lt;\/name&gt;.*/\2 - \1/p&quot; | wc -l</code></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    if [ $unread -eq 0 ]; then
+            echo -n $normcolors mail $unread
+    else
+            echo -n $focuscolors mail $unread
+    fi
+</code></pre></div>
+<p>}</p>
+
+<p>cat /dev/ttyS2 | hexdump -C
+shred -v filename
+renice -20 -g 2874 (2784 found with ps -Aj)
+ ps -e -m -o user,pid,args,%mem,rss | grep Chrome | perl -ne &#39;print n if / (\d+)$/&#39; | ( x=0;while read line; do (( x +=  )); done; echo 0 ); </p>
+
+<h1>say(){ mplayer -user-agent Mozilla &quot;http://translate.google.com/translate_tts?tl=en&amp;q=$(echo $* | sed s# #+#g)&quot; &gt; /dev/null 2&gt;&amp;1 ;  }; say &quot;Zarathustra still lovest by the abbys&quot; </h1>
+
+<p>$ ffmpeg -loop 1 -i image.png -i sound.mp3 -shortest video.mp4
+$ curl -u user:pass -d status=?I am Tweeting from the shell? 
+http://twitter.com/statuses/update.xml</p>
+
+<p>Best way to go currently is to install (manually compile) the keyfuzz program and put</p>
+
+<p>echo &quot;786616 99&quot; | keyfuzz -s -d /dev/input/by-id/usb-Apple<em>Inc.</em>Apple<em>Internal</em>Keyboard___Trackpad-event-kbd</p>
+
+<p>in your /etc/profile for instance. This maps Alt-Eject on a typical Apple Macbook Pro (mine is mid-2010, 6,2), to the Alt-SysRq combination.</p>
+
+<p>Hardest was discovering 786616, which is 0xc00b8. For the &quot;consumer&quot; part of the USB HID codes one apparently does not add 0x70000 but 0xc0000. I found the code via the little program getscancodes (again, compile yourself).</p>
+
+<p>For F12 it would have been 458821.</p>
+
+<p>Goodluck!
+Looks like no one has answered your question yet. If Arch is detecting a screen and displaying anything at all using your Mini Display Port I don&#39;t think it is an issue with the Adapter. If you have not tried to edit the Xorg configuration to manually set the display resolution. First take a backup of the config cp /etc/X11/xorg.conf /etc/X11/xorg.conf<em>backup now edit the config file vi /etc/X11/xorg.conf find the section screen and add the following under your monitor SubSection &quot;Display&quot; Depth 16 Modes &quot;1024x768</em>75.00&quot; EndSubSection That should set your screen resolution to 1024x768 with a 75Hz Refresh Rate and 16bit color
+МинОбороны, есть аналогичный пункт - &quot;В условиях эскалации конфликта в информационном пространстве и перехода его в кризисную фазу воспользоваться правом на индивидуальную или коллективную самооборону с применением любых избранных способов и средств, не противоречащих общепризнанным нормам и принципам международного права&quot;.</p>

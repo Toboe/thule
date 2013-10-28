@@ -1,0 +1,1 @@
+( $F{NAME}.equals( null ) ? "ИТОГО:" : $F{SERVICE_NAME}.replace("Result","Итог по провайдеру "+$F{NAME}) )

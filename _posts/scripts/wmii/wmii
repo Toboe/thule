@@ -1,0 +1,87 @@
+
+#!/bin/sh
+
+xwrite() {
+    file="$1"; shift
+    echo -n "$@" | wmiir write "$file" 
+}
+
+wmiir remove /bar/status 2>/dev/null && sleep 2
+wmiir create /bar/status
+xwrite /bar/status/colors $WMII_NORMCOLORS
+
+## Here is the place to customize
+while xwrite /bar/status/data \
+    `acpi | sed 's/.*Battery .: //g; s/discharging/-/g; s/charging/+/g; s/charged//g; s/%.*/%/g; s/, //g'` \
+    `uptime | sed 's/.*: //; s/,//g; s/\s.*//g'` \
+    `cat /proc/cpuinfo | grep 'cpu MHz' | sed 's/.*: //g; s/\..*//g;'` \
+    `iwconfig eth1 | grep ESSID | sed 's/.*ESSID:"//g; s/"\s*$//g'` \
+    `iwconfig eth1 | grep 'Link Quality' | sed 's/\s*Link Quality=//; s/\s.*//'` \
+    `date +%H:%M:%S`
+do
+    sleep 1
+done
+
+
+# MPD
+echo $normcolors mpd | wmiir create /rbar/mpd
+mpd() {
+  if [ `mpc status | grep playing | wc -l` -eq 1 ]; then
+    echo '>' `mpc status | head -n 1`
+  else
+    if [ `mpc status | grep paused | wc -l` -eq 1 ]; then
+      echo '||' `mpc status | head -n 1`
+    else
+      echo mpd
+    fi
+  fi
+}
+while mpd | wmiir write /rbar/mpd; do
+        sleep 4
+done &
+ 
+# Volume
+echo $normcolors vol | wmiir create /rbar/vol
+vol() {
+        echo vol $(aumix -q | grep vol | sed 's/vol [0-9]*, //' | sed 's/, P//') %
+}
+vol | wmiir write /rbar/vol
+ # Widget events
+        RightBarMouseDown)              # RightBarMouseDown <Button> <Bar Name>
+                case $2 in              # Which widget
+ 
+                mpd)
+                        case $1 in
+                        1)
+                                mpc -q toggle
+                                mpd | wmiir write /rbar/mpd;;
+                        3)
+                                terminal -e ncmpcpp &;;
+                        4)
+                                mpc -q prev
+                                mpd | wmiir write /rbar/mpd;;
+                        5)
+                                mpc -q next
+                                mpd | wmiir write /rbar/mpd;;
+                        esac;;
+                vol)
+                        case $1 in      # Which mouse button
+                        1)              # Left button
+                                amixer sset Master toggle
+                                vol | wmiir write /rbar/vol;;
+                        4)              # Scroll up
+                                amixer sset Master playback 2dB+
+                                vol | wmiir write /rbar/vol;;
+                        5)              # Scroll down
+                                amixer sset Master playback 2dB-
+                                vol | wmiir write /rbar/vol;;
+                        esac;;
+ 
+                mail)
+                        wmiir setsid firefox mail.google.com &;;
+ 
+                zclock)
+                        terminal -hold -e cal -3 &;;
+                esac;;         
+        esac
+done
