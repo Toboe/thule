@@ -124,20 +124,24 @@ Title: Include a remote file (in vim)
 $ :r scp://yourhost//your/file
 Like vim scp://yourhost//your/file but in vim cmds.
 
-#GREP
-grep 'pattern1\|pattern2' filename
-grep -E 'pattern1|pattern2' filename
-grep -e pattern1 -e pattern2 filename
 
-grep -E 'pattern1.*pattern2' filename
-grep -E 'pattern1.*pattern2|pattern2.*pattern1' filename
-grep -E 'Manager.*Sales|Sales.*Manager' empl*
-
-grep -v 'pattern1' filename
-
-
-
-
+Title: [vim] Clear a file in three characters (plus enter)
+$ :%d
+% selects every line in the file. 'd' deletes what's selected. It's a pretty 
+simple combination.                                                          #GREP
+                                                                             grep 'pattern1\|pattern2' filename
+Title: [vim] Clear trailing whitespace in file                               grep -E 'pattern1|pattern2' filename
+$ :%s/\s\+$//                                                                grep -e pattern1 -e pattern2 filename
+% acts on every line in the file.
+\s matches spaces.                                                           grep -E 'pattern1.*pattern2' filename
+\+ matches one or more occurrences of what's right behind it.                grep -E 'pattern1.*pattern2|pattern2.*pattern1' filename
+                                                                             grep -E 'Manager.*Sales|Sales.*Manager' empl*
+Character '$' matches end-of-line.
+Title: vi show line numbers                                                  grep -v 'pattern1' filename
+$ :set number
+Prints line numbers making it easier to see long lines that wrap in your 
+terminal and extra line breaks at the end of a file.
+works too.
 
 
 #########A

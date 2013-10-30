@@ -1,24 +1,6 @@
 Title: 100% rollback files to a specific revision
-Author: 
-Date: Sat, 19 Oct 2013 09:03:14 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/rzsZj-S7V9I/100-rollback-files-to-a-specific-revision
-
 $ git reset --hard <>commidId> && git clean -f
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by cakyus[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: Google text-to-speech in mp3 format
-Author: 
-Date: Thu, 17 Oct 2013 03:29:59 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/qu9MxRRFiUw/google-text-to-speech-in-mp3-format
-
 $ t2s() { wget -q -U Mozilla -O $(tr ' ' _ <><><> "$1"| cut -b 1-15).mp3 
 "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q=$(tr ' ' + <><><> 
 "$1")"; }
@@ -26,37 +8,10 @@ $ t2s() { wget -q -U Mozilla -O $(tr ' ' _ <><><> "$1"| cut -b 1-15).mp3
 Usage: t2s 'How are you?'
 
 Nice because it automatically names the mp3 file up to 15 characters
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by snipertyler[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: cpanel umount virtfs mounts
-Author: 
-Date: Wed, 16 Oct 2013 19:04:03 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/MuA16qWu-3g/cpanel-umount-virtfs-mounts
-
 $ for i in `cat /proc/mounts | grep /home/virtfs | cut -d ? ? -f 2 ` ; do 
 umount $i; done
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by balsagoth[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: Day 5: I wrote a kernel module!!!
-Author: 
-Date: Tue, 08 Oct 2013 07:22:00 +0400
-Link: http://jvns.ca/blog/2013/10/07/day-5-i-wrote-a-kernel-module/
 
 I WROTE A KERNEL MODULE. It doesn’t do anything useful or anything, but still! 
 This is a pretty quick post because there was an awesome talk today by Mel Chua[1]
@@ -99,11 +54,7 @@ Some things I learned along the way:
     out – just replace NF_ACCEPT with NF_DROP in my kernel module.
 
 
-Links: 
 Title: Emulate tail using awk.
-Author: 
-Date: Wed, 16 Oct 2013 22:47:54 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/eyVmM7_Vglg/emulate-tail-using-awk.
 
 $ awk '{ c=NR%n; a[c]=$0 } END{ for(i=1; i<>=n; i++) print a[(c+i)%n] }' n=10 
 File
@@ -111,59 +62,22 @@ File
 This awk codes emulates tail. For efficiency the awk code uses a circular 
 array, which stores only N number of records.
 
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by erix[2]
-
-[image 4][3]
 
 by David Winterbottom (codeinthehole.com[5])
 [image 6]
 
-Links: 
 Title: Execute ls -lah every one second
-Author: 
-Date: Wed, 16 Oct 2013 14:41:15 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/IQsty6MV6G0/execute-ls-lah-every-one-second
-
 $ watch --interval 1 ls -lah
-
 Use this command if you want to control the size of the files in human 
 readable, every one second.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by c0r3dump3d[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: Get a list of all TODO/FIXME tasks left to be done in your project
-Author: 
-Date: Thu, 17 Oct 2013 20:40:10 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/M9AIY3QIGso/get-a-list-of-all-todofixme-tasks-left-to-be-done-in-your-project
-
 $ alias tasks='grep --exclude-dir=.git -rEI "TODO|FIXME" . 2>/dev/null'
 
 Place this in your .bashrc (or run it once) to set the `tasks` alias. Next time
 you enter `tasks` into a terminal, it will give you a list of all TODO and 
 FIXME comments in the current directory and child directories, giving you a 
 quick overview of what you still have to do!
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by joepie91[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: Google text-to-speech in mp3 format
-Author: 
-Date: Thu, 17 Oct 2013 03:29:59 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/qu9MxRRFiUw/google-text-to-speech-in-mp3-format
 
 $ t2s() { wget -q -U Mozilla -O $(tr ' ' _ <><><> "$1"| cut -b 1-15).mp3 
 "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q=$(tr ' ' + <><><> 
@@ -172,20 +86,7 @@ $ t2s() { wget -q -U Mozilla -O $(tr ' ' _ <><><> "$1"| cut -b 1-15).mp3
 Usage: t2s 'How are you?'
 
 Nice because it automatically names the mp3 file up to 15 characters
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by snipertyler[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: make GNU find follow symbolic links
-Author: 
-Date: Mon, 07 Oct 2013 18:32:22 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/G413vh-X37Q/make-gnu-find-follow-symbolic-links
 
 $ find -L /home/sonic/archive -name '*gz' -type f
 
@@ -199,97 +100,26 @@ with a modification time older than X days. The easiest solution was to use:
 
 /usr/bin/find -L /home/sonic/archive -name '*gz' -type f -mtime +14 -exec rm 
 '{}' \;
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by sonic[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: poor man's vpn
-Author: 
-Date: Fri, 18 Oct 2013 01:46:12 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/CIgoxIHljuw/poor-mans-vpn
-
 $ sshuttle --dns -vvr user@server 0/0
-
-this easy to install tool redirects all traffic to internet through ssh. it's 
-very usefull when connecting to free wifi. you need to start it as root because
-it needs permissions to change iptables settings. ofcourse you also need a 
-shell account
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by andreisid[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: Prepend a text to a file.
-Author: 
-Date: Mon, 07 Oct 2013 19:12:53 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/MqqAZcMnmlU/prepend-a-text-to-a-file.
 
 $ sed -i 's/^/ls -l /' output_files.txt
 
 The original command is great, but I often want to prepend to every line.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by sonic[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: rm filenames with spaces
-Author: 
-Date: Tue, 22 Oct 2013 03:26:51 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/Aif-wVVoCuM/rm-filenames-with-spaces
-
 $ find garbage/ -type f -delete
 
 I _think_ you were trying to delete files whether or not they had spaces. This 
 would do that. You should probably be more specific though.
 
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by pdxdoughnut[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: [vim] Clear a file in three characters (plus enter)
-Author: 
-Date: Wed, 09 Oct 2013 19:39:15 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/6SvoLCb5-cU/vim-clear-a-file-in-three-characters-plus-enter
-
 $ :%d
 
 % selects every line in the file. 'd' deletes what's selected. It's a pretty 
 simple combination.
 
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by ijontichy[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: [vim] Clear trailing whitespace in file
-Author: 
-Date: Wed, 09 Oct 2013 19:44:25 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/cP3Hyd-I7l4/vim-clear-trailing-whitespace-in-file
 
 $ :%s/\s\+$//
 
@@ -300,21 +130,7 @@ $ :%s/\s\+$//
 \+ matches one or more occurrences of what's right behind it.
 
 Character '$' matches end-of-line.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by ijontichy[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 
 Title: vi show line numbers
-Author: 
-Date: Mon, 07 Oct 2013 19:03:52 +0400
-Link: http://feedproxy.google.com/~r/Command-line-fu/~3/3q15Gqgi6NA/vi-show-line-numbers
-
 $ :set number
 
 Prints line numbers making it easier to see long lines that wrap in your 
@@ -323,13 +139,3 @@ terminal and extra line breaks at the end of a file.
 :set nu
 
 works too.
-
-  * View this command to comment, vote or add to favourites[1]
-  * View all commands by sonic[2]
-
-[image 4][3]
-
-by David Winterbottom (codeinthehole.com[5])
-[image 6]
-
-Links: 

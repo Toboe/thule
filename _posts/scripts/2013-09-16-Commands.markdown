@@ -851,3 +851,36 @@ Piping ps into grep is mostly useless: ps has its own filter options like -u
 and -C
 
 #Title: whereami() { namei "$PWD" -x -m | sed -r 's@f\:\s(.*)@'$bold$red'\1'$reset'@' | sed -r 's@^\s(\s*)D@'$bold$yellow'\1Mn'$reset'@' | sed -r 's@^\s(\s*)l@'$bold$cyan'\1Ln'$reset'@' }
+Title: Auto complete options of a script, on tab press
+
+$ _autoOptions() { local cur=${COMP_WORDS[COMP_CWORD]} COMPREPLY=( $(compgen -W
+"--fooOption --barOption -f -b" -- $cur) ) ;}; complete -F _autoOptions 
+autoOptions
+Title: check to see what is running on a specific port number
+
+$ lsof -iTCP:8080 -sTCP:LISTEN
+
+Title: Delete all files and folders except one file/dir
+$ ls -R | grep -v skipme | xargs rm -Rf
+$ echo "This is the message body" | mutt -s "Message subject" -a 
+file_to_attach.zip fred@example.com
+
+Title: Find all folder in /var that contains log in their path and have more than 10 files inside them, print the folder and the count
+$ for i in `find -L /var/ -wholename \*log\* -type d`; do COUNT=`ls -1U $i | wc
+-l`; if [ $COUNT -gt 10 ]; then echo $i $COUNT; fi; done
+
+-L is for following symbolic links, it can be omitted and then you can find in 
+your whole / dir
+Title: rm filenames with spaces
+$ find /Users/jpn/.ievms/ -type f -print0| xargs -0 du -sh
+Title: Sending a file over icmp with hping
+$ hping3 10.0.2.254 --icmp --sign MSGID1 -d 50 -c 1 --file a_file
+you need to start a listening hping on the reciever:
+hping3 --listen 10.0.2.254 -I eth0 --sign MSGID1
+then you can send your file:
+hping3 10.0.2.254 --icmp --sign MSGID1 -d 50 -c 1 --file a_file
+
+Title: Convert a script to one-liner
+$ (sed 's/#.*//g'|sed '/^ *$/d'|tr '\n' ';'|xargs echo) <> script.sh
+Opposite:
+foo() { <>put content of the one-liner here> ; }
