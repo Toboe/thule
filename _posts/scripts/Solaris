@@ -51,3 +51,6 @@ Note:
 -Z reports information about processes and zones
 -z reports information about a particular zone 
 
+LC_ALL=en_US.UTF-8; export LC_ALL
+locale=ru_RU.UTF-8
+LC_ALL="ru_RU.koi8r"

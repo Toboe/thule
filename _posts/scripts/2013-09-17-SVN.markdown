@@ -58,4 +58,12 @@ git format-patch -n 54f9ebec915f444297fd50812061ea2a4240b0fe
 ```bash
 git am -3 <имя файла с патчем>
 ```
+Git version <= 1.8.3.4: git diff --ignore-space-at-eol -b -w [commit] ...
 
+Git version >= 1.8.4: git diff --ignore-space-at-eol -b -w --ignore-blank-lines [commit] ...
+
+it log COMMIT -1 --name-only
+
+This will list just the files, very useful for further processing.
+
+git log COMMIT -1 --name-only --pretty=format:"" | grep "[^\s]" 

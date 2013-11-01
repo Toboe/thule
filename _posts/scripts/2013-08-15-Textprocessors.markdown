@@ -1,4 +1,6 @@
 #Serches
+ find /var/www/ -type f -exec grep Rhein {} \;
+
 find /samba/share -mtime +10 | awk '{print "mv -f "$1" /backup"$1""; print "ln -s /backup"$1" "$1""}' | sh
 awk 'NR==2' buildinstructins
 find . -iname '*' -print | sed -n -E -e 's/.*mp3/&/p' -e 's/.*wav/&/p' -e 's/.*wma/&/p' > appo.m3u

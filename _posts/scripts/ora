@@ -166,3 +166,11 @@ osql -E -S ComputerName\InstanceName
 sp_help tablename
 sp_help foo
 sp_help
+
+
+select * from NLS_DATABASE_PARAMETERS;
+select * from NLS_instance_PARAMETERS;
+select * from NLS_session_PARAMETERS;
+select * from sys.V_$NLS_VALID_VALUES a where a.isdeprecated != 'FALSE' ;
+
+select * from sys.V_$NLS_VALID_VALUES;
