@@ -1,6 +1,8 @@
 apt-cache search <something> 
+Amap, Ettercap, Hydra, Kismet, Nessus, Nmap, Metasploit, PADS
 tmux attach || tmux new
 aplay -l
+
  usermod -a -G ftp tony
 id vivek
 grep developers /etc/group
@@ -15,3 +17,4 @@ Check if en_US.UTF-8 is selected.
 Now add the line:
 
 export LANG=en_US.UTF-8
+xmodmap -e 'keycode 108 = comma' # right alt
