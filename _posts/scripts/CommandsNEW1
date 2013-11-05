@@ -1,10 +1,8 @@
 Title: Convert multi layered TIFF file to multi page PDF document
-
 $ convert multi_layer.tif -compress jpg multi_page.pdf
 
 Creates a PDF file where each page will be a layer from de original TIFF file.
 Title: Found how how much memory in kB $PID is occupying in Linux
-
 $ echo 0$(awk '/Pss/ {printf "+"$2}' /proc/$PID/smaps)|bc
 
 The "proportional set size" is probably the closest representation of how much 
