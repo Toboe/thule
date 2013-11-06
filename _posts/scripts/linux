@@ -38,5 +38,7 @@ yum install qemu-kvm libvirt virt-manager virt-viewer guestfish qemu-img
 # !4
 cat /etc/redhat-release
 Fedora release 9 (Sulphur)
-
+pacman -Qo /usr/bin/file
+apt-cache show netcat
+apt-cache showpkg vsftpd
 
