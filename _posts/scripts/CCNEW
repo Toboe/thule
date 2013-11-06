@@ -1,0 +1,122 @@
+Title: Add a user to a group
+Author: 
+Date: Thu, 31 Oct 2013 17:16:59 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/pJ_0HT_b-Cw/add-a-user-to-a-group
+
+$ useradd -G {group-name} username
+
+Add a user to a group
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by jmorganwalker[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12870/add-a-user-to-a-group (link)
+[2]: http://www.commandlinefu.com/commands/by/jmorganwalker (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/pJ_0HT_b-Cw (image)
+Title: Create md5sum of a directory
+Author: 
+Date: Mon, 28 Oct 2013 22:35:19 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/qvQoupdHyvQ/create-md5sum-of-a-directory
+
+$ find -type f | grep -v "^./.git" | xargs md5sum | md5sum
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by cakyus[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12858/create-md5sum-of-a-directory (link)
+[2]: http://www.commandlinefu.com/commands/by/cakyus (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/qvQoupdHyvQ (image)
+Title: See the members of a group
+Author: 
+Date: Thu, 31 Oct 2013 19:07:49 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/HPljiEO_CR4/see-the-members-of-a-group
+
+$ getent group <>group>
+
+See the members of a group
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by jmorganwalker[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12871/see-the-members-of-a-group (link)
+[2]: http://www.commandlinefu.com/commands/by/jmorganwalker (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/HPljiEO_CR4 (image)
+Title: See the members of a group
+Author: 
+Date: Thu, 31 Oct 2013 19:07:49 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/HPljiEO_CR4/see-the-members-of-a-group
+
+$ getent group <>group>
+
+See the members of a group
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by jmorganwalker[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12871/see-the-members-of-a-group (link)
+[2]: http://www.commandlinefu.com/commands/by/jmorganwalker (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/HPljiEO_CR4 (image)
+Title: tar the current directory wihtout the absolute path
+Author: 
+Date: Mon, 04 Nov 2013 22:44:34 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/TNWYJJRq9_g/tar-the-current-directory-wihtout-the-absolute-path
+
+$ ORIGDIR=${PWD##*/}; PARENT=`dirname $PWD`; tar -C $PARENT -cf 
+../${ORIGDIR}.tar $ORIGDIR
+
+tars the current directory (and its children) in an archive of the same name 
+(plus ".tar" :)) in the parent directory without the absolute path, so that 
+when the archive is extracted, only the current directory name is created for 
+the path. Assumes bash/zsh.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by vwal[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/12875/tar-the-current-directory-wihtout-the-absolute-path (link)
+[2]: http://www.commandlinefu.com/commands/by/vwal (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/TNWYJJRq9_g (image)
