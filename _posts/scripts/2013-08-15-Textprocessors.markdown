@@ -43,6 +43,7 @@ $ grep -A1 -B2 "^DD" myfile.txt
 awk -v lines=7 '/blah/ {for(i=lines;i;--i)getline; print $0 }' logfile
 
 VIM:
+visual + ip
 :s/foo/bar/g
  	Change each 'foo' to 'bar' in the current line.
 :%s/foo/bar/g 	Change each 'foo' to 'bar' in all lines.
@@ -55,6 +56,15 @@ VIM:
 	Change each 'foo' to 'bar' for the current line (.) and the two next lines (+2).
 :g/^baz/s/foo/bar/g 
 	Change each 'foo' to 'bar' in each line starting with 'baz'.
+
+nd 	effect
+{Visual}"+y 	copy the selected text into the system clipboard
+"+y{motion} 	copy the text specified by {motion} into the system clipboard
+:[range]yank + 	copy the text specified by [range] into the system clipboard
+"+p 	Normal mode put command pastes system clipboard after cursor
+:put + 	Ex command puts contents of system clipboard on a new line
+<C-r>+ 	From insert mode (or commandline mode)
+:set clipboard=unnamed
                         
 
 When searching:
@@ -406,3 +416,51 @@ ri(255), ri(255)\
 , ri(255), ri(255)); } \
 $1 = randip[$1]; print $0  }'
 Анонимный лог Apache (IP случайные)
+
+
+
+Title: [vim] Clear a file in three characters (plus enter)
+$ :%d
+
+Title: [vim] Clear trailing whitespace in file
+
+$ :%s/\s\+$//
+
+% acts on every line in the file.
+
+\s matches spaces.
+
+\+ matches one or more occurrences of what's right behind it.
+
+Character '$' matches end-of-line.
+Title: vi show line numbers
+$ :set number
+
+Prints line numbers making it easier to see long lines that wrap in your 
+terminal and extra line breaks at the end of a file.
+
+:set nu
+
+works too.
+
+
+Title: Prepend a text to a file.
+$ sed -i 's/^/ls -l /' output_files.txt
+
+The original command is great, but I often want to prepend to every line.
+Title: rm filenames with spaces
+$ find garbage/ -type f -delete
+
+I _think_ you were trying to delete files whether or not they had spaces. This 
+would do that. You should probably be more specific though.
+
+
+% selects every line in the file. 'd' deletes what's selected. It's a pretty 
+simple combination.
+
+
+
+
+
+
+

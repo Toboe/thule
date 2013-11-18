@@ -6,6 +6,12 @@ categories: jekyll update
 ---
 ###### GIT
 
+Title: 100% rollback files to a specific revision
+$ git reset --hard <>commidId> && git clean -f
+
+Title: Get a list of all TODO/FIXME tasks left to be done in your project
+$ alias tasks='grep --exclude-dir=.git -rEI "TODO|FIXME" . 2>/dev/null'
+
 Git repos are accessed by providing a URL. There are typically 4 kinds of Git URLs:
 
     ssh: like ssh://[user@]host.xz[:port]/path/to/repo.git/
