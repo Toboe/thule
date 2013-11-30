@@ -7,3 +7,12 @@ Alter database tempdb modify file (name = tempdev, filename = 'E:\Sqldata\tempdb
 go
 Alter database tempdb modify file (name = templog, filename = 'E:\Sqldata\templog.ldf')
 go
+
+At prompt type:
+
+dir /S /P "Path\FileName"
+
+If you want to save the results in a text file:
+
+dir /S "Path\FileName" > "Path\ResultFilename"
+
