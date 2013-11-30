@@ -174,3 +174,26 @@ select * from NLS_session_PARAMETERS;
 select * from sys.V_$NLS_VALID_VALUES a where a.isdeprecated != 'FALSE' ;
 
 select * from sys.V_$NLS_VALID_VALUES;
+
+
+
+    -- Here we use from 1-jan-2012 to 30-aug-2012
+     
+    SELECT TO_DATE(TRUNC(DBMS_RANDOM.VALUE(TO_CHAR(TO_DATE('1-jan-2012'),'J'),TO_CHAR(TO_DATE('30-aug-2012'),'J'))),'J') FROM DUAL;
+     
+     
+    -- To produce a random date within a specified number of days from today:
+     
+    -- Here we use two weeks (14 days) allowing dates in the past as well as the future
+     
+    SELECT SYSDATE+DBMS_RANDOM.VALUE(-14,14) FROM DUAL;
+     
+     
+    -- Here we use three weeks (21 days) allowing dates only in the future
+     
+    SELECT SYSDATE+DBMS_RANDOM.VALUE(1,14) FROM DUAL;
+     
+     
+    -- Here we use a year (365 days) allowing dates only in the past
+     
+    SELECT SYSDATE+DBMS_RANDOM.VALUE(-365,0) FROM DUAL;
