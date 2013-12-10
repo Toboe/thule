@@ -1,0 +1,181 @@
+Title: Find directories over 50MB in the home directory
+
+$ du -k ~/* | awk '$1 > 50000' | sort -nr
+Title: 3361995 
+
+Today, I woke up and was still alive. MLIA.
+
+$ lsof -i -n -P
+Title: Check if TCP port 25 is open
+
+$ netstat -lntp
+Title: List user processes with their memory usage and total usage.
+
+$ ps -u marcanuy -o pid,rss,command | awk '{print $0}{sum+=$2} END {print 
+"Total", sum/1024, "MB"}'
+
+Add up the amount of memory your processes are using and display the total. 
+Replace marcanuy with your desired username.
+Title: A command to find and replace text within conf files in a single directory.
+
+$ find -type f -name '*.conf' -exec sed -Ei 's/foo/bar/' '{}' \;
+
+note that sed -i is non-standard (although both GNU and current BSD systems 
+support it)
+
+Can also be accomplished with
+find . -name "*.txt" | xargs perl -pi -e 's/old/new/g'
+Title: Check if TCP port 25 is open
+
+$ sudo lsof -iTCP:25 -sTCP:LISTEN
+Title: Clear cassandra snapshots that are older than 30 days
+
+$ find /var/lib/cassandra/data -depth -type d -iwholename "*/snapshots/*" 
+-mtime +30 -print0 | xargs -0 rm -rf
+Title: count match string lines from file(s)
+
+$ grep -in "search_string" /to/your/path
+Title: Create a bunch of dummy text files
+
+$ for i in {1..4096}; do base64 /dev/urandom | head -c 8192 > dummy$i.rnd ; 
+done
+Title: Create full backups of individual folders using find and tar-gzip
+
+$ find /mnt/storage/profiles/ -maxdepth 1 -mindepth 1 -type d | while read d; 
+do tarfile=`echo "$d" | cut -d "/" -f5`; destdir="/local/backupdir/"; tar -czpf
+$destdir/"$tarfile"_full.tgz $d; done
+
+Problem: I wanted to backup userdata individually. In this example, all user 
+data is located in "/mnt/storage/profiles", and about 25 folders inside, each 
+with a username ( /mnt/storage/profiles/mike; /mnt/storage/profiles/lucy ...)
+
+I need each individual folder backed up, not the whole "/mnt/storage/profiles".
+So, using find while excluding directories depth and creating two variables 
+(tarfile=username & desdir=destination), tar will create a .tgz file for each 
+folder, resulting in a "mike_full.tgz" and "lucy_full.tgz".
+Title: Create incremental backups of individual folders using find and tar-gzip
+
+$ find /mnt/storage/profiles/ -maxdepth 1 -mindepth 1 -type d | while read d; 
+do tarfile=`echo "$d" | cut -d "/" -f5`; destdir="/local/backupdir"; tar -czpf 
+$destdir/"$tarfile"_`date +%F`.tgz $d; done
+
+Problem: I wanted to backup userdata individually, using and incremental 
+method. In this example, all user data is located in "/mnt/storage/profiles", 
+and about 25 folders inside, each with a username ( /mnt/storage/profiles/mike;
+/mnt/storage/profiles/lucy ...)
+
+I need each individual folder backed up, not the whole "/mnt/storage/profiles".
+So, using find while excluding directories depth and creating two variables 
+(tarfile=username & desdir=destination), tar will create a .tgz file for each 
+folder, resulting in a "mike_2013-12-05.tgz" and "lucy_2013-12-05.tgz".
+Title: Create incremental snapshots of individual folders using find and tar-gzip
+
+$ find /mnt/storage/profiles/ -maxdepth 1 -mindepth 1 -type d | while read d; 
+do tarfile=`echo "$d" | cut -d "/" -f5`; destdir="/local/backupdir/"; tar -g 
+$destdir/"$tarfile".snar -czpf $destdir/"$tarfile"_`date +%F`.tgz $d; done
+
+Title: Increment the filename of png in a given directory by one
+
+$ for i in `ls -r *.png`; do mv $i `printf "%03d.png" $(( 10#${i%.png}+1 ))`; 
+done
+Title: Download current stable kernel version from kernel.org
+
+$ wget --no-check-certificate https://www.kernel.org/$(wget -qO- 
+--no-check-certificate https://www.kernel.org | grep tar | head -n1 | cut -d\" 
+-f2)
+Title: List user processes with their memory usage and total usage.
+
+$ ps -u marcanuy -o pid,rss,command | awk '{print $0}{sum+=$2} END {print 
+"Total", sum/1024, "MB"}'
+Title: Easy IPTables management
+
+$ iptables-save > iptables.current; vi iptables.current; iptables-restore 
+iptables.current; service iptables save
+
+These series of commands allows you all at once to make a backup of your 
+current config, edit that config, then saves it as the running config and makes
+it persistent. I would advise knowing what your doing to the config before 
+running this because if you mess up say the port 22 portion, you may get 
+knocked off the system. ;) Don't say I didn't warn ya!
+Title: find all file larger than 500M in home dir
+
+$ find ~ -type f -size +500M -exec ls -ls {} \; | sort -n
+
+Find all files larger than 500M in home directory and print them ordered by 
+size with full info about each file.
+Title: for ssh uptime
+
+$ mussh -h 192.168.100.{1..50} -m -t 10 -c uptime
+
+This will run them at the same time and timeout for each host in ten seconds. 
+Also, mussh will append the ip addres to the beginning of the output so you 
+know which host resonded with which time.
+
+The use of the sequence expression {1..50} is not specific to mussh. The `seq 
+...` works, but is less efficient.
+Title: get a fresh commandlinefu-item each day as motd
+
+$ 0 0 * * * curl http://www.commandlinefu.com/commands/random/plaintext -o 
+/etc/motd -s -L
+
+Commandline-fu often has little tricks that I always forget. By adding this to 
+the root-cron (sudo crontab -e) I lean a new trick every day.
+Title: Get windows IPv4 and nothing else
+
+$ cls && ipconfig | find "IPv4"
+
+May be useful to get user's ip address over the phone, as users struggle to 
+read through a long ipconfig result.
+Title: List cassandra snapshots by date
+
+$ find /var/lib/cassandra/data -depth -type d -iwholename "*/snapshots/*" 
+-printf "%Ty-%Tm-%Td %p\n" | sort
+Title: List the size (in human readable form) of all sub folders from the current location
+
+$ du -hs *|sort -h
+Title: Merge some PDF files into a single one
+
+$ pdfunite 1.pdf 2.pdf 3.pdf result.pdf
+Title: Mass rename files in git
+
+$ for file in $(git ls-files | grep old_name_pattern); do git mv $file $(echo 
+$file | sed -e 's/old_name_pattern/new_name_pattern/'); done
+Title: Securely stream (and save) a file from a remote server
+
+$ ssh USER@HOST cat REMOTE_FILE.mp4 | tee LOCAL_FILE.mp4 | mplayer -
+
+Securely stream a file from a remote server (and save it locally).
+
+Useful if you're impatient and want to watch a movie immediately and download 
+it at the same time without using extra bandwidth.
+
+This is an extension of snipertyler's idea.
+
+Note: This command uses an encrypted connection, unlike the original.
+Title: Show URL/text in clipboard as QR code
+
+$ xclip -o -sel clipboard | qrencode -o - | xview stdin
+
+Copy a URL (or Thai text, or whatever) and hit the keyboard shortcut for this 
+fu to display it as a QR code. It's an "air gapped" way to send stuff to your 
+phone [unlike google chart API etc.] as long as you watch out for cameras ;). 
+dependencies [sudo apt-get install]: qrencode xclip xloadimage
+Title: ssh autocomplete based on ~/.ssh/config
+
+$ complete -o default -o nospace -W "$(grep -i -e '^host ' ~/.ssh/config | awk 
+'{print substr($0, index($0,$2))}' ORS=' ')" ssh scp sftp
+
+I sue this in my .bashrc file
+
+This will also do auto-completion for scp and sftp
+Title: tar the current directory wihtout the absolute path
+
+$ tar -cf "../${PWD##*/}.tar" .
+
+should do the same as command #12875, just shorter.
+Title: Which files/dirs waste my disk space
+
+$ du -Sh | sort -h | tail
+
+I added -S to du so that you don't include /foo/bar/baz.iso in /foo, and change
+sorts -n to -h so that it can properly sort the human readable sizes.
