@@ -160,41 +160,18 @@ works too.
 #########A
 
 Title: apache statistics
-
 $ grep "10/Sep/2013" access.log| cut -d[ -f2 | cut -d] -f1 | awk -F: '{print 
 $2":"$3}' | sort -nk1 -nk2 | uniq -c | awk '{ if ($1 > 10) print $0}'
 =======
 
 #AWK
-awk ' {print $1,$3} '
-Печатает только первый и третий столбцы, используя stdin
-awk ' {print $0} '
-Печатает все столбцы, используя stdin
-awk ' /'pattern'/ {print $2} '
-Печатает только элементы второго столбца, соответствующие шаблону
-"pattern", используя stdin
+awk ' /'pattern'/ {print $2} ' Печатает только элементы второго столбца, соответствующие шаблону
 awk -f script.awk inputfile
-Как и sed, awk использует ключ -f для получения инструкций из файла, что
-полезно, когда их большое количество и вводить их вручную в терминале
-непрактично.
-awk ' program ' inputfile
-Исполняет program, используя данные из inputfile
+awk ' program ' inputfile Исполняет program, используя данные из inputfile
 awk "BEGIN { print \"Hello, world!!\" }"
-Классическое "Hello, world" на awk
-awk '{ print }'
-Печатает все, что вводится из командной строки, пока не встретится EOF
-! /bin/awk -f
-BEGIN { print "Hello, world!" }
-Скрипт awk для классического "Hello, world!" (сделайте его исполняемым с
-помощью chmod и запустите)
- This is a program that prints \
-"Hello, world!"
- and exits
-Комментарии в скриптах awk
-awk -F "" 'program' files
-Определяет разделитель полей как null, в отличие от пробела по умолчанию
-awk -F "regex" 'program' files
-Разделитель полей также может быть регулярным выражением
+awk '{ print }' Печатает все, что вводится из командной строки, пока не встретится EOF
+awk -F "" 'program' files Определяет разделитель полей как null, в отличие от пробела по умолчанию
+awk -F "regex" 'program' files Разделитель полей также может быть регулярным выражением
 awk '{ if (length($0) > max) max = \
 length($0) }
 END { print max }' inputfile
@@ -204,14 +181,10 @@ awk 'length($0) > 80' inputfile
 awk 'NF > 0' data
 Печатает каждую строку, содержащую хотя бы одно поле (NF означает Number
 of Fields)
-awk 'BEGIN { for (i = 1; i <= 7; i++)
-print int(101 * rand()) }'
+awk 'BEGIN { for (i = 1; i <= 7; i++) print int(101 * rand()) }'
 Печатает семь случайных чисел в диапазоне от 0 до 100
-ls -l . | awk '{ x += $5 } ; END \
-{ print "total bytes: " x }'
+ls -l . | awk '{ x += $5 } ; END { print "total bytes: " x }'
 total bytes: 7449362
-Печатает общее количество байтов, используемое файлами в текущей
-директории
 ls -l . | awk '{ x += $5 } ; END \
 { print "total kilobytes: " (x + \
 1023)/1024 }'
@@ -226,9 +199,6 @@ awk 'NR % 2 == 0' data
 Печатает четные строки файла.
 ls -l | awk '$6 == "Nov" { sum += $5 }
 END { print sum }'
-Печатает общее количество байтов файла, который последний раз
-редактировался в ноябре.
-awk '$1 ~/J/' inputfile
 Регулярное выражение для всех записей в первом поле, которые начинаются
 с большой буквы j.
 awk '$1 ~!/J/' inputfile
@@ -463,4 +433,25 @@ simple combination.
 
 
 
+awk '{ if (!seen[$6]++) print $6 , }'
+awk '{a[$10]++}END{for(i in a){if(a[i]-1)print i,a[i]}}'
+'{if(min==""){min=max=$6}; if($6>max) {max=$6}; if($6< min) {min=$6}; total+=$6; count+=1} END {print 100-total/count, 100-min}'
+df -F ufs -o i | sed '1d' | awk '{print $5,(($3-$2)*100)/$3}'
 
+df -F ufs -o i |
+        sed '1d' | \
+        awk 'BEGIN {ORS=" "}{printf("\"%s\" - %0.1f%%, ",$5,(($3-$2)*100)/$3);}END{print "\n"}' | \
+        sed 's/, $//' >> info_$HOST_NAME.txt
+
+$[100-($(cat vmstat.txt | grep -v disk | grep -v swap | awk '{ total += $5; count++ } END { printf "%0.f", total/count/1024 }')/0.1*)]
+
+
+echo "iostat.txt parse:"
+
+cat iostat.txt | grep -v extended | grep -v device | grep sd | awk '{b[$1]++;a[$1]=a[$1] + $10 ; if(max[$1]==""){max[$1]=$10}; if($10>max[$1]) {max[$1]=$10} } END { for(i in a) print i, a[i]/b[i], max[i] }'
+
+echo "vmstat.txt parse:"
+
+echo $[100-($(cat vmstat.txt | grep -v disk | grep -v swap | awk '{ total += $5; count++ } END { printf "%0.f", total/count/1024 }')*100/$(prtconf 2>/dev/null  | grep Memory | awk '{ print $3 }'))]
+
+echo "sar parse:"

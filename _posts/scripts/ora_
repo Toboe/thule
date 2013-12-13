@@ -14,3 +14,7 @@ USING 'mssql'
 --USING '(DESCRIPTION = (ADDRESS = (protocol=tcp)(host=plat72vm1win)(port=1522)) (connect_data = (sid=mssql)) (HS=OK))';
 
 select tablespace_name from dba_tablespaces;
+
+SELECT * FROM USER_SYS_PRIVS; 
+SELECT * FROM USER_TAB_PRIVS;
+SELECT * FROM USER_ROLE_PRIVS;
