@@ -45,3 +45,15 @@ apt-cache showpkg vsftpd
 tmux attach-session -t my-session || tmux new-session -s my-session
 lias tm='tmux attach || tmux new'
 
+
+Erasing CD-RW and DVD-RW
+$ wodim -v dev=/dev/sr0 blank=fast
+Burning an ISO image to CD, DVD, or BD
+$ wodim -v -sao dev=/dev/sr0 isoimage.iso
+
+
+Snort® is an open source network intrusion prevention and detection system (IDS/IPS) developed by Sourcefire. Combining the benefits of signature, protocol, and anomaly-based inspection, Snort is the most widely deployed IDS/IPS technology worldwide. With millions of downloads and nearly 400,000 registered users, Snort has become the de facto standard for IPS.
+
+cut -d: -f1 /etc/group
+
+ffmpeg -i input.avi -map 0:0 -vcodec copy -map 0:2 -acodec copy output.avi
