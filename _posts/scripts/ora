@@ -197,3 +197,111 @@ select * from sys.V_$NLS_VALID_VALUES;
     -- Here we use a year (365 days) allowing dates only in the past
      
     SELECT SYSDATE+DBMS_RANDOM.VALUE(-365,0) FROM DUAL;
+
+
+
+
+sqlplus '/ as sysdba'
+STARTUP
+CREATE SPFILE FROM PFILE;
+SHUTDOWN IMMEDIATE;
+STARTUP
+SHOW PARAMETER SPFILE
+
+
+
+D:\oracle\10.2.0\database\SPFILEIPSOFT.ORA
+
+
+ipsoft.__java_pool_size=8388608
+ipsoft.__large_pool_size=8388608
+ipsoft.__shared_pool_size=142606336
+ipsoft.__streams_pool_size=0
+*.audit_file_dest='D:\oracle\admin\IPSOFT\adump'
+*.background_dump_dest='D:\oracle\admin\IPSOFT\bdump'
+*.compatible='10.2.0.1.0'
+*.control_files='D:\oracle\oradata\IPSOFT\control01.ctl','D:\oracle\oradata\IPSOFT\control02.ctl','D:\oracle\oradata\IPSOFT\control03.ctl'
+*.core_dump_dest='D:\oracle\admin\IPSOFT\cdump'
+*.db_block_size=16384
+*.db_domain=''
+*.db_file_multiblock_read_count=16
+*.db_name='IPSOFT'
+*.db_recovery_file_dest='D:\oracle\flash_recovery_area'
+*.db_recovery_file_dest_size=17179869184
+*.dispatchers='(PROTOCOL=TCP) (SERVICE=IPSOFTXDB)'
+*.job_queue_processes=10
+*.nls_language='RUSSIAN'
+*.nls_territory='RUSSIA'
+*.open_cursors=300
+*.pga_aggregate_target=670040064
+*.processes=300
+*.query_rewrite_integrity='stale_tolerated'
+*.remote_login_passwordfile='EXCLUSIVE'
+*.sga_max_size=1887436800
+*.sga_target=1686110208
+*.undo_management='AUTO'
+*.undo_tablespace='UNDOTBS1'
+*.user_dump_dest='D:\oracle\admin\IPSOFT\udump'
+
+
+сделайте так
+1. Прячите D:\oracle\10.2.0\database\SPFILEIPSOFT.ORA подальше
+2.
+
+ create spfile from pfile='путь к initIPSOFT.ora';
+
+3. shu immediate;
+4. startup;
+5. если после пункта 4 возникли траблы(не запустилось, не так работает.....), то
+
+shu immediate;
+startup pfile='путь к initIPSOFT.ora';
+
+alter system set sga_max_size=<value> scope=spfile|memory|both;o
+
+
+     Or In Another Way :
+    sql>alter system set sga_target=12G scope=spfile sid='*';
+    sql>alter system set sga_max_size=16G scope=spfile sid='*';
+    sql>alter system set sga_max_size=16G scope=spfile ;
+    sql>alter system set sga_target=12G scope=spfile;
+
+     PGA :
+
+    sql>alter system set pga_aggregate_target=4G scope =spfile sid='*';
+    sql>alter system set pga_aggregate_target=4G scope=both;
+
+
+
+    shutdown database PROD (two instances should be shut down)
+
+     $>srvctl stop database -d PROD
+
+    $>srvctl START database -d PROD
+
+
+
+Check The New Size For Both Instance By :
+
+    Show parameter sga ; 
+
+
+# sysctl -a | grep shmmax
+kernel.shmmax = 8G
+
+SQL> create pfile='/tmp/pfile-backup' from spfile;
+SQL> alter system set sga_max_size=8G sid='*' scope=spfile;
+
+$ srvctl stop instance -d racdb -i racdb1 -o immediate
+$ srvctl start instance -d racdb -i racdb1
+
+if error... check alert log on racdb1 and solve(don't forget to change "SGA_TARGET" as well), if no error stop/start on racdb2
+
+$ srvctl stop instance -d racdb -i racdb2 -o immediate
+$ srvctl start instance -d racdb -i racdb2
+
+Check:
+select * from v$sgainfo;
+select * from v$sga;
+
+
