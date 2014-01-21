@@ -18,3 +18,19 @@ select tablespace_name from dba_tablespaces;
 SELECT * FROM USER_SYS_PRIVS; 
 SELECT * FROM USER_TAB_PRIVS;
 SELECT * FROM USER_ROLE_PRIVS;
+
+
+create pfile='C:\ora\pfile\init.ora'
+Finally, start the database using the pfile you just edited:
+SQL startup pfile='C:\ora\pfile\init.ora';
+SQL create spfile from pfile='C:\ora\pfile\init.ora'
+
+ CREATE SPFILE='/u01/admin/prod/pfile/file_mydb.ora'
+FROM  
+PFILE=/u01/admin/prod/pfile/initprod.ora';
+
+SQL> create pfile from spfile;
+SQL> create pfile=/path/to/backup.ora from spfile;
+SQL>  create spfile from pfile=/path/to/backup.ora
+SQL> show parameter control_files;
+SQL> startup pfile=/path/to/pfile/inittestdb.ora

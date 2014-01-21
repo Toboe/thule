@@ -121,3 +121,22 @@ following command:
 
 # mdconfig -d -u X
 X is the device number e.g. 0 or 1 and so forth.
+
+europe.pool.ntp.org
+mount -u /
+mplayer Fringe.S01E07.HDTV.XviD-NoTV.x264.mkv -sub Fringe.S01E07.srt
+
+Как в FreeBSD добавить/убрать алиас для сетевого интерфейса[исправить]
+Добавить: ifconfig fxp0 inet 192.168.1.1 netmask 255.255.255.255 alias
+Убрать: ifconfig fxp0 inet 192.168.1.1 netmask 255.255.255.255 -alias
+
+% su
+# rpcbind
+# nfsd -u -t -n 4
+# mountd -r
+If you perform any changes changes to the exports file, reload it by:
+% su
+# /etc/rc.d/mountd onereload
+Also, the showmount command can be used to display the exports on the server:
+% su
+# showmount -e

@@ -455,3 +455,6 @@ echo "vmstat.txt parse:"
 echo $[100-($(cat vmstat.txt | grep -v disk | grep -v swap | awk '{ total += $5; count++ } END { printf "%0.f", total/count/1024 }')*100/$(prtconf 2>/dev/null  | grep Memory | awk '{ print $3 }'))]
 
 echo "sar parse:"
+=======
+Add TAB
+awk '{print "\t"$0}' $filename > temp && mv temp $filename
