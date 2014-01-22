@@ -1,5 +1,4 @@
 Title: Add another column printing cumulative sum of entries in first column, sum being less than or equal to 100
-
 $ for f in .; do awk 'BEGIN {sum=0;flag=0} {sum=sum+$1; if (flag == 0) { print 
 $1"\t"sum > "cumulative.'$f'" } if (sum > 100) flag=1 }' $f; done
 
@@ -17,3 +16,6 @@ $ tstouch() { [[ $1 =~ $2 ]] && touch -t ${BASH_REMATCH[1]} $1; }
 tstouch takes two arguments: a filename, and an extended regular expression 
 with the parenthesized section matching a timestamp of the form YYYYMMDDhhmm or
 YYYYMMDDhhmm.ss.
+
+
+awk '{printf("network %s ip-map\n", $0)}' filename>result 

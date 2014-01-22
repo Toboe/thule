@@ -42,6 +42,8 @@ pacman -Qo /usr/bin/file
 apt-cache show netcat
 apt-cache showpkg vsftpd
 
+ du -shk * .[A-z]* .[0-9]* | sort -nr | head -10
+=======
 tmux attach-session -t my-session || tmux new-session -s my-session
 lias tm='tmux attach || tmux new'
 
