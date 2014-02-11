@@ -44,11 +44,4 @@ if [ $? -ne 0 ] ; then
    $COMMAND
 fi
 
-netstat -lpnt | grep 6000 | grep ssh.
-
-$ mv ~/.ssh/id_rsa ~/.ssh/id_rsa.old
-$ openssl pkcs8 -topk8 -v2 des3 -in ~/.ssh/id_rsa.old -out ~/.ssh/id_rsa
-$ chmod 600 ~/.ssh/id_rsa
-# проверьте, что новый ключ работает. если работает, старый можно удалить
-$ rm ~/.ssh/id_rsa.old
 

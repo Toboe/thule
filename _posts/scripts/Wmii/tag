@@ -1,1 +1,0 @@
-wmiir read /tag | grep \`wmiir read /view/name\` -B 1 | line

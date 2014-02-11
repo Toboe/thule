@@ -1,55 +1,5 @@
  
  
-Connecting to an OPEN / WEP WLAN (DHCP)
- 
-Note: replace [interface] with your interface name as required (e.g.
-eth1, wlan0, ath0 etc.)
- 
-iwconfig [interface] mode managed key [WEP key] (128 bit WEP use 26 hex
-characters, 64 bit WEP uses 10)
- 
- 
-iwconfig [Interface] essid "[ESSID]" (Specify ESSID for the WLAN)
- 
- 
-dhclient [interface] (to receive an IP address, netmask, DNS server and
-default gateway from the Access Point)
- 
- 
-ping www.bbc.co.uk  (if you receive a reply you have access)
- 
- 
- 
-Connecting to an OPEN / WEP WLAN (Manual IP Setup)
- 
-Note: replace [interface] with your interface name as required (e.g.
-eth1, wlan0, ath0 etc.)
- 
-It may be necessary to run some packet capture software (e.g. Ethereal)
-to determine the IP addresses of both the Default Gateway and DNS
-servers.
- 
-iwconfig [interface] mode managed key [WEP key] (128 bit WEP use 26 hex
-characters, 64 bit WEP uses 10)
- 
- 
-iwconfig [interface] essid "[ESSID]"
- 
- 
-ifconfig [interface] [IP address] netmask [subnetmask]
- 
- 
-route add default gw [IP of default gateway] (Configure your default
-gateway; usually the IP of the Access Point)
- 
- 
-echo nameserver [IP address of DNS server]  >>  /etc/resolve.conf
-(Configure your DNS server)
- 
- 
-ping www.bbc.co.uk (if you receive a reply you have access)
- 
- 
  
 iwconfig Commands:
  
@@ -267,3 +217,16 @@ wlanconfig athx list scan (To list the APs)
  
  
 For more detailed information, see Madwifi Docs
+
+ # iwlist wlan0 scan 
+# iwconfig wlan0 essid Some_Name key Wireless_Key 
+# iwconfig wlan0 essid Some_Name key s:Wireless_Key
+ dhclient wlan0 
+
+#! /bin/bash
+ifconfig wlan0 up
+iwconfig wlan0 essid Some_Name key s:Wireless_Key
+sleep 10
+dhclient wlan0 
+
+

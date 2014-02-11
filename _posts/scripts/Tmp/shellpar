@@ -1,1 +1,0 @@
-## Define a function called foo() foo(){ echo "Function name: ${FUNCNAME}" echo "The number of positional parameter : $#" echo "All parameters or arguments passed to the function: '$@'" echo } ## Call or invoke the function ## ## Pass the parameters or arguments ## foo nixCraft foo 1 2 3 4 5 foo "this" "is" "a" "test"

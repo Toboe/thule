@@ -1,0 +1,13 @@
+
+gzip -d  /home/backup/usr.2009.05.06.img.gz  | ( cd /usr ; restore -rf - )
+
+
+
+cat /dev/ttyS2 | hexdump -C
+shred -v filename
+renice -20 -g 2874 (2784 found with ps -Aj)
+ ps -e -m -o user,pid,args,%mem,rss | grep Chrome | perl -ne 'print n if / (\d+)$/' | ( x=0;while read line; do (( x +=  )); done; echo 0 ); 
+=======
+$ ffmpeg -loop 1 -i image.png -i sound.mp3 -shortest video.mp4
+$ curl -u user:pass -d status=?I am Tweeting from the shell? 
+http://twitter.com/statuses/update.xml

@@ -1,6 +1,0 @@
-#mplayer
-#mpg321 -C -d 4012 -@
-mplayer http://212.72.187.16:22018
-# -nocache 
-# 1024
-# -af  volume=9

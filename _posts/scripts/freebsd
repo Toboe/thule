@@ -1,20 +1,3 @@
-
-How NFS Works
-NFS consists of at least two main parts: a server and one or more clients. The client remotely accesses the data that is stored on the server machine. In order for this to function properly a few processes have to be configured and running.
-
-These daemons must be running on the server:
-
-DaemonDescription
-nfsdThe NFS daemon which services requests from the NFS clients.
-mountdThe NFS mount daemon whichich carries out the requests that nfsd(8) passes on to it.
-rpcbind This daemon allows NFS clients to discover which port the NFS server is using.
-
-NFS services can now be started by running the following command, on the NFS server, as root:
-
-# service nfsd start
-On the NFS client:
-
-# service nfsclient restart
 usbconfig -u 6 -a 2 dump_device_desc
 ugen6.2: <tal Wireless Camera 2Di vendor 0x093a> at usbus6, cfg=0
 md=HOST spd=FULL (12Mbps) pwr=ON
@@ -35,9 +18,6 @@ md=HOST spd=FULL (12Mbps) pwr=ON
   bNumConfigurations = 0x0001
 
 #webcamd
-
-
-
 ывод информации об устройстве используя lsusb
 
 Bus /dev/usb Device /dev/ugen3.2: ID 0458:7062 KYE Systems Corp. (Mouse Systems)
@@ -122,21 +102,3 @@ following command:
 # mdconfig -d -u X
 X is the device number e.g. 0 or 1 and so forth.
 
-europe.pool.ntp.org
-mount -u /
-mplayer Fringe.S01E07.HDTV.XviD-NoTV.x264.mkv -sub Fringe.S01E07.srt
-
-Как в FreeBSD добавить/убрать алиас для сетевого интерфейса[исправить]
-Добавить: ifconfig fxp0 inet 192.168.1.1 netmask 255.255.255.255 alias
-Убрать: ifconfig fxp0 inet 192.168.1.1 netmask 255.255.255.255 -alias
-
-% su
-# rpcbind
-# nfsd -u -t -n 4
-# mountd -r
-If you perform any changes changes to the exports file, reload it by:
-% su
-# /etc/rc.d/mountd onereload
-Also, the showmount command can be used to display the exports on the server:
-% su
-# showmount -e
