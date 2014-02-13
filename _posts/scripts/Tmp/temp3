@@ -1,2 +1,0 @@
-history | grep '@' | sed -e 's/^\w*\ *//'| sed -e 's/^\w*\ *//' | grep '^ssh'
-

@@ -1,60 +1,8 @@
-From physical disk /dev/sda, partition 1, to physical disk /dev/sdb, partition 1.
-dd if=/dev/sda1 of=/dev/sdb1 bs=4096 conv=notrunc,noerror
-From physical disk /dev/sda to physical disk /dev/sdb
-dd if=/dev/sda of=/dev/sdb bs=4096 conv=notrunc,noerror
-
-#Distributives
-Samurai Web Testing Framework
-DEFT Linux
-Network Security Toolkit
-
-#Just a wild guess, have you try installing pommed ?
-http://www.erlang.org/
-http://www.rust-lang.org/
-
-
-Unix pv Command: Monitor Progress of Data Sent Via a Pipe
-gxkb - X11 keyboard switcher
-pacman
-Siotop sysstat 
-xcompmgr
-#Xmessage:
-hping
-Irssi - IRC client
-netcat (openbsd) - TCP/IP swiss army knife
-http-//gotux.net/arch-linux/vnstat-network-monitor/
-
-dstat - Versatile resource statistics tool
-multitail - Tail command on steroids
-ngrep - Network grep
-iotop - I/O of processes
-iftop
-acpi -Battery status
-dtrx - Archive simple Extract
-galapix - ZUI zoomable user interface Image Viewer
-siege - An HTTP/HTTPS stress load tester
-lftp: A better command-line ftp/http/sftp client
-tmux tmuxinator
-loliclip
-Vi move (vimv) 
-undistract-me - long command notifications alarm (Dependences)
-yaourt -Syua
-
-gifsircle gifview -a
-gerix tool for cracking WPA2 key
-setxkbmap  -option grp:caps_toggle,grp_led:scroll "us,ru"
-
-Scrivener for Mac
-BitMessage 
-janus-bootstrap
-
-~/Public/m3u.html  | grep '/audios/' | sed -e s/\"/\ /g -e s/\,/\ /g | awk '{print $7}'
-cat $1 | grep '</a> </span><span class="user" onclick="cur.cancelClick = true;"></span></div>' | sed -e s/\>/\ /g -e s/\</\ /g |awk '{print $16 $17 }'
-
 #IRssi
 - #securitytube on 
 - #archlinux
 - - #http://chat.freenode.net
+
 
 /network add -autosendcmd "/^msg bot hi" freenode
 /server add -network freenode irc.freenode.net
@@ -182,35 +130,4 @@ http://wouter.coekaerts.be/irssi/scripts/format_identify.pl
 
 Keybindings:
 /bind meta-y /window last   => toggle between last used windows
-
-
-#HEROKU
-
-heroku keys:clear
-heroku keys:add
-So it looks to me like the git is using /Users/bishopz/.ssh keys rather than the keys I generated manually inside the repository folder.
-
-In addition to the answers below, this article seems to be providing a lot of insight: Cannot push to Heroku because key fingerprint
-
-I tried completely removing the .ssh directory. I ran
-
-heroku keys:clear
-ssh-add -D #to remove all ssh identities
-ssh-keygen -t rsa -C "email@gmail.com" -f  ~/.ssh/id_rsa_heroku
-ssh-add ~/.ssh/id_rsa_heroku
-heroku keys:add ~/.ssh/id_rsa_heroku.pub
-git push heroku master
-and now get:
-
-!  Your key with fingerprint 27:5f:64:4e:2e:62:a9:95:d2:02:df:27:85 is not authorized to access lit-tor-7969.
-fatal: The remote end hung up unexpectedly
-The response to
-
-ssh -vvv git@heroku.com
-#MONGO_DB
-sudo rm /var/lib/mongodb/mongod.lock
-sudo mongod --dbpath /var/lib/mongodb --repair
-sudo chown mongodb /var/lib/mongodb/*
-sudo service mongodb start
-
 

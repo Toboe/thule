@@ -1,6 +1,0 @@
-#OpenPorts
-sudo nmap -T Aggressive -A -v 127.0.0.1 -p 1-65000
-sudo netstat --tcp --udp --listening --program
-sudo lsof +M -i4
-sudo fuser -v 3143/tcp
-sudo fuser -vk 3143/tcp

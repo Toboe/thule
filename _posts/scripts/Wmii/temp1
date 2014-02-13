@@ -1,6 +1,0 @@
-echo label R: 387 | wmiir write /rbar/0
-echo colors #000934 #fff459 #f26009 | wmiir write /rbar/0
-echo label G: 20 | wmiir write /rbar/mail
-echo colors #53f3ff #343fff #426fff | wmiir write /rbar/mail
-sleep 1; xset dpms force standby
-notify-send -h int:value:2 Error

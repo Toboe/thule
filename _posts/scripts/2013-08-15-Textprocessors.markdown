@@ -1,46 +1,3 @@
-#Serches
- find /var/www/ -type f -exec grep Rhein {} \;
-
-find /samba/share -mtime +10 | awk '{print "mv -f "$1" /backup"$1""; print "ln -s /backup"$1" "$1""}' | sh
-awk 'NR==2' buildinstructins
-find . -iname '*' -print | sed -n -E -e 's/.*mp3/&/p' -e 's/.*wav/&/p' -e 's/.*wma/&/p' > appo.m3u
-find . -iregex '.*\.\(mp3\|wav\|wma\)' -print > app.m3u
-find -size +100M
-
-## Delete all the crap files on desktop before syncing
-find /home/username/Music/ -regextype posix-awk -regex "(.*.jpg|.*.ini|.*.rtf|.*.url|.*.txt|.*.log|.*.sfv|.*.nfo|
-.*.md5|.*.m3u)" -exec rm -v {} \;
-
-##Print line with DD & next
-awk '/^DD/{f=1;print;next}f{print;exit}' myfile.txt
-$ awk '
-/^DD/{
-print
-getline
-print
-}' myfile.txt
-$ sed -n '/^DD/{p;n;p;}' myfile.txt
-$ grep -A1 "^DD" myfile.txt
-##Line newx to Pattern
-$ awk '/^DD/{f=1;next}f{print;exit}' myfile.txt
-$ awk '
-/^DD/{
-getline
-print
-}' myfile.txt
-$ sed -n '/^DD/{n;p;}' myfile.txt
-
-##Line previous to Pattern
-
-#wk '/^DD/{print x;print};{x=$0}' myfile.txt
-$ grep -B1 "^DD" myfile.txt
-###without patter
-$ awk '/^DD/{print x};{x=$0}' myfile.txt
-$ sed -n '/^DD/{g;1!p;};h' myfile.txt
-##Previous and newx of PAttern
-$ grep -A1 -B1 "^DD" myfile.txt
-$ grep -A1 -B2 "^DD" myfile.txt
-awk -v lines=7 '/blah/ {for(i=lines;i;--i)getline; print $0 }' logfile
 
 VIM:
 visual + ip
@@ -83,36 +40,10 @@ When replacing:
     \& is ampersand (& is the text that matches the search pattern). 
     \1 inserts the text of the first backreference. \2 inserts the second backreference, and so on. 
 
-Insert newline without entering insert mode
-nmap <S-Enter> O<Esc>  
-shift
-nmap <CR> o<Esc>
 
 
  each time you hit Ctrl-W, you delete the word to the left of the cursor
 hit Ctrl-U.  Everything to the left of the cursor will be deleted, leaving you with:
-
-I find this useful for just quickly seeing which files contain a search time. I would normally limit the files searched with a command such as :
-find . -iname '*php' | xargs grep 'string' -sl
-
-Another common search for me, is to just look at the recently updated files:
-find . -iname '*php' -mtime -1 | xargs grep 'string' -sl
-
-would find only files edited today, whilst the following finds the files older than today:
-find . -iname '*php' -mtime +1 | xargs grep 'string' -sl
-
-###########VIM############
-:syntax off
-:set hlsearch - turn ON serch result Highlight *
-:70t.
-:tab(gt)
-CNTR+P(W) :sp
-e ++enc=cp1251
-CNTR[BD]v
-dt[symbol] or d/[pattern]
-deleted using d/D/x/X/c/C/s/S commands.
-:nmap j gj                                    
-:nmap k gk
 
  "kyy
 Or you can append to a register by using a capital letter
@@ -128,20 +59,9 @@ To access all currently defined registers type
     :reg
 
 
-$ :set ci
-
-After the option is set, you can use / to search strings(case insensitive)
 
 
-Title: Include a remote file (in vim)
-$ :r scp://yourhost//your/file
-Like vim scp://yourhost//your/file but in vim cmds.
 
-
-Title: [vim] Clear a file in three characters (plus enter)
-$ :%d
-% selects every line in the file. 'd' deletes what's selected. It's a pretty 
-simple combination.                                                          #GREP
                                                                              grep 'pattern1\|pattern2' filename
 Title: [vim] Clear trailing whitespace in file                               grep -E 'pattern1|pattern2' filename
 $ :%s/\s\+$//                                                                grep -e pattern1 -e pattern2 filename
@@ -149,20 +69,7 @@ $ :%s/\s\+$//                                                                gre
 \s matches spaces.                                                           grep -E 'pattern1.*pattern2' filename
 \+ matches one or more occurrences of what's right behind it.                grep -E 'pattern1.*pattern2|pattern2.*pattern1' filename
                                                                              grep -E 'Manager.*Sales|Sales.*Manager' empl*
-Character '$' matches end-of-line.
-Title: vi show line numbers                                                  grep -v 'pattern1' filename
-$ :set number
-Prints line numbers making it easier to see long lines that wrap in your 
-terminal and extra line breaks at the end of a file.
-works too.
 
-
-#########A
-
-Title: apache statistics
-$ grep "10/Sep/2013" access.log| cut -d[ -f2 | cut -d] -f1 | awk -F: '{print 
-$2":"$3}' | sort -nk1 -nk2 | uniq -c | awk '{ if ($1 > 10) print $0}'
-=======
 
 #AWK
 awk ' /'pattern'/ {print $2} ' Печатает только элементы второго столбца, соответствующие шаблону
@@ -389,52 +296,16 @@ $1 = randip[$1]; print $0  }'
 
 
 
-Title: [vim] Clear a file in three characters (plus enter)
-$ :%d
-
-Title: [vim] Clear trailing whitespace in file
-
-$ :%s/\s\+$//
-
-% acts on every line in the file.
-
-\s matches spaces.
-
-\+ matches one or more occurrences of what's right behind it.
-
-Character '$' matches end-of-line.
-Title: vi show line numbers
-$ :set number
-
-Prints line numbers making it easier to see long lines that wrap in your 
-terminal and extra line breaks at the end of a file.
-
-:set nu
-
-works too.
-
 
 Title: Prepend a text to a file.
 $ sed -i 's/^/ls -l /' output_files.txt
 
-The original command is great, but I often want to prepend to every line.
-Title: rm filenames with spaces
-$ find garbage/ -type f -delete
-
-I _think_ you were trying to delete files whether or not they had spaces. This 
-would do that. You should probably be more specific though.
-
-
-% selects every line in the file. 'd' deletes what's selected. It's a pretty 
-simple combination.
 
 
 
 
 
 
-awk '{ if (!seen[$6]++) print $6 , }'
-awk '{a[$10]++}END{for(i in a){if(a[i]-1)print i,a[i]}}'
 '{if(min==""){min=max=$6}; if($6>max) {max=$6}; if($6< min) {min=$6}; total+=$6; count+=1} END {print 100-total/count, 100-min}'
 df -F ufs -o i | sed '1d' | awk '{print $5,(($3-$2)*100)/$3}'
 
@@ -454,7 +325,3 @@ echo "vmstat.txt parse:"
 
 echo $[100-($(cat vmstat.txt | grep -v disk | grep -v swap | awk '{ total += $5; count++ } END { printf "%0.f", total/count/1024 }')*100/$(prtconf 2>/dev/null  | grep Memory | awk '{ print $3 }'))]
 
-echo "sar parse:"
-=======
-Add TAB
-awk '{print "\t"$0}' $filename > temp && mv temp $filename

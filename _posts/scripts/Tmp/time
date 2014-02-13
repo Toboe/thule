@@ -1,2 +1,0 @@
-timedatectl status
-sudo ntpdate ru.pool.ntp.org
