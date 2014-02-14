@@ -1,12 +1,6 @@
-<h1>Serches</h1>
-
-<p>awk &#39;NR==2&#39; buildinstructins
-find . -iname &#39;<em>&#39; -print | sed -n -E -e &#39;s/.</em>mp3/&amp;/p&#39; -e &#39;s/.<em>wav/&amp;/p&#39; -e &#39;s/.</em>wma/&amp;/p&#39; &gt; appo.m3u
-find . -iregex &#39;.*.(mp3|wav|wma)&#39; -print &gt; app.m3u</p>
-
-<h1>VIM:</h1>
-
-<p>:s/foo/bar/g
+<p>VIM:
+visual + ip
+:s/foo/bar/g
     Change each &#39;foo&#39; to &#39;bar&#39; in the current line.
 :%s/foo/bar/g   Change each &#39;foo&#39; to &#39;bar&#39; in all lines.
 :5,12s/foo/bar/g    Change each &#39;foo&#39; to &#39;bar&#39; for all lines from line 5 to line 12 inclusive.
@@ -18,6 +12,15 @@ find . -iregex &#39;.*.(mp3|wav|wma)&#39; -print &gt; app.m3u</p>
     Change each &#39;foo&#39; to &#39;bar&#39; for the current line (.) and the two next lines (+2).
 :g/^baz/s/foo/bar/g 
     Change each &#39;foo&#39; to &#39;bar&#39; in each line starting with &#39;baz&#39;.</p>
+
+<p>nd  effect
+{Visual}&quot;+y     copy the selected text into the system clipboard
+&quot;+y{motion}     copy the text specified by {motion} into the system clipboard
+:[range]yank +  copy the text specified by [range] into the system clipboard
+&quot;+p     Normal mode put command pastes system clipboard after cursor
+:put +  Ex command puts contents of system clipboard on a new line
+<C-r>+  From insert mode (or commandline mode)
+:set clipboard=unnamed</p>
 
 <p>When searching:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">., *, \, [, ], ^, and $ are metacharacters. 
@@ -33,27 +36,279 @@ find . -iregex &#39;.*.(mp3|wav|wma)&#39; -print &gt; app.m3u</p>
 \&amp; is ampersand (&amp; is the text that matches the search pattern). 
 \1 inserts the text of the first backreference. \2 inserts the second backreference, and so on. 
 </code></pre></div>
-<p>Insert newline without entering insert mode
-nmap <S-Enter> O<Esc><br>
-shift
-nmap <CR> o<Esc></p>
-
 <p>each time you hit Ctrl-W, you delete the word to the left of the cursor
 hit Ctrl-U.  Everything to the left of the cursor will be deleted, leaving you with:</p>
 
-<p>I find this useful for just quickly seeing which files contain a search time. I would normally limit the files searched with a command such as :
-find . -iname &#39;*php&#39; | xargs grep &#39;string&#39; -sl</p>
+<p>&quot;kyy
+Or you can append to a register by using a capital letter</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&quot;Kyy
+</code></pre></div>
+<p>You can then move through the document and paste it elsewhere using</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&quot;kp
+</code></pre></div>
+<p>To access all currently defined registers type</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">:reg
 
-<p>Another common search for me, is to just look at the recently updated files:
-find . -iname &#39;*php&#39; -mtime -1 | xargs grep &#39;string&#39; -sl</p>
 
-<p>would find only files edited today, whilst the following finds the files older than today:
-find . -iname &#39;*php&#39; -mtime +1 | xargs grep &#39;string&#39; -sl</p>
 
-<h6>#####VIM</h6>
 
-<p>:70t.
-:tab(gt)
-CNTR+P(W) :sp
-e ++enc=cp1251
-CNTR[BD]v</p>
+
+                                                                         grep &#39;pattern1\|pattern2&#39; filename
+</code></pre></div>
+<p>Title: [vim] Clear trailing whitespace in file                               grep -E &#39;pattern1|pattern2&#39; filename
+$ :%s/\s+$//                                                                grep -e pattern1 -e pattern2 filename
+% acts on every line in the file.
+\s matches spaces.                                                           grep -E &#39;pattern1.<em>pattern2&#39; filename
++ matches one or more occurrences of what&#39;s right behind it.                grep -E &#39;pattern1.</em>pattern2|pattern2.<em>pattern1&#39; filename
+                                                                             grep -E &#39;Manager.</em>Sales|Sales.<em>Manager&#39; empl</em></p>
+
+<h1>AWK</h1>
+
+<p>awk &#39; /&#39;pattern&#39;/ {print $2} &#39; Печатает только элементы второго столбца, соответствующие шаблону
+awk -f script.awk inputfile
+awk &#39; program &#39; inputfile Исполняет program, используя данные из inputfile
+awk &quot;BEGIN { print \&quot;Hello, world!!\&quot; }&quot;
+awk &#39;{ print }&#39; Печатает все, что вводится из командной строки, пока не встретится EOF
+awk -F &quot;&quot; &#39;program&#39; files Определяет разделитель полей как null, в отличие от пробела по умолчанию
+awk -F &quot;regex&quot; &#39;program&#39; files Разделитель полей также может быть регулярным выражением
+awk &#39;{ if (length($0) &gt; max) max = \
+length($0) }
+END { print max }&#39; inputfile
+Печатает длину самой длинной строки
+awk &#39;length($0) &gt; 80&#39; inputfile
+Печатает все строки длиннее 80 символов
+awk &#39;NF &gt; 0&#39; data
+Печатает каждую строку, содержащую хотя бы одно поле (NF означает Number
+of Fields)
+awk &#39;BEGIN { for (i = 1; i &lt;= 7; i++) print int(101 * rand()) }&#39;
+Печатает семь случайных чисел в диапазоне от 0 до 100
+ls -l . | awk &#39;{ x += $5 } ; END { print &quot;total bytes: &quot; x }&#39;
+total bytes: 7449362
+ls -l . | awk &#39;{ x += $5 } ; END \
+{ print &quot;total kilobytes: &quot; (x + \
+1023)/1024 }&#39;
+total kilobytes: 7275.85
+Печатает общее количество килобайтов, используемое файлами в текущей
+директории
+awk -F: &#39;{ print $1 }&#39; /etc/passwd | sort
+Печатает отсортированный список имен пользователей
+awk &#39;END { print NR }&#39; inputfile
+Печатает количество строк в файле, NR означает Number of Rows
+awk &#39;NR % 2 == 0&#39; data
+Печатает четные строки файла.
+ls -l | awk &#39;$6 == &quot;Nov&quot; { sum += $5 }
+END { print sum }&#39;
+Регулярное выражение для всех записей в первом поле, которые начинаются
+с большой буквы j.
+awk &#39;$1 ~!/J/&#39; inputfile
+Регулярное выражение для всех записей в первом поле, которые не
+начинаются с большой буквы j.
+awk &#39;BEGIN { print &quot;He said \&quot;hi!\&quot; \to her.&quot; }&#39;
+Экранирование двойных кавычек в awk.
+echo aaaabcd | awk &#39;{ sub(/a+/, \ &quot;&quot;); print }&#39;
+Печатает &quot;bcd&quot;
+awk &#39;{ $2 = $2 - 10; print $0 }&#39; inventory
+Модифицирует inventory и печатает его с той разницей, что значение
+второго поля будет уменьшено на 10.
+awk &#39;{ $6 = ($5 + $4 + $3 + $2); print \ $6&#39; inventory
+Даже если поле шесть не существует в inventory, вы можете создать его и
+присвоить значение, затем вывести его.
+echo a b c d | awk &#39;{ OFS = &quot;:&quot;; $2 = &quot;&quot;</p>
+
+<blockquote>
+<p>print $0; print NF }&#39;
+OFS - это Output Field Separator (разделитель выходных полей) и команда
+выведет &quot;a::c:d&quot; и &quot;4&quot;, так как хотя второе поле аннулировано, оно все
+еще существует, поэтому может быть подсчитано.
+echo a b c d | awk &#39;{ OFS = &quot;:&quot;; \
+$2 = &quot;&quot;; $6 = &quot;new&quot;
+print $0; print NF }&#39;
+Еще один пример создания поля; как вы можете видеть, поле между $4
+(существующее) и $6 (создаваемое) также будет создано (как пустое $5),
+поэтому вывод будет выглядеть как &quot;a::c:d::new&quot; &quot;6&quot;.
+echo a b c d e f | awk &#39;\
+{ print &quot;NF =&quot;, NF;
+NF = 3; print $0 }&#39;
+Отбрасывание трех полей (последних) путем изменения количества полей.
+FS=[ ]
+Это регулярное выражения для установки пробела в качестве разделителя
+полей.
+echo &#39; a b c d &#39; |  awk &#39;BEGIN { FS = \
+&quot;[ \t\n]+&quot; }
+{ print $2 }&#39;
+Печатает только &quot;a&quot;.
+awk -n &#39;/RE/{p;q;}&#39; file.txt
+Печатает только первое совпадение с регулярным выражением.
+awk -F\\ &#39;...&#39; inputfiles ...
+Устанавливает в качестве разделителя полей \
+BEGIN { RS = &quot;&quot; ; FS = &quot;\n&quot; }
+{
+print &quot;Name is:&quot;, $1
+print &quot;Address is:&quot;, $2
+print &quot;City and State are:&quot;, $3
+print &quot;&quot;
+}
+Если у нас есть запись вида
+&quot;John Doe
+1234 Unknown Ave.
+Doeville, MA&quot;,
+этот скрипт устанавливает в качестве разделителя полей новую строку, так
+что он легко может работать со строками.
+awk &#39;BEGIN { OFS = &quot;;&quot;; ORS = &quot;\n\n&quot; }
+{ print $1, $2 }&#39; inputfile
+Если файл содержит два поля, записи будут напечатаны в виде:</p>
+</blockquote>
+
+<p>&quot;field1:field2 
+field3;field4</p>
+
+<p>...;...&quot;
+так как разделитель выходных полей - две новые строки, а разделитель
+полей - &quot;;&quot;.
+awk &#39;BEGIN {</p>
+
+<blockquote>
+<p>OFMT = &quot;%.0f&quot; # print numbers as \
+integers (rounds)
+print 17.23, 17.54 }&#39;
+Будет напечатано 17 и 18 , так как в качестве выходного формата (Output
+ForMaT) указано округление чисел с плавающей точкой до ближайших целых
+значений.
+awk &#39;BEGIN {
+msg = &quot;Dont Panic!&quot;
+printf &quot;%s\n&quot;, msg
+} &#39;
+Вы можете использовать printf практически так же, как и в C.
+awk &#39;{ printf &quot;%-10s %s\n&quot;, $1, \
+$2 }&#39; inputfile
+Печатает первое поле в виде строки длиной 10 символов, выровненной по
+левому краю, а затем второе поле в обычном виде.
+awk &#39;{ print $2 &gt; &quot;phone-list&quot; }&#39; \inputfile
+Простой пример извлечения данных, где второе поле записывается под
+именем &quot;phone-list&quot;.
+awk &#39;{ print $1 &gt; &quot;names.unsorted&quot;
+       command = &quot;sort -r &gt; names.sorted&quot;
+       print $1 | command }&#39; inputfile
+Записывает имена, содержащиеся в $1, в файл, затем сортируем и выводим
+результат в другой файл.
+awk &#39;BEGIN { printf &quot;%d, %d, %d\n&quot;, 011, 11, \
+0x11 }&#39;
+Will print 9, 11, 17
+if (/foo/ || /bar/)
+   print &quot;Found!&quot;
+Простой поиск для foo или bar.
+awk &#39;{ sum = $2 + $3 + $4 ; avg = sum / 3
+print $1, avg }&#39; grades
+Простые арифметические операции (в большинстве похожи на C)
+awk &#39;{ print &quot;The square root of&quot;, \
+$1, &quot;is&quot;, sqrt($1) }&#39;
+2
+The square root of 2 is 1.41421
+7
+The square root of 7 is 2.64575
+Простой расширяемый калькулятор
+awk &#39;$1 == &quot;start&quot;, $1 == &quot;stop&quot;&#39; inputfile
+Печатает каждую запись между start и stop.
+awk &#39;
+BEGIN { print &quot;Analysis of \&quot;foo\&quot;&quot; }
+/foo/ { ++n }
+END { print &quot;\&quot;foo\&quot; appears&quot;, n,\
+ &quot;times.&quot; }&#39; inputfile
+Правила BEGIN и END исполняются только один раз, до и после каждой
+обработки записи.
+echo -n &quot;Enter search pattern: &quot;
+read pattern
+awk &quot;/$pattern/ &quot;&#39;{ nmatches++ }
+END { print nmatches, &quot;found&quot; }&#39; inputfile
+Search using shell
+if (x % 2 == 0)
+print &quot;x is even&quot;
+else
+print &quot;x is odd&quot;
+Простое условие. awk, как и C, также поддерживает операторы ?:.
+awk &#39;{ i = 1
+  while (i &lt;= 3) {
+    print $i
+    i++
+  }
+}&#39; inputfile
+Печатает первые три поля каждой записи, по одной в строке.
+awk &#39;{ for (i = 1; i &lt;= 3; i++)
+  print $i
+}&#39;
+Печатает первые три поля каждой записи, по одной в строке.
+BEGIN {
+if ((&quot;date&quot; | getline date<em>now) &lt;= 0) {
+  print &quot;Can&#39;t get system date&quot; &gt; \
+&quot;/dev/stderr&quot;
+  exit 1
+}
+print &quot;current date is&quot;, date</em>now
+close(&quot;date&quot;)
+}
+Выход с кодом ошибки, отличным от 0, означает, что что-то идет не так.
+Пример:
+awk &#39;BEGIN {
+for (i = 0; i &lt; ARGC; i++)
+print ARGV[i]
+}&#39; file1 file2
+Печатает awk file1 file2
+for (i in frequencies)
+delete frequencies[i]
+Удаляет элементы в массиве
+foo[4] = &quot;&quot;
+if (4 in foo)
+print &quot;This is printed, even though foo[4] \
+is empty&quot;
+Проверяют элементы массива
+function ctime(ts, format)
+{
+  format = &quot;%a %b %d %H:%M:%S %Z %Y&quot;
+  if (ts == 0)
+  ts = systime()
+  # use current time as default
+  return strftime(format, ts)
+}
+awk-вариант функции ctime() в C. Так вы можете определять свои
+собственные функции в awk.
+BEGIN { <em>cliff</em>seed = 0.1 }
+function cliff<em>rand()
+{
+  _cliff</em>seed = (100 * log(<em>cliff</em>seed)) % 1
+  if (<em>cliff</em>seed &lt; 0)
+    <em>cliff</em>seed = - <em>cliff</em>seed
+  return <em>cliff</em>seed
+}
+Генератор случайных чисел Cliff.
+cat apache-anon-noadmin.log | \
+awk &#39;function ri(n) \
+{  return int(n*rand()); }  \
+BEGIN { srand(); }  { if (! \
+($1 in randip)) {  \
+randip[$1] = sprintf(&quot;%d.%d.%d.%d&quot;, \
+ri(255), ri(255)\
+, ri(255), ri(255)); } \
+$1 = randip[$1]; print $0  }&#39;
+Анонимный лог Apache (IP случайные)</p>
+</blockquote>
+
+<p>Title: Prepend a text to a file.
+$ sed -i &#39;s/^/ls -l /&#39; output_files.txt</p>
+
+<p>&#39;{if(min==&quot;&quot;){min=max=$6}; if($6&gt;max) {max=$6}; if($6&lt; min) {min=$6}; total+=$6; count+=1} END {print 100-total/count, 100-min}&#39;
+df -F ufs -o i | sed &#39;1d&#39; | awk &#39;{print $5,(($3-$2)*100)/$3}&#39;</p>
+
+<p>df -F ufs -o i |
+        sed &#39;1d&#39; | \
+        awk &#39;BEGIN {ORS=&quot; &quot;}{printf(&quot;\&quot;%s\&quot; - %0.1f%%, &quot;,$5,(($3-$2)*100)/$3);}END{print &quot;\n&quot;}&#39; | \
+        sed &#39;s/, $//&#39; &gt;&gt; info<em>$HOST</em>NAME.txt</p>
+
+<p>$[100-($(cat vmstat.txt | grep -v disk | grep -v swap | awk &#39;{ total += $5; count++ } END { printf &quot;%0.f&quot;, total/count/1024 }&#39;)/0.1*)]</p>
+
+<p>echo &quot;iostat.txt parse:&quot;</p>
+
+<p>cat iostat.txt | grep -v extended | grep -v device | grep sd | awk &#39;{b[$1]++;a[$1]=a[$1] + $10 ; if(max[$1]==&quot;&quot;){max[$1]=$10}; if($10&gt;max[$1]) {max[$1]=$10} } END { for(i in a) print i, a[i]/b[i], max[i] }&#39;</p>
+
+<p>echo &quot;vmstat.txt parse:&quot;</p>
+
+<p>echo $[100-($(cat vmstat.txt | grep -v disk | grep -v swap | awk &#39;{ total += $5; count++ } END { printf &quot;%0.f&quot;, total/count/1024 }&#39;)*100/$(prtconf 2&gt;/dev/null  | grep Memory | awk &#39;{ print $3 }&#39;))]</p>

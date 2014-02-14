@@ -794,13 +794,6 @@ hum[x]);}}} {print hr($1) &quot;\t&quot; $2}&#39;</p>
 
 <p>To sort the list by file/directory size, insert <code>sort -n |</code> before <code>awk</code>.</p>
 
-<h1>Title: Download all images from a 4chan thread</h1>
-
-<p>$ curl -s $1 | grep -o -i &#39;&lt;&gt;a href=&quot;//images.4chan.org/[^&gt;]<em>&gt;&#39; | sed -r 
-&#39;s%.</em>&quot;//([^&quot;]<em>)&quot;.</em>%\1%&#39; | xargs wget</p>
-
-<p>first grep all href images then sed the url part then wget</p>
-
 <h1>Title: Download Englishword pronounciation as mp3 file</h1>
 
 <p>Author: 
@@ -954,3 +947,37 @@ installation is based on the root partitions file system creation date.</p>
 and -C</p>
 
 <h1>Title: whereami() { namei &quot;$PWD&quot; -x -m | sed -r &#39;s@f:\s(.<em>)@&#39;$bold$red&#39;\1&#39;$reset&#39;@&#39; | sed -r &#39;s@^\s(\s</em>)D@&#39;$bold$yellow&#39;\1Mn&#39;$reset&#39;@&#39; | sed -r &#39;s@^\s(\s*)l@&#39;$bold$cyan&#39;\1Ln&#39;$reset&#39;@&#39; }</h1>
+
+<p>Title: Auto complete options of a script, on tab press</p>
+
+<p>$ <em>autoOptions() { local cur=${COMP</em>WORDS[COMP_CWORD]} COMPREPLY=( $(compgen -W
+&quot;--fooOption --barOption -f -b&quot; -- $cur) ) ;}; complete -F _autoOptions 
+autoOptions
+Title: check to see what is running on a specific port number</p>
+
+<p>$ lsof -iTCP:8080 -sTCP:LISTEN</p>
+
+<p>Title: Delete all files and folders except one file/dir
+$ ls -R | grep -v skipme | xargs rm -Rf
+$ echo &quot;This is the message body&quot; | mutt -s &quot;Message subject&quot; -a 
+file<em>to</em>attach.zip fred@example.com</p>
+
+<p>Title: Find all folder in /var that contains log in their path and have more than 10 files inside them, print the folder and the count
+$ for i in <code>find -L /var/ -wholename \*log\* -type d</code>; do COUNT=<code>ls -1U $i | wc
+-l</code>; if [ $COUNT -gt 10 ]; then echo $i $COUNT; fi; done</p>
+
+<p>-L is for following symbolic links, it can be omitted and then you can find in 
+your whole / dir
+Title: rm filenames with spaces
+$ find /Users/jpn/.ievms/ -type f -print0| xargs -0 du -sh
+Title: Sending a file over icmp with hping
+$ hping3 10.0.2.254 --icmp --sign MSGID1 -d 50 -c 1 --file a<em>file
+you need to start a listening hping on the reciever:
+hping3 --listen 10.0.2.254 -I eth0 --sign MSGID1
+then you can send your file:
+hping3 10.0.2.254 --icmp --sign MSGID1 -d 50 -c 1 --file a</em>file</p>
+
+<p>Title: Convert a script to one-liner
+$ (sed &#39;s/#.*//g&#39;|sed &#39;/^ *$/d&#39;|tr &#39;\n&#39; &#39;;&#39;|xargs echo) &lt;&gt; script.sh
+Opposite:
+foo() { &lt;&gt;put content of the one-liner here&gt; ; }</p>
