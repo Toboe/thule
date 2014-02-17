@@ -1,0 +1,23 @@
+Title: find and output files content with filtering by filename and specific string
+Author: 
+Date: Mon, 17 Feb 2014 06:25:49 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/4lYWCNakAiI/find-and-output-files-content-with-filtering-by-filename-and-specific-string
+
+$ find . -name *.properties -exec /bin/echo {} \; -exec cat {} \; | grep -E 
+'listen|properties'
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by altern[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13171/find-and-output-files-content-with-filtering-by-filename-and-specific-string (link)
+[2]: http://www.commandlinefu.com/commands/by/altern (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/4lYWCNakAiI (image)
