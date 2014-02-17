@@ -1,0 +1,1103 @@
+Title: Keep track of diff progress
+Author: d0g
+Date: Wed, 29 Jan 2014 22:35:28 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/ENPns_Bvd7Y/keep-track-of-diff-progress
+
+$ lsof -c diff -o -r1 | grep $file
+
+When running a long `diff -r` over folders, this simulates a "verbose" mode 
+where you can see where diff is in the tree.
+
+Replace $file with the first part of the path being compared.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by d0g[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13103/keep-track-of-diff-progress (link)
+[2]: http://feeds2.feedburner.com/commands/by/d0g (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/ENPns_Bvd7Y (image)
+Title: Check open ports are accepting connections
+Author: zlemini
+Date: Fri, 07 Feb 2014 02:02:53 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/cr0e6G27uz0/check-open-ports-are-accepting-connections
+
+$ for i in $(sudo lsof -Pni4 | awk -F: '/LISTEN/ { print substr($2,1,3) }'); do
+nc -z $(hostname) $i; done
+
+Check if your open ports as listed by lsof are actually accepting connections 
+using netcat.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by zlemini[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13137/check-open-ports-are-accepting-connections (link)
+[2]: http://feeds2.feedburner.com/commands/by/zlemini (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/cr0e6G27uz0 (image)
+Title: Converts all windows .URL shortcuts in a directory to linux (gnome) .desktop shortcuts
+Author: pholz
+Date: Thu, 30 Jan 2014 13:57:08 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/tJeQr5ND228/converts-all-windows-.url-shortcuts-in-a-directory-to-linux-gnome-.desktop-shortcuts
+
+$ find . -name "*.URL" | while read file ; do cat "$file" | sed 
+'s/InternetShortcut/Desktop Entry/' | sed '/^\(URL\|\[\)/!d' > "$file".desktop 
+&& echo "Type=Link" >> "$file".desktop ; done
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by pholz[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13105/converts-all-windows-.url-shortcuts-in-a-directory-to-linux-gnome-.desktop-shortcuts (link)
+[2]: http://feeds2.feedburner.com/commands/by/pholz (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/tJeQr5ND228 (image)
+Title: count total number of lines of ruby code
+Author: gdelfino
+Date: Thu, 30 Jan 2014 19:35:38 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/njwbF_JgICw/count-total-number-of-lines-of-ruby-code
+
+$ ( find ./ -name '*.rb' -print0 | xargs -0 cat ) | wc -l
+
+Adapted from 
+http://stackoverflow.com/questions/1358540/how-to-count-all-the-lines-of-code-in-a-directory-recursively#answer-1359246[1]
+
+  * View this command to comment, vote or add to favourites[2]
+  * View all commands by gdelfino[3]
+
+[image 5][4]
+
+by David Winterbottom (codeinthehole.com[6])
+[image 7]
+
+Links: 
+[1]: http://stackoverflow.com/questions/1358540/how-to-count-all-the-lines-of-code-in-a-directory-recursively#answer-1359246 (link)
+[2]: http://www.commandlinefu.com/commands/view/13107/count-total-number-of-lines-of-ruby-code (link)
+[3]: http://feeds2.feedburner.com/commands/by/gdelfino (link)
+[4]: http://www.commandlinefu.com (link)
+[5]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[6]: http://codeinthehole.com (link)
+[7]: http://feeds.feedburner.com/~r/Command-line-fu/~4/njwbF_JgICw (image)
+Title: Create a bash script from last commands
+Author: joedhon
+Date: Sun, 09 Feb 2014 16:19:29 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/ZobeC14PC-0/create-a-bash-script-from-last-commands
+
+$ quickscript () { filename="$1"; history | cut -c 8- | sed -e 
+'/^###/{h;d};H;$!d;x' | sed '$d' > ${filename:?No filename given} }
+
+In order to write bash-scripts, I often do the task manually to see how it 
+works. I type ### at the start of my session.
+
+The function fetches the commands from the last occurrence of '###', excluding 
+the function call. You could prefix this with a here-document to have a proper 
+script-header.
+
+Delete some lines, add a few variables and a loop, and you're ready to go.
+
+This function could probably be much shorter...
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by joedhon[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13141/create-a-bash-script-from-last-commands (link)
+[2]: http://feeds2.feedburner.com/commands/by/joedhon (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/ZobeC14PC-0 (image)
+Title: Dump a MySQL-Database to another Database
+Author: 
+Date: Thu, 02 Jan 2014 23:04:50 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/uoLlyB0so8g/dump-a-mysql-database-to-another-database
+
+$ mysqldump --force -uUSER -pPASS PRODUCTION_DB | mysql -uUSER -pPASS COPY_DB
+
+this command uses mysqldump to dump the production database and pipe it 
+directly to the copy-database
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by bones[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13035/dump-a-mysql-database-to-another-database (link)
+[2]: http://www.commandlinefu.com/commands/by/bones (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/uoLlyB0so8g (image)
+Title: execute a command in case of success or execute a command in case of failure
+Author: 
+Date: Thu, 13 Feb 2014 21:44:19 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/BJG0gECKzWs/execute-a-command-in-case-of-success-or-execute-a-command-in-case-of-failure
+
+$ cmd1 && cmd2 && echo success || echo epic fail
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by Ichag[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13159/execute-a-command-in-case-of-success-or-execute-a-command-in-case-of-failure (link)
+[2]: http://www.commandlinefu.com/commands/by/Ichag (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/BJG0gECKzWs (image)
+Title: Extract ip addresses with sed
+Author: smkr
+Date: Thu, 30 Jan 2014 03:18:14 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/bm5iponCooM/extract-ip-addresses-with-sed
+
+$ sed -n 's/.*\(\(\(^\| 
+\)[0-9]\{1,3\}\.\)\{1\}\([0-9]\{1,3\}\.\)\{2\}[0-9]\{1,3\}\) .*/\1/gp'
+
+looks for IPs at the beginning of the line or prefixed by a space
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by smkr[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13104/extract-ip-addresses-with-sed (link)
+[2]: http://feeds2.feedburner.com/commands/by/smkr (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/bm5iponCooM (image)
+Title: File rename with regexp
+Author: tomtom99
+Date: Sun, 02 Feb 2014 01:17:33 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/XmZrRlGSSfM/file-rename-with-regexp
+
+$ for i in xxxx*.mp4; do j=`echo $i | sed 's/ - \([0-9][0-9]\). / S1E\1 - /g'`;
+mv "$i" "$j"; done
+
+Renames all files in the following format
+
+xxxxxx - 34. yyyyy.mp4
+
+to the following format
+
+xxxxxx S1E34 - yyyyy.mp4
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by tomtom99[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13119/file-rename-with-regexp (link)
+[2]: http://feeds2.feedburner.com/commands/by/tomtom99 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/XmZrRlGSSfM (image)
+Title: Find files of two different extensions and copy them to a directory
+Author: shawn_abdushakur
+Date: Thu, 06 Feb 2014 19:58:32 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/lfPxox2w0Co/find-files-of-two-different-extensions-and-copy-them-to-a-directory
+
+$ find * -regextype posix-extended -regex '.*\.(ext_1|ext_2)' -exec cp {} 
+copy_target_directory \;
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by shawn_abdushakur[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13136/find-files-of-two-different-extensions-and-copy-them-to-a-directory (link)
+[2]: http://feeds2.feedburner.com/commands/by/shawn_abdushakur (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/lfPxox2w0Co (image)
+Title: Generate QR code for a WiFi hotspot
+Author: 
+Date: Sat, 28 Dec 2013 23:40:24 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/bLaF7QtyinM/generate-qr-code-for-a-wifi-hotspot
+
+$ qrencode -s 7 -o qr-wifi.png "WIFI:S:$(zenity --entry --text="Network name 
+(SSID)" --title="Create WiFi QR");T:WPA;P:$(zenity --password --title="Wifi 
+Password");;"
+
+Prompts for network name (SSID) and password, and generates (as qr-wifi.png) a 
+WiFi QR code (e.g. "WIFI:S:mynet;T:WPA;P:mypass;;" for mynet/mypass). 
+Dependencies [sudo apt-get install]: qrencode zenity
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by thedod[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13028/generate-qr-code-for-a-wifi-hotspot (link)
+[2]: http://www.commandlinefu.com/commands/by/thedod (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/bLaF7QtyinM (image)
+Title: Keep track of diff progress
+Author: flatcap
+Date: Sat, 01 Feb 2014 03:51:17 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/2qoJGEhjSJo/keep-track-of-diff-progress
+
+$ watch -d "ls -l /proc/$!/fd"
+
+You're running a program that reads LOTS of files and takes a long time.
+
+But it doesn't tell you about its progress.
+
+First, run a command in the background, e.g.
+find /usr/share/doc -type f -exec cat {} + > output_file.txt
+
+Then run the watch command.
+
+"watch -d" highlights the changes as they happen
+
+In bash: $! is the process id (pid) of the last command run in the background.
+
+You can change this to $(pidof my_command) to watch something in particular.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by flatcap[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13110/keep-track-of-diff-progress (link)
+[2]: http://feeds2.feedburner.com/commands/by/flatcap (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/2qoJGEhjSJo (image)
+Title: List directory size with max depth on IBM AIX
+Author: 
+Date: Sat, 15 Feb 2014 11:33:36 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/-TYXZk9il4A/list-directory-size-with-max-depth-on-ibm-aix
+
+$ du -g | perl -ne 'print if (tr#/#/# == <>maximum depth>)'
+
+Lists directory size up to a maximum traversal depth on systems like IBM AIX, 
+where the du command doesn't have Linux's --max-depth option. AIX's du uses -g 
+to display directory size on gigabytes, -m to use megabytes, and -k to use 
+kilobytes.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by RAKK[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13163/list-directory-size-with-max-depth-on-ibm-aix (link)
+[2]: http://www.commandlinefu.com/commands/by/RAKK (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/-TYXZk9il4A (image)
+Title: Listen and sort your music, with prompt for deleting
+Author: 
+Date: Tue, 24 Dec 2013 00:09:56 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/YNDat5gfSxE/listen-and-sort-your-music-with-prompt-for-deleting
+
+$ for i in $(ls *.mp3); do mplayer $i && echo "delete it? [y/n]" && read trash 
+&& if [ "$trash" == "y" ]; then rm $i; fi; do
+
+Old drive with lots of music or unsorted drive? This command will play all mp3 
+files in a folder and after playing one song or pressing q, it will ask you if 
+you want to delete the file.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by wibbel4[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13022/listen-and-sort-your-music-with-prompt-for-deleting (link)
+[2]: http://www.commandlinefu.com/commands/by/wibbel4 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/YNDat5gfSxE (image)
+Title: List of computers not logged into in more than four weeks
+Author: 
+Date: Fri, 03 Jan 2014 00:29:04 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/QMRNKOFW-9M/list-of-computers-not-logged-into-in-more-than-four-weeks
+
+$ dsquery computer -name COMPUTERNAME -inactive 4
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by shawn_abdushakur[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13038/list-of-computers-not-logged-into-in-more-than-four-weeks (link)
+[2]: http://www.commandlinefu.com/commands/by/shawn_abdushakur (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/QMRNKOFW-9M (image)
+Title: NMAP_UNDERGROUND_VECTRA
+Author: http://google.com
+Date: Fri, 31 Jan 2014 22:04:06 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/unU7EYut6UE/nmap_underground_vectra
+
+$ nmap -sS -O -v -oS - 192.168.2.0/24
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by ene2002[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13108/nmap_underground_vectra (link)
+[2]: http://feeds2.feedburner.com/commands/by/ene2002 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/unU7EYut6UE (image)
+Title: O_o says FML
+Author: O_o
+Date: Sun, 09 Feb 2014 04:42:12 +0400
+Link: http://www.fmylife.com/intimacy/21054738
+
+Today, I had to explain to my husband why saving the condom from the first time
+we had sex is not romantic. FML
+Title: Operating on search matches using gn
+Author: 
+Date: Tue, 11 Feb 2014 04:00:00 +0400
+Link: http://vimcasts.org/episodes/operating-on-search-matches-using-gn/
+Podcast Download URL: http://media.vimcasts.org/videos/63/gn-command.ogv?referrer=rss
+
+The gn command (introduced in Vim 7.4) makes it easy to operate on regions of 
+text that match the current search pattern. It’s especially useful when used 
+with a regex that matches text regions of variable length.
+Title: Prefix every line with a timestamp
+Author: 
+Date: Mon, 10 Feb 2014 20:18:51 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/Z1TZdv2fNHk/prefix-every-line-with-a-timestamp
+
+$ any command | sed "s/^/\[`date +"%Y%m%d%H%M%S"`]/"
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by brx75x[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13145/prefix-every-line-with-a-timestamp (link)
+[2]: http://www.commandlinefu.com/commands/by/brx75x (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/Z1TZdv2fNHk (image)
+Title: Print whois info about connected ip addresses
+Author: 
+Date: Tue, 17 Dec 2013 12:58:35 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/JoqxFJragKA/print-whois-info-about-connected-ip-addresses
+
+$ netstat -np --inet|awk '/firefox/{split($5,a,":");z[a[1]]++} END{for(i in 
+z){system("whois " i)}}'|less
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by sesom42[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13008/print-whois-info-about-connected-ip-addresses (link)
+[2]: http://www.commandlinefu.com/commands/by/sesom42 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/JoqxFJragKA (image)
+Title: Redirect CUPS port to localhost
+Author: 
+Date: Fri, 03 Jan 2014 00:27:36 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/72vbDFwhPo0/redirect-cups-port-to-localhost
+
+$ putty -L 631:localhost:631 username@server
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by shawn_abdushakur[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13037/redirect-cups-port-to-localhost (link)
+[2]: http://www.commandlinefu.com/commands/by/shawn_abdushakur (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/72vbDFwhPo0 (image)
+Title: Remove specific entries from iptables
+Author: 
+Date: Thu, 19 Dec 2013 20:14:25 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/p1Kl00VQois/remove-specific-entries-from-iptables
+
+$ iptables -L INPUT --line-numbers
+
+Then you can remove the specific entry:
+
+iptables -D INPUT 10
+
+Just make sure these are set:
+
+IPTABLES_SAVE_ON_STOP="yes"
+
+IPTABLES_SAVE_ON_RESTART="yes"
+
+Else your changes won't stick when you restart iptables.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by jmorganwalker[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13016/remove-specific-entries-from-iptables (link)
+[2]: http://www.commandlinefu.com/commands/by/jmorganwalker (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/p1Kl00VQois (image)
+Title: Returns the ntfs Windows obeject file details for any file using Cygwin bash (actual r-click-properties-info) to the term
+Author: 
+Date: Mon, 30 Dec 2013 11:47:41 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/9nMd6U67NsU/returns-the-ntfs-windows-obeject-file-details-for-any-file-using-cygwin-bash-actual-r-click-properties-info-to-the-term
+
+$ finfo() { [[ -f "$(cygpath "$@")" ]] || { echo "bad-file";return 1;}; echo 
+"$(wmic datafile where name=\""$(echo "$(cygpath -wa "$@")"|sed 
+'s/\\/\\\\/g')"\" get /value)"|sed 's/\r//g;s/^M$//;/^$/d'|awk -F"=" '{print 
+$1"=""\033[1m"$2"\033[0m"}';}
+
+Pass the files path to finfo(), can be unix path, dos path, relative or 
+absolute. The file is converted into an absolute nix path, then checked to see 
+if it is in-fact a regular/existing file. Then converted into an absolute 
+windows path and sent to "wmic". Then magic, you have windows file details 
+right in the terminal. Uses: cygwin, cygpath, sed, and awk. Needs Windows WMI 
+"wmic.exe" to be operational. The output is corrected for easy...
+finfo notepad.exefinfo "C:\windows\system32\notepad.exe"finfo 
+/cygdrive/c/Windows/System32/notepad.exefinfo "/cygdrive/c/Program 
+Files/notepad.exe"finfo ../notepad.exe
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by lowjax[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13031/returns-the-ntfs-windows-obeject-file-details-for-any-file-using-cygwin-bash-actual-r-click-properties-info-to-the-term (link)
+[2]: http://www.commandlinefu.com/commands/by/lowjax (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/9nMd6U67NsU (image)
+Title: See what a cassandra node is streaming
+Author: 
+Date: Wed, 01 Jan 2014 20:59:01 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/R1KWcNZfxeg/see-what-a-cassandra-node-is-streaming
+
+$ watch -d 'echo -e "Remaining: `(nodetool netstats | grep " 0%" | wc -l)` 
+\nCurrent: `(nodetool netstats | grep "%" | grep -v " 0%")`"'
+
+When bootstrapping or repairing a node this is a simple way to keep tabs on 
+what a node is actively doing.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by mrwulf[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13032/see-what-a-cassandra-node-is-streaming (link)
+[2]: http://www.commandlinefu.com/commands/by/mrwulf (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/R1KWcNZfxeg (image)
+Title: Sequentially repair multiple cassandra nodes at once
+Author: 
+Date: Wed, 01 Jan 2014 21:05:40 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/ripsxEHJY_0/sequentially-repair-multiple-cassandra-nodes-at-once
+
+$ for s in 172.16.{1,2}2.9{0,1,2}; do echo "Repairing node $s..."; nodetool -h 
+$s repair -pr; done
+
+Repair each node in sequence. Make sure you change the IP replacements to match
+your environment
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by mrwulf[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13033/sequentially-repair-multiple-cassandra-nodes-at-once (link)
+[2]: http://www.commandlinefu.com/commands/by/mrwulf (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/ripsxEHJY_0 (image)
+Title: Show all groups user is a member of and other useful info
+Author: 
+Date: Fri, 03 Jan 2014 00:22:46 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/eEcQPlVZztc/show-all-groups-user-is-a-member-of-and-other-useful-info
+
+$ net user USERNAME /domain
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by shawn_abdushakur[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13036/show-all-groups-user-is-a-member-of-and-other-useful-info (link)
+[2]: http://www.commandlinefu.com/commands/by/shawn_abdushakur (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/eEcQPlVZztc (image)
+Title: Stores current working directory before exit and restores it on a new bash start
+Author: ichbins
+Date: Tue, 28 Jan 2014 22:02:04 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/u75SAuPq-0Q/stores-current-working-directory-before-exit-and-restores-it-on-a-new-bash-start
+
+$ echo -e 'alias exit='\''pwd > ~/.lastdir;exit'\''\n[ -n "$(cat .lastdir 
+2>/dev/null)" ] && cd "$(cat .lastdir)"' >> ~/.bash_aliases
+
+this command will add the following two lines into the ~/.bash_aliases:
+
+alias exit='pwd > ~/.lastdir;exit'
+
+[ -n "$(cat .lastdir 2>/dev/null)" ] & cd "$(cat .lastdir)"
+
+or redirect it to the ~/.bashrc if you like
+
+Donno, I find it usefull. You may also define an alias for 'cd ~' like - alias 
+cdh='cd ~'
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by ichbins[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13099/stores-current-working-directory-before-exit-and-restores-it-on-a-new-bash-start (link)
+[2]: http://feeds2.feedburner.com/commands/by/ichbins (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/u75SAuPq-0Q (image)
+Title: Sync two directories
+Author: shawn_abdushakur
+Date: Sun, 09 Feb 2014 01:07:37 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/1NVLpg9BlPE/sync-two-directories
+
+$ rsync -a -v --delete sending_directory target_directory
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by shawn_abdushakur[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13140/sync-two-directories (link)
+[2]: http://feeds2.feedburner.com/commands/by/shawn_abdushakur (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/1NVLpg9BlPE (image)
+Title: Transfer with rsync a file using SSH with a forced HMAC integrity algorithm
+Author: RAKK
+Date: Sat, 01 Feb 2014 04:46:38 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/Ab86Dos9CIo/transfer-with-rsync-a-file-using-ssh-with-a-forced-hmac-integrity-algorithm
+
+$ rsync -av -e "ssh -o MACs=hmac-ripemd160" --progress --partial 
+user@remotehost://path/to/remote/stuff .
+
+This command allows you to mirror folders or files with rsync using a secure 
+SSH channel with a forced HMAC integrity algorithm. Use this if you are 
+absolutely adamant about preserving data integrity while mirroring a set of 
+files. --partial is for resumability.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by RAKK[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13111/transfer-with-rsync-a-file-using-ssh-with-a-forced-hmac-integrity-algorithm (link)
+[2]: http://feeds2.feedburner.com/commands/by/RAKK (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/Ab86Dos9CIo (image)
+Title: Disable Javascript Console in Browsers
+Author: 
+Date: Fri, 14 Feb 2014 10:39:17 +0400
+Link: http://feedproxy.google.com/~r/queness/~3/536Mx8hTYHw/disable-javascript-console-in-browsers
+
+Randomly found this interesting reading about how Facebook disable developer 
+tools at StackOverflow. It turns out, it's actually possible to disable 
+Javascript console using Javascript alone but with a caveat. It started with a 
+recent Facebook scam, users are being convinced/guided to paste malicious codes
+into the Javascript console which will post SPAM or hack accounts. And now, 
+Facebook is randomly testing on its own users before rolling out this measure 
+to deter this exploit. At the moment, this solution is being rolled out for 
+testing. Therefore, some accounts are affected, some aren't. If this happened 
+on your account and you hated it for some reason, there's a opt-out page to 
+disable it. Interesting though, there's a Facebook security enginneer named 
+Mathias Bynens replied to this stackoverflow thread. I'm a security engineer at
+Facebook and this is my fault. We're testing...
+
+[[ This is a content summary only. Visit my website for full links, other 
+content, and more! ]][image 1]
+
+Links: 
+[1]: http://feeds.feedburner.com/~r/queness/~4/536Mx8hTYHw (image)
+Title: Log Buffer #359, A Carnival of the Vanities for DBAs
+Author: 
+Date: Fri, 14 Feb 2014 20:47:46 +0400
+Link: http://www.pythian.com/blog/log-buffer-359-a-carnival-of-the-vanities-for-dbas/
+
+On this Valentine’s Day, what is the most romantic thing you could do as 
+database professional? Why, yes — you could read (and then share) this 
+scintillating and lovely Log Buffer Edition!
+
+Oracle:
+
+Oracle[1] is kicking off a 17-city North American event series on how running 
+Oracle Applications on Oracle hardware can help customers deliver maximum value
+and achieve dramatically better business results.
+
+Five guidelines to follow as you begin building and employing mobile 
+applications – plus Oracle[2] technologies and products that support your move 
+to mobility in your enterprise.
+
+When you run R functions in the database, especially functions involving 
+multiple R engines in parallel, you can monitor their progress using the Oracle
+R[3] Enterprise datastore as a central location for progress notifications, or 
+any intermediate status or results.
+
+In the era of big data[4], data warehousing is becoming even more relevant for 
+enterprises which are eager to become more information-driven.
+
+The License Definitions and Rules (LDR[5]s) are a critical part of every 
+software license that Oracle grants to a customer.
+
+SQL Server:
+
+An examination into how the various transaction isolation levels affect locking[6]
+(and blocking.)
+
+What to do if you need to push the limits of your disk subsystem, in order to 
+determine whether the hardware[7]’s I/O capacity meets the needs of a database 
+application.
+
+An Overview of SSIS[8] Parameters – Level 15 of the Stairway to Integration 
+Services.
+
+With the new SQL Server[9] 2014 In-Memory OLTP tables, stored procedures can be
+natively compiled and can improve performance.
+
+Excel spreadsheets are useful for distributing data generated by SQL Server, 
+but SSIS[10] lacks direct support for writing Excel files.
+
+MySQL:
+
+The Sign: row-based binary logging and integer signedness in MySQL and MariaDB[11]
+.
+
+Delayed Transaction Durability: A new feature in SQL Server 2014 CTP[12]2.
+
+Getting Started with the Spider Storage Engine[13].
+
+Shard-Query[14] is now much faster for some aggregate functions.
+
+One of the most expensive database operations is performing Data Definition 
+Language (DDL, e.g. CREATE, DROP, ALTER, etc.) statements, specially, the ALTER[15]
+statements because MySQL blocks the entire table for both reads and writes 
+while modifying the table.
+
+Links: 
+[1]: https://blogs.oracle.com/hardware/entry/oracle_kicks_off_oracle_systems (link)
+[2]: https://blogs.oracle.com/soacommunity/entry/enabling_enterprise_mobility_with_oracle (link)
+[3]: https://blogs.oracle.com/R/entry/monitoring_progress_of_embedded_r (link)
+[4]: https://blogs.oracle.com/databaseinsider/entry/learn_about_what_s_new (link)
+[5]: https://blogs.oracle.com/partnernews/entry/familiarize_yourself_with_the_current (link)
+[6]: http://www.sqlservercentral.com/articles/Transaction+Isolation+levels/106363/ (link)
+[7]: http://www.sqlservercentral.com/redirect/articles/106672/ (link)
+[8]: http://www.sqlservercentral.com/articles/Integration+Services+(SSIS)/106428/ (link)
+[9]: http://www.sqlservercentral.com/redirect/articles/106674/ (link)
+[10]: http://www.sqlservercentral.com/articles/SSIS/105432/ (link)
+[11]: http://www.skysql.com/blogs/kolbe/sign-row-based-binary-logging-and-integer-signedness-mysql-and-mariadb (link)
+[12]: http://www.dbi-services.com/index.php/blog/entry/delayed-transaction-durability-a-new-feature-in-sql-server-2014-ctp2 (link)
+[13]: http://www.chriscalender.com/?p=1450 (link)
+[14]: http://shardquery.com/2014/02/13/shard-query-is-now-much-faster-for-some-aggregate-functions/ (link)
+[15]: http://www.fromdual.com/node/873 (link)
+Если планируется устанавливать компонент baStatRegLoader системы EzStatistics,
+то до начала установки на сервере должен быть установлен компонент Oracle Client v.10 или старше. 
+В противном случае, компонент не будет запущен как демон, и не будет функционировать. 
+Кроме этого, от компонента baStartStopManager в трейс при попытке автоматического запуска компонентов будут поступать 
+сообщения о невозможности запуска компонента baStatRegLoader.
+Примечание 1. Если позже установить Oracle Client, то baStatRegLoader можно будет запустить вручную..
+Примечание 2. Если на сервер не требуется устанавливать компонент baStatRegLoader, то Oracle Client не нужен.
+На сервере отсутствуют установленная система «Bercut ATOMS» ранней версии. Рекомендуется удалить системы «Bercut ATOMS» более ранних версий.
+
+cat /etc/release
+
+Скопировать на сервер, на который требуется установить компоненты системы, файл дистрибутива BercutATOMS.1.11.5.1.pkg.
+\\build-w2k\Systems\Bercut\
+\\build-w2k\Systems\Bercut\ATOMS DSM Agent Setup\1.1\1.1.0.32
+
+2. Проверить, что на сервере нет установленных компонентов системы «Bercut ATOMS». Для этого ввести команду pkgrm. Если среди списка пакетов окажется пакет «Bercut ATOMS», то следует его удалить.
+Примечание. Данную команду необходимо выполнять при работе с правами пользователя root.
+ pkginfo | grep ATOMS
+ 
+ 
+ 
+\\FILESERVER\qa\Release\Platforms\SETUP\ATOMS\Bercut ATOMS\Bercut ATOMS 1.11.0\Solaris
+pkgadd -d ./BercutATOMS.1.11.5.1.pkg
+
+shutdown -i6 -g0 -y
+prstat -Z
+
+PATH=$PATH:/usr/X11/bin:/usr/openwin/bin:/usr/ucb
+export PATH
+
+ echo noexec_user_stack/W 1| adb -kw
+  echo noexec_user_stack_log/W 1| adb -kw
+
+ldd -r app 
+
+cpio -idmv < 10gr2_db_sol.cpio
+
+java -version
+
+\\build-w2k\compilers_solaris9\jdk1.6.0_191
+\\build-w2k\compilers_solaris10\jdk1.6.0_19
+\\build-w2k\Distributives\3rdParty\SUN\JDK
+
+
+\\Fileserver\Bercut\Directions\Messaging\ПРОДУКТЫ НАПРАВЛЕНИЯ\I-Cell\Документация\Спецификации
+http://svn.office.bercut.ru:18080/svn/base/
+
+ 1024-bit SSL ciphers and RSA-based encryption through 2012
+
+  significantly stronger 2048-bit keys. (Remember, for a naive algorithm, each bit doubles the time it takes to break the key, so a 2048-bit key isn't twice as strong, it is 2^1024 times as strong.)
+   they instead prefer the Elliptic Curve Diffie-Hellman Ephemeral (ECDHE) cipher suites. at least every 28-hours.
+
+   PS1='\[\e[1;31m\][\A]\[\e[1;33m\]\u@\[\e[1;35m\]\h:\[\e[1;34m\]\w\$\[\e[0m\] '
+   PS1='\[\e[5;47;5;30m\][\A]\[\e[0;1;34m\]\u@\h:\w\$\[\e[0m\] '
+
+   PS2='\[\e[1;31m\]ps2 >\[\e[0m\] '
+
+sftp
+
+
+% prtconf | grep Mem
+Memory size: 32760 Megabytes
+
+% id -p
+uid=59008(oracle) gid=10001(dba) projid=3(default)
+
+% prctl -n project.max-shm-memory -i project 3
+
+
+
+createTunnel() {
+  /usr/bin/ssh -N -R 2222:localhost:22 serverUser@25.25.25.25
+  if [[ $? -eq 0 ]]; then
+    echo Tunnel to jumpbox created successfully
+  else
+    echo An error occurred creating a tunnel to jumpbox. RC was $?
+  fi
+}
+/bin/pidof ssh
+if [[ $? -ne 0 ]]; then
+  echo Creating new tunnel connection
+  createTunnel
+fi
+
+
+На случай дождя или палящего солнца читальня оборудована большим шатром, зонтиками. На Елагином будут рады книгоманам со среды по воскресенье с 13.00 до 19.00, вплоть до 18 августа. Фонтанка.ру 
+
+ Существует отличная замена NetCat - Ncat. Входит в один пакет с Nmap и обязателен к использованию на "своем" хосте (на чужом -- как повезет). Он более гибок в плане доступных опций и поэтому использовать его легче, чем классический NC. Там же ищите классные утилиты ndiff, nping и ncrack.
+
+ select USERNAME,ACCOUNT_STATUS,LOCK_DATE from dba_users;
+  conn jack/jack;
+  conn sys as sysdba
+  alter user jack account unlock;
+
+  select replace ('1234 AB',' ',null) from dual 
+
+  SELECT  TO_TIMESTAMP('2004-09-30 23:53:48,140000000', 'YYYY-MM-DD HH24:MI:SS,FF9')
+FROM    dual
+
+SELECT COUNT(*) FROM
+
+select distinct ecode from table2;
+SELECT COUNT(*) FROM (select distinct ecode from table2);
+
+SELECT COUNT(*) FROM (select distinct MISI1 from table2);
+
+ select distinct to_number(replace (cat1,' ',null)) from TABLE2;
+
+ Select count(table2.date2) From table2, table17 where table2.date2=table17.dt1 and table2.misi1=table17.misi1 ;
+
+
+
+Select CAST(table2.dater AS TIMESTAMP) ,  CAST(table17.datep AS TIMESTAMP), table2.dater - table17.datep from table2, table17 ;
+
+
+CAST(table2.dater AS TIMESTAMP) ,  CAST(table17.datep AS TIMESTAMP), table2.dater - table17.datep From table2, table17 where table2.dater<=table17.datep and table2.misir=table17.misip and (replace (table2.catr,' ',null))=table17.catp;
+
+
+Select CAST(table2.dater AS TIMESTAMP) ,  CAST(table17.datep AS TIMESTAMP), table2.dater - table17.datep 
+       from table2, table17 
+            where (table2.dater-table17.datep<0.1)
+            and table2.misir=table17.misip 
+            and (replace (table2.catr,' ',null))=table17.catp;
+
+select distinct ecode , sscode from TABLE2 t ...
+
+
+select * from table1 
+ where field1 >= to_timestamp('2012-01-01', 'YYYY-MM-DD') 
+   and field1 < to_timestamp('2012-01-02', 'YYYY-MM-DD')
+
+
+   select count(*) as UniqueDayMsisdm from (select distinct table2.misir from table2);
+   select count(*) as ErrorsCount from table2 where table2.sscode!=0 or table2.ecode!=0 ;
+
+Select CAST(table2.dater AS TIMESTAMP) ,  CAST(table17.datep AS TIMESTAMP), table17.datep -  table2.dater
+       from table2, table17 
+            where (table17.datep-table2.dater<0.000012) 
+            and  (table17.datep-table2.dater>-0.000012);
+update table2.ecode set c1 = 1;
+  update t2 set c1 = 2;
+
+  Select count(*)
+       from table2, table17 
+            where (table17.datep-table2.dater<0.000012)
+            and table2.misir=table17.misip 
+            and (replace (table2.catr,' ',null))=table17.catp
+             and table2.sscode=0 and table2.ecode=0;
+Select CAST(table2.dater AS TIMESTAMP) ,  CAST(table17.datep AS TIMESTAMP), table17.datep -  table2.dater
+       from table2, table17 
+            where (table17.datep-table2.dater<0.000012)
+            and table2.misir=table17.misip 
+            and (replace (table2.catr,' ',null))=table17.catp
+            and table2.sscode=0 and table2.ecode=0;
+
+
+
+
+merge into table2 t2
+using (
+select t2.theme, t2.timedp from t2) t
+on 
+
+
+
+and  rownum=1
+
+
+
+UPDATE 
+(
+select 
+  table2.timedp,
+  table2.theme,
+  table17.datep,
+  table17.themep
+From table2 
+  INNER JOIN table17 ON (table17.datep=table2.dater and table17.misip=table2.misir)
+)
+tt
+set tt.timedp=tt.datep, tt.theme=tt.themep;
+  
+
+
+merge into report r
+using (select * from day17provider) p 
+ON (
+       r.msiso2 = p.msiso1
+            and r.catp2 = p.catp1 
+            and (r.datep2-p.datep1='000000000 00:00:000')           
+       )
+WHEN MATCHED THEN
+UPDATE SET
+r.t2=p.themep1;
+
+
+
+Snagged from Oracle OTN forums
+
+Use alter table to add column, for example:
+
+alter table tableName add(columnName NUMBER);
+
+Then create a sequence:
+
+CREATE SEQUENCE SEQ_ID
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 99999999
+MINVALUE 1
+NOCYCLE;
+
+and, the use update to insert values in column like this
+
+UPDATE tableName SET columnName = seq_test_id.NEXTVAL
+
+Title: Watch a dig in progress
+Author: 
+Date: Thu, 26 Dec 2013 23:23:27 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/bdg2aHfGz5s/watch-a-dig-in-progress
+
+$ watch -n1 dig google.com
+
+Watch a dig in progress
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by ene2002[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13026/watch-a-dig-in-progress (link)
+[2]: http://www.commandlinefu.com/commands/by/ene2002 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/bdg2aHfGz5s (image)
+Title: Watch the progress of 'dd'
+Author: unixmonkey72929
+Date: Tue, 28 Jan 2014 18:43:14 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/p97kDQulJe4/watch-the-progress-of-dd
+
+$ ctrl-t
+
+Pressing ctrl-t will display the progress
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by unixmonkey72929[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13098/watch-the-progress-of-dd (link)
+[2]: http://feeds2.feedburner.com/commands/by/unixmonkey72929 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/p97kDQulJe4 (image)

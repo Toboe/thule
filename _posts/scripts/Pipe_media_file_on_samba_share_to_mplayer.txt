@@ -1,0 +1,27 @@
+Title: Pipe media file on samba share to mplayer
+Author: 
+Date: Mon, 17 Feb 2014 01:42:06 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/XodFFk4O8Us/pipe-media-file-on-samba-share-to-mplayer
+
+$ smbget -u username -p passw0rd -w domain_or_workgroup 
+//server/share/mediafile.ogv -O - | mplayer -
+
+add -rootwin to make it cover the whole desktop.
+
+This may work better than mounting it as a cifs mount.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by dizzi90[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13170/pipe-media-file-on-samba-share-to-mplayer (link)
+[2]: http://www.commandlinefu.com/commands/by/dizzi90 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/XodFFk4O8Us (image)
