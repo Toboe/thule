@@ -1,0 +1,129 @@
+Sourced
+
+    The world doesn't live off jam and fancy perfumes - it lives off bread and meat and potatoes. Nothing changes. All the big fancy stuff is sloppy stuff that crashes. I don't need dancing baloney - I need stuff that works. That's not as pretty, and just as hard. Sam Varghese (2009-12-08). "OpenBSD shows the way". ITWire.
+
+    I actually am fairly uncomfortable about it, even if our firm stipulation was that they cannot tell us what to do. We are simply doing what we do anyways — securing software — and they have no say in the matter. I try to convince myself that our grant means a half of a cruise missile doesn't get built.
+        quoted in Akin, David (2004-04-06). "U.S. military helps fund Calgary hacker". Globe and Mail. Retrieved on 2007-01-10.
+        on receiving a monetary grant from the US military
+
+    Low code quality keeps haunting our entire industry. That, and sloppy programmers who don't understand the frameworks they work within. They're like plumbers high on glue.
+        quoted in Akin, David (2004-04-06). "U.S. military helps fund Calgary hacker". Globe and Mail. Retrieved on 2007-01-10.
+
+    Hardware donations do not come from vendors who use OpenSSH on parts of their stuff. They come from individuals. The hardware vendors who use OpenSSH on all of their products have given us a total of one laptop since we developed OpenSSH five years ago. And asking them for that laptop took a year. That was IBM.
+        quoted in Varghese, Sam (2004-10-08). "Staying on the cutting edge". The Age. Retrieved on 2007-01-10.
+
+    So the HP guy comes up to me (at the Melbourne conference) and he says, 'If you say nasty things like that to vendors you're not going to get anything'. I said 'no, in eight years of saying nothing, we've got nothing, and I'm going to start saying nasty things, in the hope that some of these vendors will start giving me money so I'll shut up'.
+        quoted in Varghese, Sam (2004-10-08). "Staying on the cutting edge". The Age. Retrieved on 2007-01-10.
+
+    This is a software monopoly but at least it was written by people who care about security, so it's not like Microsoft's monopoly.
+        Gedda, Rodney (2004-10-09). "OpenBSD's Theo de Raadt talks software security". Computerworld. Retrieved on 2007-01-10.
+        speaking about OpenSSH
+
+    It's terrible, everyone is using it, and they don't realize how bad it is. And the Linux people will just stick with it and add to it rather than stepping back and saying, 'This is garbage and we should fix it.
+        quoted in Lyons, Daniel (2005-06-16). "Is Linux For Losers?". Forbes. Retrieved on 2007-01-10.
+        on the quality of the code of the Linux kernel
+
+    Linux people do what they do because they hate Microsoft. We do what we do because we love Unix.
+        quoted in Lyons, Daniel (2005-06-16). "Is Linux For Losers?". Forbes. Retrieved on 2007-01-10.
+
+    I think it is astounding that people could argue for "you just must trust someone else to fix it" instead of "you could fix it yourself, or hire someone to fix it." There is a contractor base out there that can solve these problems as well as or better than the major vendors could. But I think the major vendors are still having more luck at getting the ear of the press.
+        "Interview: Theo de Raadt on Industry and Free Software". The Epoch Times. 2005-07-05. Retrieved on 2007-01-10.
+
+    Well, we do not do this so that other players can make profit. We've actually been doing this for a long time and I do not know of anyone who specifically makes money off OpenBSD. They may, at best, save some money by not having to re-engineer the same software that we have already written. It is not exactly that we are letting them make a profit, but that we are doing a proper job and saving someone else from having to do the same job in a corporate setting. In our eyes, that is perhaps a waste of planet-wide engineer talents, rewriting the same thing over and over. Why can’t we just get it right once?
+        "Interview: Theo de Raadt on Industry and Free Software". The Epoch Times. 2005-07-05. Retrieved on 2007-01-10.
+
+    What's so exciting is to be able to just take something and polish it so much that hopefully in the future people will start borrowing things from it.
+        "Interview: Staying on the cutting edge". The Age. 2004-10-08. Retrieved on 2007-09-15.
+
+    ...you are being the usual slimy hypocritical asshole... You may have had value ten years ago, but people will see that you don't anymore.
+        "OpenBSD.misc mailing list". 2007-12-14.
+        To Richard Stallman
+
+    The only way to make it clear to him that he should not come here to our lists in the future, is to teach him a hard lesson, and that is done by continually re-adding cc's back to him -- because the mails talk about him -- even when his friends come our mailing lists and delete the his address from the cc list. Like this message, which adds him back in. Richard, you are a lying cheating hypocrite.
+        "OpenBSD.misc mailing list". 2007-12-14.
+
+    [...] beer results in ideas, which results in new code.
+        "slashdot".
+
+Unsourced
+
+    Buttons are for idiots.[1]
+        /usr/src/usr.bin/mg/theo.c
+
+    A solid system's approach should not be based on "but it works." Yet, time and time again, we see that for most people this is the case. They don't care about good software, only about "good enough" software. So the programmers can continue to make such mistakes.
+        Slashdot, December 11, 2000
+
+    Why are you guys so fork paranoid? Do you want everyone to vote for the same political party, too?
+        Slashdot, December 11, 2000
+
+    I think your computer science teachers are still teaching you from books written in the '80s, when the word "micro-kernel" was associated with a future utopia.
+        Slashdot.org, December 11, 2000
+
+    But software which OpenBSD uses and redistributes must be free to all (be they people or companies), for any purpose they wish to use it, including modification, use, peeing on, or even integration into baby mulching machines or atomic bombs to be dropped on Australia.
+        cvs@openbsd.org mailing list, May 29, 2001
+
+    Do you trust glibc? OK, perhaps that snide remark is overstating things a bit, but secure software only happens when all the pieces have 100% correct behavior.
+        KernelTrap.org, November 26, 2001
+
+    I say things as they are. Slackers are called slackers, people who can't read manual pages are called losers, and in general, calling things what they are results in developers wasting less time.
+        KernelTrap, November 26, 2001
+
+    You did not create these mailing lists, so you can take your opinions about why these lists were created and shove them up your ass.
+        tech@openbsd.org, June 15, 2002
+
+    We don't normally recommend that you use it over another operating system. Or even under, or beside, or even near. "Instead of " -- that describes how we use it ;)
+        in response to "Why would I want to use OpenBSD over another operating system?"
+        misc@openbsd.org, April 19, 2004
+
+    It's the little things that make Freedom become Not Freedom.
+        misc@openbsd.org, June 6, 2004
+
+    I am simply astounded at some of the things people keep repeating. I don't mean this applies to everyone, but is there a high quantity of attention deficit disorder in our user community? Or retards? Or is it just the same old trolling? OpenBSD does not incorporate non-free software.
+        when asked to include binary files to support Atheros' 802.11g wireless technology
+        misc@openbsd.org mailing list, September 14, 2004
+
+    They may want to use some GPL'd build tools but if they start putting GPL parts directly into X, then that is going to cause another X split. I promise.
+        tech@openbsd.org, November 3, 2004
+
+    Scaling isn't really our concern; I barely know what the word means. There is one group of people who we do know scales. Whiners. They scale really well.
+        misc@openbsd.org mailing list, April 30, 2005
+
+    I am very easy to get along with, but I don't have time to waste being nice to people who are being stupid.
+        KernelTrap.org, May 2, 2006
+
+    In the Unix system view, anything which needs to talk to raw devices INSTEAD OF THE KERNEL DOING SO is broken. There are no apologies to be made. Period. If you want X to talk to IO devices, what next? ls?
+        on the poor design of X
+        misc@openbsd.org, May 13, 2006
+
+    Hardly surprising. Apple. They build crap and make you pay extra.
+        on Apple's busted keyboard handling at device level and within ROM
+        misc@openbsd.org, January 6, 2007
+
+    Complexity does not avert risk. Ever. Period.
+        misc@openbsd.org, July 16, 2007
+
+    You are absolutely deluded, if not stupid, if you think that a worldwide collection of software engineers who can't write operating systems or applications without security holes, can then turn around and suddenly write virtualization layers without security holes.
+        on the statement "Virtualization seems to have a lot of security benefits"
+        misc@openbsd.org, October 23, 2007
+
+    Shut up and hack. [2]
+
+    I could live in a tent and be happy, but all the ISPs want fixed addresses.
+        misc@openbsd.org, March 3, 2010
+
+Quotes from others about Theo de Raadt
+
+    On December 20 [1994], Theo de Raadt was asked to resign from the NetBSD Project by the remaining members of 'core'. This was a very difficult decision to make, and resulted from Theo's long history of rudeness towards and abuse of users and developers of NetBSD.
+        Adam Glass, NetBSD mailing list, December 23, 1994 [3]
+
+    Admittedly, I was apprehensive about interviewing Theo de Raadt.
+        Julie Bresnick, Newsforge, January 30, 2001
+
+    Difficult.
+        Linus Torvalds, Forbes, June 16, 2005
+
+    What I do know is Theo is the kind of security genius that various state secret-service organizations would love to have on their side. If he were to waltz into the Department of Defense and promise to be a good boy, I think Director of Central Intelligence George Tenet would probably jizz all over himself.
+        Annalee Newitz, AlterNet, July 8, 2003
+
+    It's widely claimed that I'm "the one" who ejected Theo from the NetBSD community. That is false. At that time in NetBSD's history, Chris G. Demetriou was playing the role of alpha male, and I wasn't even given a choice. I was certain it was going to bite us in the ass. I think the question for historians is not whether it did bite us in the ass, but how many times and how hard.
+        Charles M. Hannum, ONLamp.com, September 14, 2006 

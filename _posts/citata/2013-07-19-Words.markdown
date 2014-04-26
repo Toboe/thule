@@ -999,3 +999,12 @@ assumption worlds
 
 напомню первое правило бизнеса 90-х - «если в схеме ты не видишь лоха,
 значит этот лох – ты»
+
+
+FROM: THEO DE RAADT <DERAADT@OPENBSD.ORG>
+SUBJECT: RE: QUESTION ABOUT OPENBSD SECURITY
+DATE: SEP 29, 2011 21:09:50 CST
+
+OpenBSD is the most secure operating system in the world. We don't have to publish anything, and if you don't like it then don't use it. The end.
+
+P.S. Don't contact me again.
