@@ -919,10 +919,14 @@ Who dares do more, is none”
 
 Ophelia is a fictional character in the play Hamlet by William Shakespeare
 
+Ur0bUr()sGotyOu#.
+==============
+
 iron will
 
 MOG (Master of Games).
 ===========
+
 sordid 
  I'm the kind of author who likes to hang out 
 in Adolf Hitler's home town with the High Priestess of 
@@ -934,6 +938,14 @@ Alvin Toffler called the
 случайные числа, свастика и "волчий крюк", знак "идея нации" копирующий
 символику одного из подразделений СС) 
 
+Cunningham's Law states "the best way to get the right answer on the Internet is not to ask a question, it's to post the wrong answer."
+The concept is named after Ward Cunningham, father of the wiki. According to Steven McGeady,[1] the law's author, Wikipedia may be the most well-known demonstration of this law.
+
+Соберётся несколько больше, чем один модуль, но сильно меньше, чем все.
+
+
+od Judgment Project.
+=======
 
 Сунь-Цзы сказал (II:5): «... на войне слышали об успехе при быстроте её,
 даже при неискусности её ведения, и не видели еще успеха при
@@ -988,6 +1000,7 @@ assumption worlds
 напомню первое правило бизнеса 90-х - «если в схеме ты не видишь лоха,
 значит этот лох – ты»
 
+<<<<<<< HEAD
 конец 1940-х-первая половина 1950-х гг. – было разработано 7 планов
 нанесения атомных ударов по СССР и его союзникам (планы «Бойлер»,
 «Чариотир», «Хафмун», «Дропшот» и др.). 
@@ -1007,3 +1020,13 @@ Your days are coming, bourgeoisie swine!
 искушении никто не говори: Бог меня искушает; потому что Бог не
 искушается злом и Сам не искушает никого, 14 но каждый искушается,
 увлекаясь и обольщаясь собственною похотью;
+=======
+
+FROM: THEO DE RAADT <DERAADT@OPENBSD.ORG>
+SUBJECT: RE: QUESTION ABOUT OPENBSD SECURITY
+DATE: SEP 29, 2011 21:09:50 CST
+
+OpenBSD is the most secure operating system in the world. We don't have to publish anything, and if you don't like it then don't use it. The end.
+
+P.S. Don't contact me again.
+>>>>>>> b05e00f067f0753d014a6201cb05df8a3f65f6d9
