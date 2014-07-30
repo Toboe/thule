@@ -1020,8 +1020,8 @@ Your days are coming, bourgeoisie swine!
 искушении никто не говори: Бог меня искушает; потому что Бог не
 искушается злом и Сам не искушает никого, 14 но каждый искушается,
 увлекаясь и обольщаясь собственною похотью;
-=======
 
+=======
 FROM: THEO DE RAADT <DERAADT@OPENBSD.ORG>
 SUBJECT: RE: QUESTION ABOUT OPENBSD SECURITY
 DATE: SEP 29, 2011 21:09:50 CST

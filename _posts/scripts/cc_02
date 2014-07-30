@@ -1,0 +1,217 @@
+Title: Let keyboard LED blink
+Author: knoppix5
+Date: Mon, 28 Jul 2014 23:17:01 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/ugxO50cZ_fo/let-keyboard-led-blink
+
+$ for a in $(seq 15); do (xset led 3);(xset -led 3);sleep .9;done
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by knoppix5[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13600/let-keyboard-led-blink (link)
+[2]: http://feeds2.feedburner.com/commands/by/knoppix5 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/ugxO50cZ_fo (image)
+Title: List all files ever added in git repository
+Author: cakyus
+Date: Wed, 09 Jul 2014 18:13:24 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/DXu_JY3GBmk/list-all-files-ever-added-in-git-repository
+
+$ git log --name-status --oneline --all | grep -P "^[A|M|D]\s" | awk '{print 
+$2}' | sort | uniq
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by cakyus[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13543/list-all-files-ever-added-in-git-repository (link)
+[2]: http://feeds2.feedburner.com/commands/by/cakyus (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/DXu_JY3GBmk (image)
+Title: List Listen Port by numbers
+Author: hute37
+Date: Tue, 22 Jul 2014 18:08:01 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/6nqx4CMRzcg/list-listen-port-by-numbers
+
+$ netstat -tlpn | sort -t: -k2 -n
+
+Show TCP Listen ports sorted by number
+
+(bugs: IPV6 addresses not supported)
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by hute37[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13580/list-listen-port-by-numbers (link)
+[2]: http://feeds2.feedburner.com/commands/by/hute37 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/6nqx4CMRzcg (image)
+Title: Search files with js declarations inside
+Author: http://blog.wikifotos.org
+Date: Wed, 23 Jul 2014 10:24:31 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/xbn9kY6mYP0/search-files-with-js-declarations-inside
+
+$ grep -r "<>script" | grep -v src | awk -F: '{print $1}' | uniq
+
+Useful to crawl where the javascript is declared, and extract it a common file.
+You can redirect it to a file to review item by item.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by sucotronic[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13587/search-files-with-js-declarations-inside (link)
+[2]: http://feeds2.feedburner.com/commands/by/sucotronic (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/xbn9kY6mYP0 (image)
+Title: tiny proxy in shell to receive on port and write on unix socket
+Author: http://blog.adityapatawari.com
+Date: Sat, 19 Jul 2014 22:17:35 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/uYpsCLHYHnA/tiny-proxy-in-shell-to-receive-on-port-and-write-on-unix-socket
+
+$ mknod replypipe p; nc -k -lp 1234 <> replypipe| nc -U /var/run/mysocket.sock 
+> replypipe
+
+* Make a FIFO file named replypipe
+
+* listen on 1234 
+
+* pass the request to unix socket
+
+* unix socket will reply to replypipe
+
+* replypipe will write reply to the client
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by adimania[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13577/tiny-proxy-in-shell-to-receive-on-port-and-write-on-unix-socket (link)
+[2]: http://feeds2.feedburner.com/commands/by/adimania (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/uYpsCLHYHnA (image)
+Title: Tiny says FML
+Author: Tiny
+Date: Tue, 29 Jul 2014 12:27:07 +0400
+Link: http://www.fmylife.com/miscellaneous/21223478
+
+Today, I had to sit through yet another one of my mom's, "You need to grow and 
+gain some weight!" rants. I'm 22 and she doesn't believe me when I tell her I'm
+done growing. I'm pretty sure I'm not getting past 5'2". FML
+Title: Use a server as SOCKS5 proxy over SSH
+Author: fr00tyl00p
+Date: Wed, 25 Jun 2014 16:46:44 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/ffx9lubAjho/use-a-server-as-socks5-proxy-over-ssh
+
+$ ssh -D 8080 -f -N srv1
+
+Provides a SOCKS5 proxy on localhost port 8080 which will tunnel all 
+connections through srv1 and run in the background.
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by fr00tyl00p[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13509/use-a-server-as-socks5-proxy-over-ssh (link)
+[2]: http://feeds2.feedburner.com/commands/by/fr00tyl00p (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/ffx9lubAjho (image)
+Title: Viewable terminal session over network.
+Author: snipertyler
+Date: Mon, 23 Jun 2014 09:06:13 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/Tybkok60oDo/viewable-terminal-session-over-network.
+
+$ mkfifo /tmp/view; nc -l 9876 <> /tmp/view& script -f /tmp/view
+
+connect to it with any network command (including web browser - if you don't 
+mind weird formatting)
+
+curl 127.0.0.1:9876
+
+nc 127.0.0.1 9876
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by snipertyler[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13501/viewable-terminal-session-over-network. (link)
+[2]: http://feeds2.feedburner.com/commands/by/snipertyler (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/Tybkok60oDo (image)
+Title: View all new log messages in real time with color
+Author: http://spacetrace.org/
+Date: Tue, 29 Jul 2014 21:11:17 +0400
+Link: http://feedproxy.google.com/~r/Command-line-fu/~3/2FeLIN8XDgE/view-all-new-log-messages-in-real-time-with-color
+
+$ find /var/log -type f -iregex '.*[^\.][^0-9]+$' -not -iregex '.*gz$' 2> 
+/dev/null | xargs tail -n0 -f | ccze -A
+
+This will show all changes in all log files under /var/log/ that are regular 
+files and don't end with `gz` nor with a number
+
+  * View this command to comment, vote or add to favourites[1]
+  * View all commands by rubo77[2]
+
+[image 4][3]
+
+by David Winterbottom (codeinthehole.com[5])
+[image 6]
+
+Links: 
+[1]: http://www.commandlinefu.com/commands/view/13605/view-all-new-log-messages-in-real-time-with-color (link)
+[2]: http://feeds2.feedburner.com/commands/by/rubo77 (link)
+[3]: http://www.commandlinefu.com (link)
+[4]: http://www.commandlinefu.com/images/small-logo.jpg (image)
+[5]: http://codeinthehole.com (link)
+[6]: http://feeds.feedburner.com/~r/Command-line-fu/~4/2FeLIN8XDgE (image)

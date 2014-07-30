@@ -1,0 +1,61 @@
+Block Incoming Port
+
+The syntax is as follows to block incoming port using IPtables:
+
+ 
+/sbin/iptables -A INPUT -p tcp --destination-port {PORT-NUMBER-HERE} -j DROP
+ 
+### interface section use eth1 ###
+/sbin/iptables -A INPUT -i eth1 -p tcp --destination-port {PORT-NUMBER-HERE} -j DROP
+ 
+### only drop port for given IP or Subnet ##
+/sbin/iptables -A INPUT -i eth0 -p tcp --destination-port {PORT-NUMBER-HERE} -s {IP-ADDRESS-HERE} -j DROP
+/sbin/iptables -A INPUT -i eth0 -p tcp --destination-port {PORT-NUMBER-HERE} -s {IP/SUBNET-HERE} -j DROP
+ 
+To block port 80 (HTTP server), enter (or add to your iptables shell script):
+# /sbin/iptables -A INPUT -p tcp --destination-port 80 -j DROP
+# /sbin/service iptables save
+
+Block Incomming Port 80 except for IP Address 1.2.3.4
+
+# /sbin/iptables -A INPUT -p tcp -i eth1 -s ! 1.2.3.4 --dport 80 -j DROP
+Block Outgoing Port
+
+The syntax is as follows:
+
+
+/sbin/iptables -A OUTPUT -p tcp --dport {PORT-NUMBER-HERE} -j DROP
+
+### interface section use eth1 ###
+/sbin/iptables -A OUTPUT -i eth1 -p tcp --dport {PORT-NUMBER-HERE} -j DROP
+
+### only drop port for given IP or Subnet ##
+/sbin/iptables -A OUTPUT -i eth0 -p tcp --destination-port {PORT-NUMBER-HERE} -s {IP-ADDRESS-HERE} -j DROP
+/sbin/iptables -A OUTPUT -i eth0 -p tcp --destination-port {PORT-NUMBER-HERE} -s {IP/SUBNET-HERE} -j DROP
+
+To block outgoing port # 25, enter:
+# /sbin/iptables -A OUTPUT -p tcp --dport 25 -j DROP
+# /sbin/service iptables save
+
+You can block port # 1234 for IP address 192.168.1.2 only:
+# /sbin/iptables -A OUTPUT -p tcp -d 192.168.1.2 --dport 1234 -j DROP
+# /sbin/service iptables save
+
+How Do I Log Dropped Port Details?
+
+Use the following syntax:
+
+# Logging #
+### If you would like to log dropped packets to syslog, first log it ###
+/sbin/iptables -A INPUT -m limit --limit 5/min -j LOG --log-prefix "PORT 80 DROP: " --log-level 7
+
+### now drop it ###
+/sbin/iptables -A INPUT -p tcp --destination-port 80 -j DROP
+
+How Do I Block Cracker (IP: 123.1.2.3) Access To UDP Port # 161?
+
+
+/sbin/iptables -A INPUT -s 123.1.2.3 -i eth1 -p udp -m state --state NEW -m udp --dport 161 -j DROP
+
+# drop students 192.168.1.0/24 subnet to port 80
+/sbin/iptables -A INPUT -s 192.168.1.0/24 -i eth1 -p tcp -m state --state NEW -m tcp --dport 80 -j DROP
