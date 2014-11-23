@@ -1,0 +1,42 @@
+Title: Echo the contents of a Url
+$ alias echourl="wget -q0 -"
+
+Title: tcmdump check ping
+
+$ tcpdump -nni eth0 -e icmp[icmptype] == 8
+
+capture only ping echo requests with tcpdump
+Title: Use wbinfo to output a table with basic user information from the default domain controller.
+
+$ READ DESCRIPTION (Function too long)
+
+This function uses 'wbinfo' with 'column' to output a table with the User, 
+Username and Primary Group from the default Domain Controller. Very useful if 
+you work with Samba/Winbind. You can add grep at the end to filter groups.
+
+The function is:
+
+for ADUSER in $(wbinfo -u); do UINFO=$(wbinfo -i "$ADUSER" | cut -d ":" -f3); 
+GINFO=$(wbinfo -i "$ADUSER" | cut -d ":" -f4); SIDU=$(wbinfo -U "$UINFO"); 
+SIDG=$(wbinfo -G "$GINFO"); USERID=$(wbinfo -s "$SIDU" | sed 's/.\{1\}$//' | 
+cut -d "+" -f2); GROUPID=$(wbinfo -s "$SIDG" | sed 's/.\{1\}$//' | cut -d "+" 
+-f2); echo -e "$ADUSER":"$USERID":"$GROUPID"; done | column -tx -s:
+Title: Viewable terminal session over network.
+
+$ mkfifo /tmp/view; nc -l 9876 <> /tmp/view& script -f /tmp/view
+
+connect to it with any network command (including web browser - if you don't 
+mind weird formatting)
+
+curl 127.0.0.1:9876
+
+nc 127.0.0.1 9876
+Title: wmic search systems for running 'exe' to hijack migrate
+
+$ FOR /F "delims==" %%A IN ('type ips.txt') DO wmic /Node:%%A wmic 
+/user:username /password:yourpassword /FAILFAST:ON process where "name like 
+'%.exe'" call getowner
+
+This is used during pentest to quickly poll all the processes running on a set 
+of systems you have common credentials for the /FAILFAST:ON speeds up the 
+scans.

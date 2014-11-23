@@ -1,0 +1,235 @@
+Title: Convert (almost) any video file into webm format for online html5 streaming
+
+$ ffmpeg -i input_file.mp4 -strict experimental output_file.webm
+Title: Displays the number of processes per state
+
+$ while true; do clear;awk '{a[$3]+=1};END{for(x in a){print x,a[x]}}' 
+/proc/[0-9]*/stat; sleep 1; done
+Title: camelcase to underscore
+
+$ echo thisIsATest | sed -E 's/([A-Z])/_\L\1/g'
+Title: Convert (almost) any video file into webm format for online html5 streaming
+
+$ ffmpeg -i input_file.mp4 -strict experimental output_file.webm
+Title: Displays the number of processes per state
+
+$ while true; do clear; cat /proc/[0-9]*/stat | cut -d' ' -f 3 | sort | uniq -c
+| awk '{print $2" "$1}'; echo '---'; sleep 1; done
+Title: Display EPOCH time in human readable format using AWK.
+
+$ $ date --date='@1268727836'
+Title: Displays the number of processes per state
+
+$ while true; do clear; cat /proc/[0-9]*/stat | cut -d' ' -f 3 | sort | uniq -c
+| awk '{print $2" "$1}'; echo '---'; sleep 1; done
+Title: Dump an aspell dictionary as a word list
+
+$ aspell -d en dump master | aspell -l en expand > words
+Title: Easy way to check disk I/O culprits
+
+$ iotop
+Title: Easy way to check memory consumption
+
+$ free -m
+Title: Extract domain from URl
+
+$ MYURL=http://www.example.com ; awk -F/ '{ print $3 }' <><><> $MYURL | awk -F.
+'{ if ($(NF-1) == "co" || "com" ) printf $(NF-2)"."; printf 
+$(NF-1)"."$(NF)"\n"; }'
+Title: Find directories in pwd, get disk usage, sort results
+
+$ find . -type d -d 1 -print0 | xargs -0 du -sm | sort -nr
+Title: find svn uncommitted files and list their properties
+
+$ for d in `ls -d *`; do svn status $d | awk '{print $2}'; done | xargs ls -l 
+{} \;
+
+Find all files in SVN workspace directories which are uncommitted. List them 
+and find their properties
+Title: Generate SHA1 hash for each file in a list
+
+$ find . -regex ".*\(avi\|mp4\|wmv\)$" -print0 | xargs -0 sha1sum
+Title: git log with color and path
+
+$ alias gitlog='git log -10 --graph --date-order -C -M 
+--pretty=format:"%C(yellow)%h%C(reset) - %C(bold green)%ad%C(reset) - %C(dim 
+yellow)%an%C(reset) %C(bold red)>%C(reset) %C(white)%s%C(reset) %C(bold 
+red)%d%C(reset) " --abbrev-commit --date=short'
+
+Cool alias that show a a better Git log
+Title: I can spy on my CPU cycles with perf!
+
+Yesterday I talked about using perf to profile assembly instructions. Today I 
+learned how to make flame graphs with perftoday and it is THE BEST. I found 
+this because Graydon Hoare[1] pointed me to Brendan Gregg’s excellentpage on 
+how to use perf[2].
+
+Wait up! What’s perf? I’ve talked about strace a lot before (in Debug your 
+programs like they’re closed source[3]). strace lets you see which system calls
+a program is calling. But what if you wanted to know
+
+  * how many CPU instructions it ran?
+  * How many L1 cache misses there were?
+  * profiling information for each assembly instruction?
+
+strace only does system calls, and none of those things are system calls. So it
+can’t tell you any of those things!
+
+perf is a Linux tool that can tell you all of these things, and more! Let’s run
+a quick example on the bytesum program from yesterday[4].
+
+bork@kiwi ~/w/howcomputer> perf stat ./bytesum_mmap *.mp4
+ Performance counter stats for './bytesum_mmap The Newsroom S01E04.mp4':
+
+        158.141639 task-clock                #    0.994 CPUs utilized          
+                22 context-switches          #    0.139 K/sec                  
+                 9 CPU-migrations            #    0.057 K/sec                  
+               133 page-faults               #    0.841 K/sec                  
+       438,662,273 cycles                    #    2.774 GHz                     [82.43%]
+       269,916,782 stalled-cycles-frontend   #   61.53% frontend cycles idle    [82.38%]
+       131,557,379 stalled-cycles-backend    #   29.99% backend  cycles idle    [66.66%]
+       681,518,403 instructions              #    1.55  insns per cycle        
+                                             #    0.40  stalled cycles per insn [84.88%]
+       130,568,804 branches                  #  825.645 M/sec                   [84.85%]
+            20,756 branch-misses             #    0.02% of all branches         [83.68%]
+
+       0.159154389 seconds time elapsed
+
+This is super neat information, and there’s a lot more (see perf list). But we 
+can do even more fun things!
+
+Flame graphs with perf
+
+I wanted to profile my bytesum program. But how do you even profile C programs?
+Here’s a way to do it with perf:
+
+sudo perf record -g ./bytesum_mmap *.mp4
+sudo perf script | stackcollapse-perf.pl | flamegraph.pl > flamegraph.svg
+
+Here’s the SVG this gave me:
+
+[image 5]
+
+This is AMAZING. But what does it mean? Basically perf periodically interrupts 
+the program and finds out where in the stack it is. The width of each part of 
+the stack in the graph above is the proportion of samples that happened there. 
+(so about 30% of the execution time was spend in main). I don’t know what the 
+colour means here.
+
+We can see that there are 3 big parts – there’s the mmap call (on the left), 
+the main program execution (in the middle), and the sys_exit part on the right.
+Apparently stopping my program takes a long time! Neat!
+
+But there’s more!
+
+Is it really L1 cache misses? We can find out!
+
+So yesterday I made a program with really bad memory access patterns (
+bytesum_stride.c[6]), and I conjectured that it was way slower because it was 
+causing way too many L1 cache misses.
+
+But with perf, we can check if that’s actually true! Here are the results 
+(reformatted a bit to be more compact):
+
+bork@kiwi ~/w/howcomputer> perf stat -e L1-dcache-misses,L1-dcache-loads ./bytesum_mmap *.mp4
+        17,175,214 L1-dcache-misses #   11.48% of all L1-dcache hits  
+       149,568,438 L1-dcache-loads
+bork@kiwi ~/w/howcomputer> perf stat -e L1-dcache-misses,L1-dcache-loads ./bytesum_stride *.mp4 1000
+     1,031,902,483 L1-dcache-misses #  193.16% of all L1-dcache hits  
+       534,219,219 L1-dcache-loads
+
+So, uh, that’s really bad. We now have 60 times more L1 cache misses, and also 
+3 times more hits.
+
+Other amazing things
+
+  * Go to Brendan Gregg’s perf page and read the whole thing[2]. Also possibly 
+    everything he’s ever written. His recent post on strace[7]is great too.
+  * The perf tutorial[8]is pretty long, but I found it somewhat helpful.
+  * FlameGraph![9]
+  * I spent a little bit of time running cachegrind with valgrind 
+    --tool=cachegrind ./bytesum_mmap my_filewhich can give you possibly even 
+    more information about CPU caches than perf can. Still haven’t totally 
+    wrapped my head around this.
+
+There are still so many things I don’t understand at all!
+Title: Open (in vim) all modified files in a git repository
+
+$ git status --porcelain | sed -ne 's/^ M //p' | tr '\n' '\0' | tr -d '"' | 
+xargs -0 vim
+
+Works even with spaces in filenames.
+
+As an alias in .gitconfig:
+
+[alias]
+
+editchanged = "!git status --porcelain | sed -ne 's/^ M //p' | tr '\\n' '\\0' |
+tr -d '\"' | xargs -0 vim"
+Title: Performance tip: compress /usr/
+
+$ [ ! -d /squashed ] && mkdir -p /squashed/usr/{ro,rw} ; mksquashfs /usr 
+/squashed/usr/usr.sfs.new -b 65536 ; mv /squashed/usr/usr.sfs.new 
+/squashed/usr/usr.sfs ; reboot
+
+Periodically run the one-liner above if/when there is significant change to the
+files in /usr/ 
+
+= Before rebooting, add following to /etc/fstab : =
+/squashed/usr/usr.sfs /squashed/usr/ro squashfs loop,ro 0 0usr /usr aufs 
+udba=reval,br:/squashed/usr/rw:/squashed/usr/ro 0 0
+
+Don't delete original /usr/ ! (if you care about recovery). Also this does not 
+work with XFS
+Title: Replace underscores with spaces in filenames and dirnames, recursively into subdirs.
+
+$ find . -exec rename 's/_/\ /g' {} +
+
+Everyone wants to take spaces out of filenames. Forget that. I want to put them
+back in. We've got tools and filesystems that support spaces, they look better,
+so I'm going to use them.
+
+Because of how find works I find I need to run this multiple times, if it's 
+renaming subdirs. But it can be re-run without issues.
+
+I got this version of the command from a comment in this underscore-generating 
+command. 
+http://www.commandlinefu.com/commands/view/760/find-recursively-from-current-directory-down-files-and-directories-whose-names-contain-single-or-multiple-whitespaces-and-replace-each-such-occurrence-with-a-single-underscore.[1]
+All I did was change the regex.
+Title: Securely destroy data on given device hugely faster than /dev/urandom
+
+$ openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 
+2>/dev/null | base64)" -nosalt <> /dev/zero > randomfile.bin
+
+This command generates a pseudo-random data stream using aes-256-ctr with a 
+seed set by /dev/urandom. Redirect to a block device for secure data 
+scrambling.
+Title: Show complete URL in netstat output
+
+$ netstat -pnut -W | column -t -s $'\t'
+Title: Simple multi-user encrypted chat server for 5 users
+
+$ ncat -vlm 5 --ssl --chat 9876
+
+Client ~$ ncat --ssl localhost 9876
+Title: Sort all processes by the amount of virtual memory they are using
+
+$ ps -e -o pid,vsz,comm= | sort -n -k 2
+
+left-most column is PID, middle is virtual memory being consumed, right-most is
+actual process.
+Title: thankssiren says FML
+
+Today, my friend started his first day of work with me. I thought it'd be fun, 
+but he's been putting on an obnoxious fake French accent and saying "merde" 
+whenever anything goes wrong. Half the women at the office want his dick, and 
+I'm still as single as ever. FML
+Title: Turning off display
+
+$ xset dpms force off
+
+To turn off monitor:
+
+xset dpms force off
+
+To turn on, simply press a key, or move mouse/mousepad.
