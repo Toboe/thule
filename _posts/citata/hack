@@ -1,0 +1,10 @@
+
+
+As for anything attached to public networks:
+
+    Reduce your attack surface - can you remove the NAS from the Internet? Can you limit the IPs that are allowed to connect?
+    Increase cost of attack - lockouts are great, but also make sure that you have a complex password and that you change it regularly
+    Monitor access - keep your eye on who successfully logs in
+    Treat the risks - have a plan for the event when someone actually breaks in. Can the NAS be used to access the rest of your network? Is there anything on it that would be a risk if it fell into the wrong hands? Do you have backups?
+
+
