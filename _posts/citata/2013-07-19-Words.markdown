@@ -1450,3 +1450,12 @@ Must ReAD: Foolde by randomness - nassim nicolas ; you are not so smart - david 
 
 Симулякр — нечто, что выдаёт себя за то, чего быть в принципе не может.
 Примеры — "настоящий мужчина", хутин, энергетическая сверхдержава, люди, копирующие образы актёров боевиков, бесплатная медицина, крым — "наш", медийные образы, про — и пре — биотики (ну и вообще маркетинг — просто кладезь). 
+
+"BSD is what happens when Unix programmers port Unix to the x86.
+Linux is what happens when x86 programmers write a Unix-like.
+Windows is what happens when x86 programmers run all of their
+programming textbooks through a blender, eat the ground up
+remains of the text, and then code up what they can read in the
+toilet 3 days later."
+
+Another aphorism in the IC is that of being “lost in the forest of shadows” which means that nothing is clear and it is easy to be confused.
